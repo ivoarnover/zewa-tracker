@@ -28,9 +28,11 @@ nav.filter{font-size:15px;color:var(--soft);margin:-4px 0 10px}
 nav.filter a{margin-right:10px;color:var(--soft);text-decoration:none;cursor:pointer}
 nav.filter a.on{color:var(--ink);text-decoration:underline}
 table{width:100%;border-collapse:collapse;font-size:15.5px}
-th{font-weight:400;font-style:italic;color:var(--soft);text-align:left;padding:6px 8px 6px 0;border-bottom:1px solid var(--rule)}
-td{padding:9px 8px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
-td.r,th.r{text-align:right;padding-right:0}
+th{font-weight:400;font-style:italic;color:var(--soft);text-align:left;padding:6px 18px 6px 0;border-bottom:1px solid var(--rule);white-space:nowrap}
+td{padding:9px 18px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td.r{white-space:nowrap}
+th:last-child,td:last-child{padding-right:0}
+td.r,th.r{text-align:right}
 tr.good td.pr{color:var(--good);font-weight:700}
 tr.good td.pr::before{content:"★ ";font-size:12px}
 td small{display:block;color:var(--soft);font-size:13px}
