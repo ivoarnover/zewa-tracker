@@ -3,127 +3,323 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zewa Deluxe price tracker</title>
+<title>Zewa Deluxe Price Watch</title>
+<meta name="description" content="Daily best price per roll for Zewa Deluxe toilet paper in Estonian stores, with loyalty prices and price history.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f3d33'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23f4efe6'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%230f3d33'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--text:#1b1f24;--muted:#5f6b7a;--line:#e3e7ec;--good:#13804b;--goodbg:#e3f5ea;--warn:#a15c00;--accent:#2457c5}
-@media (prefers-color-scheme:dark){:root{--bg:#111418;--card:#1a1f25;--text:#e8ecf1;--muted:#9aa6b4;--line:#2b323a;--good:#4cc985;--goodbg:#173325;--warn:#e0a24a;--accent:#7aa2ff}}
+:root{
+  --bg:#f4efe6; --surface:#fffdf9; --surface-2:#f9f5ee; --ink:#14201c; --ink-2:#3c4a45; --muted:#7a857f;
+  --line:#e5ddd0; --brand:#0f3d33; --brand-ink:#f4efe6; --good:#1c7c54; --good-bg:#dff1e7; --warn:#b4610f; --warn-bg:#fbead6;
+  --bar:#d9cfbf; --shadow:0 1px 2px rgba(20,32,28,.05),0 8px 24px -12px rgba(20,32,28,.18);
+  --c-bauhof:#e07a1f; --c-selver:#c8323f; --c-rimi:#7b3fb8; --c-barbora:#1e8a8a; --c-other:#5b6b8c;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0e1412; --surface:#151d1a; --surface-2:#1a2420; --ink:#eef2ee; --ink-2:#c3ccc6; --muted:#8a978f;
+  --line:#26322d; --brand:#9fdcc3; --brand-ink:#0e1412; --good:#5fd39b; --good-bg:#16372a; --warn:#f0a95a; --warn-bg:#3a2a17;
+  --bar:#2c3934; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.6);
+}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-main{max-width:960px;margin:0 auto;padding:24px 16px 48px}
-h1{font-size:24px;margin:0 0 4px}
-h2{font-size:17px;margin:28px 0 10px}
-.muted{color:var(--muted);font-size:13px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
-.hero{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:16px}
-.big{font-size:40px;font-weight:700;font-variant-numeric:tabular-nums}
-.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:600}
-.good{background:var(--goodbg);color:var(--good)}
-.notgood{background:var(--line);color:var(--muted)}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
-td.name{white-space:normal;min-width:220px}
-th{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
-tr.isgood td.pr{color:var(--good);font-weight:700}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.status{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.status span{font-size:12px;padding:2px 8px;border-radius:6px;border:1px solid var(--line)}
-.status .bad{color:var(--warn);border-color:var(--warn)}
-.chart-box{position:relative;height:340px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.num{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.display{font-family:Fraunces,Georgia,serif;letter-spacing:-.02em}
+header{padding:22px 0}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;text-decoration:none}
+.logo svg{flex:none}
+.logo small{display:block;font-weight:500;color:var(--muted);font-size:12px;letter-spacing:0}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);padding:6px 12px;border-radius:999px}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px var(--good-bg)}
+.hero{display:grid;grid-template-columns:1.15fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;margin-top:6px}
+.hero-main{padding:34px 34px 30px}
+.eyebrow{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.price{display:flex;align-items:baseline;gap:10px;margin:10px 0 6px}
+.price .big{font-size:clamp(56px,9vw,88px);line-height:.95;font-weight:700}
+.price .unit{font-size:16px;color:var(--ink-2);font-weight:500}
+.verdict{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;padding:7px 14px;border-radius:999px}
+.verdict.good{background:var(--good-bg);color:var(--good)}
+.verdict.wait{background:var(--warn-bg);color:var(--warn)}
+.gauge{margin-top:26px}
+.gauge-track{position:relative;height:10px;border-radius:99px;background:linear-gradient(90deg,var(--good) 0%,var(--good) var(--th),var(--bar) var(--th),var(--bar) 100%)}
+.gauge-dot{position:absolute;top:50%;width:20px;height:20px;border-radius:50%;background:var(--surface);border:4px solid var(--ink);transform:translate(-50%,-50%)}
+.gauge-th{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--ink);opacity:.35}
+.gauge-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:10px}
+.hero-side{background:var(--brand);color:var(--brand-ink);padding:34px;display:flex;flex-direction:column;gap:18px}
+.hero-side .eyebrow{color:inherit;opacity:.7}
+.prod-name{font-size:22px;line-height:1.25;font-weight:500}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin:0}
+.facts dt{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;opacity:.65}
+.facts dd{margin:2px 0 0;font-weight:600}
+.cta{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand-ink);color:var(--brand);text-decoration:none;font-weight:600;padding:12px 18px;border-radius:12px;transition:transform .15s}
+.cta:hover{transform:translateY(-1px)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.kpi .v{font-size:22px;font-weight:700;margin-top:4px}
+.kpi .s{font-size:12.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+section{margin-top:52px}
+.sec-head{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.sec-head h2{font-size:30px;margin:0;font-weight:500}
+.sec-head p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font:inherit;font-size:13px;font-weight:500;padding:6px 12px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dot{width:8px;height:8px;border-radius:50%;flex:none}
+.offers{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.row{display:grid;grid-template-columns:36px minmax(0,2.4fr) 70px 96px minmax(0,1.3fr) 1.6fr;align-items:center;gap:16px;padding:16px 22px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row.head{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;padding-top:14px;padding-bottom:12px;background:var(--surface-2)}
+.rank{font-size:13px;color:var(--muted);font-weight:700}
+.prod a{font-weight:600;text-decoration:none;display:block;line-height:1.3}
+.prod a:hover{text-decoration:underline}
+.store{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-top:3px}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:7px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink-2)}
+.pill.loyalty{background:#ede4fb;border-color:#ded0f6;color:#5b2ea6}
+.pill.campaign{background:var(--warn-bg);border-color:transparent;color:var(--warn)}
+@media (prefers-color-scheme:dark){.pill.loyalty{background:#2a2140;border-color:#3a2d58;color:#c9b3f5}}
+.pack .p{font-weight:700}
+.pack .r{font-size:12px;color:var(--muted);text-decoration:line-through}
+.meter{display:flex;align-items:center;gap:12px}
+.meter .track{position:relative;flex:1;height:8px;border-radius:99px;background:var(--surface-2);border:1px solid var(--line)}
+.meter .fill{position:absolute;inset:0 auto 0 0;border-radius:99px;background:var(--ink-2)}
+.meter .th{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--good)}
+.meter .v{font-weight:700;min-width:62px;text-align:right}
+.row.good .fill{background:var(--good)}
+.row.good .meter .v{color:var(--good)}
+.stale{opacity:.55}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.chart-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px 22px 14px}
+.chart-box{position:relative;height:360px}
+.chart-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
+.stores{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.st{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.st b{display:flex;align-items:center;gap:8px}
+.st span{font-size:12.5px;color:var(--muted)}
+.st.bad{border-color:var(--warn)}
+.st.bad span{color:var(--warn)}
+footer{margin:64px auto 40px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:grid;grid-template-columns:2fr 1fr;gap:24px}
+footer p{margin:0 0 8px}
+@media (min-width:901px){.row .info{display:none}}
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .row.head{display:none}
+  .row{grid-template-columns:28px 1fr auto;grid-template-areas:"rank prod meter" "rank info info";gap:8px 12px;padding:16px}
+  .row .rank{grid-area:rank;align-self:start;padding-top:2px}
+  .row .prod{grid-area:prod}
+  .row .meter{grid-area:meter}
+  .row .meter .track,.row .rolls,.row .pack,.row .type{display:none}
+  .row .info{grid-area:info;display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
+  footer{grid-template-columns:1fr}
+}
+@media (max-width:520px){.wrap{padding:0 16px}.hero-main,.hero-side{padding:24px}.sec-head h2{font-size:25px}.live span{display:none}}
 </style>
 </head>
 <body>
-<main>
-  <h1>Zewa Deluxe toilet paper: best price per roll</h1>
-  <div class="muted" id="updated">Loading…</div>
+<header class="wrap">
+  <div class="bar">
+    <a class="logo" href="./">
+      <svg width="36" height="36" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="var(--brand)"/><circle cx="16" cy="16" r="9" fill="var(--bg)"/><circle cx="16" cy="16" r="3.5" fill="var(--brand)"/></svg>
+      <div>Zewa Deluxe Price Watch<small>Best € per roll in Estonian stores</small></div>
+    </a>
+    <div class="live"><i></i><span id="updated">Loading…</span></div>
+  </div>
+</header>
 
-  <div class="card hero" id="hero"></div>
-  <div class="status" id="status"></div>
-
-  <h2>All offers today</h2>
-  <div class="card table-wrap">
-    <table>
-      <thead><tr><th>€ / roll</th><th>Store</th><th>Product</th><th>Rolls</th><th>Pack price</th><th>Price type</th><th>Regular</th></tr></thead>
-      <tbody id="rows"></tbody>
-    </table>
+<main class="wrap">
+  <div class="hero">
+    <div class="hero-main">
+      <div class="eyebrow">Best price per roll today</div>
+      <div class="price"><span class="big display num" id="h-price">–</span><span class="unit">per roll</span></div>
+      <span class="verdict" id="h-verdict"></span>
+      <div class="gauge" id="gauge"></div>
+    </div>
+    <div class="hero-side">
+      <div><div class="eyebrow" id="h-store">–</div><div class="prod-name display" id="h-name"></div></div>
+      <dl class="facts" id="h-facts"></dl>
+      <a class="cta" id="h-cta" target="_blank" rel="noopener"><span id="h-cta-t">Open in store</span> <span aria-hidden="true">→</span></a>
+    </div>
   </div>
 
-  <h2>Price history (best € per roll, per store)</h2>
-  <div class="card"><div class="chart-box"><canvas id="chart"></canvas></div>
-    <div class="muted" id="histnote" style="margin-top:8px"></div></div>
+  <div class="kpis" id="kpis"></div>
 
-  <p class="muted">Prices are read once a day from the stores' public websites. Loyalty prices (Selver Partnerkaart, Barbora AITÄH, Bauhof logged-in customer price) need the store's card or account. Good price = under the threshold shown above. Not affiliated with any store.</p>
+  <section>
+    <div class="sec-head">
+      <div><h2 class="display">Every offer, ranked</h2><p>Best price each pack can be bought for today, including loyalty card prices.</p></div>
+      <div class="chips" id="filters"></div>
+    </div>
+    <div class="offers" id="offers"></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div><h2 class="display">Price history</h2><p>Cheapest € per roll at each store, day by day.</p></div>
+      <div class="chips" id="ranges"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-box"><canvas id="chart" aria-label="Price per roll history by store"></canvas></div>
+      <div class="chart-foot"><span id="histnote"></span><span>Dashed line: good price</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div><h2 class="display">Stores checked</h2><p>Each store is read once a day from its public website.</p></div></div>
+    <div class="stores" id="stores"></div>
+  </section>
 </main>
+
+<footer class="wrap">
+  <div>
+    <p>Only Zewa Deluxe toilet paper is tracked (all variants, any pack size); Zewa Everyday and other lines are left out. The roll count is read from the product name and the best of regular, campaign and loyalty price is used.</p>
+    <p>Loyalty prices need the store's card or account: Selver Partnerkaart, Barbora AITÄH, Bauhof logged-in customer price.</p>
+  </div>
+  <div><p>Updated daily by GitHub Actions.</p><p>Not affiliated with Zewa or any store.</p></div>
+</footer>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-const eur = v => v == null ? "" : v.toFixed(2).replace(".", ",") + " €";
-const roll = v => v.toFixed(3).replace(".", ",") + " €";
-const typeName = o => o.best_type === "loyalty" ? (o.loyalty_label || "Loyalty card")
-  : o.best_type === "campaign" ? "Campaign" + (o.valid_until ? " until " + o.valid_until.slice(0, 10) : "") : "Regular";
+const COLORS = {Bauhof:"--c-bauhof", Selver:"--c-selver", Rimi:"--c-rimi", Barbora:"--c-barbora"};
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const color = s => css(COLORS[s] || "--c-other");
+const eur = v => v == null ? "–" : v.toFixed(2).replace(".", ",") + " €";
+const roll = v => v == null ? "–" : v.toFixed(3).replace(".", ",") + " €";
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const COLORS = {Selver:"#e4572e", Bauhof:"#f2a541", Rimi:"#d7263d", Barbora:"#2e86ab", Taig:"#6a4c93"};
+const fmtDate = d => { if (!d) return ""; const m = String(d).match(/(\d{4})-(\d{2})-(\d{2})/); return m ? `${+m[3]}.${+m[2]}.${m[1]}` : String(d); };
+const pretty = n => n.toLowerCase().replace(/(^|[\s,(\/-])(\p{L})/gu, (a, b, c) => b + c.toUpperCase());
+const typeLabel = o => o.best_type === "loyalty" ? (o.loyalty_label || "Loyalty card") : o.best_type === "campaign" ? "Campaign" : "Regular";
+const typeLong = o => typeLabel(o) + (o.best_type === "campaign" && o.valid_until ? " until " + fmtDate(o.valid_until) : "");
 
 function parseCSV(text) {
-  const lines = text.trim().split(/\r?\n/), rows = [];
   const split = l => { const out = []; let cur = "", q = false;
     for (let i = 0; i < l.length; i++) { const c = l[i];
       if (q) { if (c === '"' && l[i+1] === '"') { cur += '"'; i++; } else if (c === '"') q = false; else cur += c; }
       else if (c === '"') q = true; else if (c === ",") { out.push(cur); cur = ""; } else cur += c; }
     out.push(cur); return out; };
+  const lines = text.trim().split(/\r?\n/); if (lines.length < 2) return [];
   const head = split(lines[0]);
-  for (const l of lines.slice(1)) { const v = split(l); rows.push(Object.fromEntries(head.map((h, i) => [h, v[i]]))); }
-  return rows;
+  return lines.slice(1).map(l => { const v = split(l); return Object.fromEntries(head.map((h, i) => [h, v[i]])); });
+}
+
+let latest, hist, chart, storeFilter = "All", range = "all";
+
+function renderHero() {
+  const good = latest.good_price, offers = latest.offers.filter(o => !o.stale);
+  const b = offers[0] || latest.offers[0]; if (!b) return;
+  const ok = b.per_roll < good, diff = Math.round(Math.abs(b.per_roll / good - 1) * 100);
+  document.getElementById("h-price").textContent = roll(b.per_roll).replace(" €", "€");
+  const v = document.getElementById("h-verdict");
+  v.className = "verdict " + (ok ? "good" : "wait");
+  v.textContent = ok ? `Good price · ${diff}% under target, stock up` : `Wait · ${diff}% above the ${eur(good)} target`;
+  const max = Math.max(good * 2.2, b.per_roll * 1.15), pos = x => Math.min(100, x / max * 100);
+  document.getElementById("gauge").innerHTML = `<div class="gauge-track" style="--th:${pos(good)}%">
+      <div class="gauge-th" style="left:${pos(good)}%"></div><div class="gauge-dot" style="left:${pos(b.per_roll)}%"></div></div>
+    <div class="gauge-labels"><span>0 €</span><span>Good price ${eur(good)}</span><span>${eur(max)}</span></div>`;
+  document.getElementById("h-store").textContent = b.store;
+  document.getElementById("h-name").textContent = pretty(b.name);
+  document.getElementById("h-facts").innerHTML = `
+    <div><dt>Pack price</dt><dd class="num">${eur(b.best)}</dd></div>
+    <div><dt>Rolls</dt><dd class="num">${b.rolls}</dd></div>
+    <div><dt>Price type</dt><dd>${esc(typeLong(b))}</dd></div>
+    <div><dt>Regular price</dt><dd class="num">${eur(b.regular)}</dd></div>`;
+  document.getElementById("h-cta").href = b.url;
+  document.getElementById("h-cta-t").textContent = `Open in ${b.store}`;
+}
+
+function renderKpis() {
+  const good = latest.good_price, offers = latest.offers.filter(o => !o.stale);
+  const st = Object.values(latest.status), okN = st.filter(s => s.ok).length;
+  let low = null; for (const r of hist) { const v = parseFloat(r.per_roll); if (!isNaN(v) && (!low || v < low.v)) low = {v, r}; }
+  const goodN = offers.filter(o => o.per_roll < good).length;
+  const kp = [
+    ["Lowest ever", low ? roll(low.v) : "–", low ? `${low.r.store}, ${fmtDate(low.r.date)}` : ""],
+    ["Good deals today", goodN, goodN ? "under " + eur(good) + " per roll" : "none under " + eur(good)],
+    ["Offers tracked", offers.length, `across ${new Set(offers.map(o => o.store)).size} stores`],
+    ["Stores online", `${okN}/${st.length}`, okN === st.length ? "all checks passed" : "some stores failed today"],
+  ];
+  document.getElementById("kpis").innerHTML = kp.map(([l, v, s]) =>
+    `<div class="kpi"><div class="eyebrow">${l}</div><div class="v num">${v}</div><div class="s">${esc(s)}</div></div>`).join("");
+}
+
+function renderFilters() {
+  const stores = ["All", ...new Set(latest.offers.map(o => o.store))];
+  const el = document.getElementById("filters");
+  el.innerHTML = stores.map(s => `<button class="chip" aria-pressed="${s === storeFilter}" data-s="${esc(s)}">${s === "All" ? "" : `<span class="dot" style="background:${color(s)}"></span>`}${esc(s)}</button>`).join("");
+  el.querySelectorAll("button").forEach(b => b.onclick = () => { storeFilter = b.dataset.s; renderFilters(); renderOffers(); });
+}
+
+function renderOffers() {
+  const good = latest.good_price;
+  const list = latest.offers.filter(o => storeFilter === "All" || o.store === storeFilter);
+  const max = Math.max(...latest.offers.map(o => o.per_roll), good) * 1.05, pct = x => (x / max * 100).toFixed(1);
+  const rows = list.map((o, i) => `
+    <div class="row ${o.per_roll < good ? "good" : ""} ${o.stale ? "stale" : ""}">
+      <div class="rank num">${String(i + 1).padStart(2, "0")}</div>
+      <div class="prod"><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(pretty(o.name))}</a>
+        <span class="store"><span class="dot" style="background:${color(o.store)}"></span>${esc(o.store)}${o.stale ? " · old data" : ""}</span></div>
+      <div class="rolls num">${o.rolls} rl</div>
+      <div class="pack num"><div class="p">${eur(o.best)}</div>${o.regular && o.regular > o.best ? `<div class="r">${eur(o.regular)}</div>` : ""}</div>
+      <div class="type"><span class="pill ${o.best_type}">${esc(typeLabel(o))}</span>${o.best_type === "campaign" && o.valid_until ? `<div class="store">until ${fmtDate(o.valid_until)}</div>` : ""}</div>
+      <div class="meter"><div class="track"><div class="fill" style="width:${pct(o.per_roll)}%"></div><div class="th" style="left:${pct(good)}%"></div></div><span class="v num">${roll(o.per_roll)}</span></div>
+      <div class="info"><span class="num">${o.rolls} rl · ${eur(o.best)}</span><span class="pill ${o.best_type}">${esc(typeLong(o))}</span></div>
+    </div>`).join("");
+  document.getElementById("offers").innerHTML = `<div class="row head"><div>#</div><div>Product</div><div>Pack</div><div>Price</div><div>Price type</div><div style="text-align:right">€ per roll</div></div>` + (rows || `<div class="empty">No offers for this store today.</div>`);
+}
+
+function renderStores() {
+  document.getElementById("stores").innerHTML = Object.entries(latest.status).map(([s, st]) => `
+    <div class="st ${st.ok ? "" : "bad"}"><b><span class="dot" style="background:${color(s)}"></span>${esc(s)}</b>
+    <span>${st.ok ? `${st.count} Deluxe ${st.count === 1 ? "pack" : "packs"} found` : `Failed today · last OK ${fmtDate(st.last_ok) || "never"}`}</span></div>`).join("");
+}
+
+function renderRanges() {
+  const el = document.getElementById("ranges");
+  el.innerHTML = [["30", "30 days"], ["90", "90 days"], ["all", "All time"]].map(([k, l]) =>
+    `<button class="chip" aria-pressed="${k === range}" data-r="${k}">${l}</button>`).join("");
+  el.querySelectorAll("button").forEach(b => b.onclick = () => { range = b.dataset.r; renderRanges(); renderChart(); });
+}
+
+function renderChart() {
+  const good = latest.good_price, all = [...new Set(hist.map(r => r.date))].sort();
+  let dates = all;
+  if (range !== "all") { const from = new Date(Date.now() - (+range) * 864e5).toISOString().slice(0, 10); dates = all.filter(d => d >= from); }
+  const stores = [...new Set(hist.map(r => r.store))].filter(s => s in latest.status), best = {};
+  for (const r of hist) { const k = r.store + "|" + r.date, v = parseFloat(r.per_roll); if (!isNaN(v) && (!(k in best) || v < best[k].v)) best[k] = {v, r}; }
+  const ds = stores.map(s => ({label: s, data: dates.map(d => best[s + "|" + d]?.v ?? null), borderColor: color(s), backgroundColor: color(s),
+    borderWidth: 2.5, tension: .25, spanGaps: true, pointRadius: dates.length > 45 ? 0 : 4, pointHoverRadius: 6, pointBorderWidth: 2, pointBackgroundColor: css("--surface")}));
+  ds.push({label: "Good price", data: dates.map(() => good), borderColor: css("--good"), borderDash: [6, 6], borderWidth: 1.5, pointRadius: 0});
+  if (chart) chart.destroy();
+  const grid = css("--line"), muted = css("--muted");
+  chart = new Chart(document.getElementById("chart"), {type: "line", data: {labels: dates.map(fmtDate), datasets: ds},
+    options: {maintainAspectRatio: false, interaction: {mode: "index", intersect: false}, layout: {padding: {top: 6}},
+      scales: {
+        y: {suggestedMin: 0.2, ticks: {color: muted, font: {family: "JetBrains Mono", size: 11}, callback: v => v.toFixed(2) + " €"}, grid: {color: grid}, border: {display: false}},
+        x: {ticks: {color: muted, font: {family: "Inter", size: 11}, maxRotation: 0, autoSkipPadding: 18}, grid: {display: false}, border: {color: grid}}},
+      plugins: {
+        legend: {position: "top", align: "end", labels: {color: css("--ink-2"), usePointStyle: true, pointStyle: "circle", boxWidth: 8, boxHeight: 8, padding: 16, font: {family: "Inter", size: 12}}},
+        tooltip: {backgroundColor: css("--ink"), titleColor: css("--bg"), bodyColor: css("--bg"), padding: 12, cornerRadius: 10, boxPadding: 6, usePointStyle: true,
+          titleFont: {family: "Inter", weight: "600"}, bodyFont: {family: "Inter"},
+          callbacks: {label: c => { if (c.dataset.label === "Good price") return " Good price " + eur(good);
+            const r = best[c.dataset.label + "|" + dates[c.dataIndex]]?.r;
+            return ` ${c.dataset.label}: ${roll(c.parsed.y)}` + (r ? `  (${r.rolls} rl, ${r.best_type})` : ""); }}}}}});
+  document.getElementById("histnote").textContent = all.length ? `Tracking since ${fmtDate(all[0])} · ${dates.length} day${dates.length === 1 ? "" : "s"} shown` : "No history yet";
 }
 
 async function load() {
-  const bust = "?t=" + Date.now();
-  const latest = await (await fetch("data/latest.json" + bust)).json();
-  const good = latest.good_price;
-  document.getElementById("updated").textContent =
-    "Updated " + new Date(latest.updated).toLocaleString("et-EE") + " · good price is under " + good.toFixed(2).replace(".", ",") + " € per roll";
-
-  const offers = latest.offers.filter(o => !o.stale);
-  const best = offers[0] || latest.offers[0];
-  const hero = document.getElementById("hero");
-  if (best) {
-    const isGood = best.per_roll < good;
-    hero.innerHTML = `<div><div class="muted">Best right now</div><div class="big">${roll(best.per_roll)}</div><span class="pill ${isGood ? "good" : "notgood"}">${isGood ? "Good price, buy" : "Not a good price"}</span></div>
-      <div><div><b>${esc(best.store)}</b>: <a href="${esc(best.url)}" target="_blank" rel="noopener">${esc(best.name)}</a></div>
-      <div class="muted">${best.rolls} rolls for ${eur(best.best)} · ${esc(typeName(best))}</div></div>`;
-  }
-  document.getElementById("status").innerHTML = Object.entries(latest.status).map(([s, st]) =>
-    st.ok ? `<span>${esc(s)}: ${st.count} products</span>`
-          : `<span class="bad" title="${esc(st.error)}">${esc(s)}: failed today, last OK ${esc(st.last_ok || "never")}</span>`).join("");
-
-  document.getElementById("rows").innerHTML = latest.offers.map(o => `<tr class="${o.per_roll < good ? "isgood" : ""}">
-    <td class="pr">${roll(o.per_roll)}</td><td>${esc(o.store)}${o.stale ? ' <span class="muted">(old)</span>' : ""}</td>
-    <td class="name"><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.name)}</a></td>
-    <td>${o.rolls}</td><td>${eur(o.best)}</td><td>${esc(typeName(o))}</td><td class="muted">${eur(o.regular)}</td></tr>`).join("");
-
-  const hist = parseCSV(await (await fetch("data/history.csv" + bust)).text());
-  const dates = [...new Set(hist.map(r => r.date))].sort();
-  const stores = [...new Set(hist.map(r => r.store))];
-  const bestBy = {};
-  for (const r of hist) { const k = r.store + "|" + r.date, v = parseFloat(r.per_roll);
-    if (!isNaN(v) && (!(k in bestBy) || v < bestBy[k].v)) bestBy[k] = {v, r}; }
-  const datasets = stores.map(s => ({label: s, borderColor: COLORS[s] || "#888", backgroundColor: COLORS[s] || "#888",
-    data: dates.map(d => bestBy[s + "|" + d]?.v ?? null), spanGaps: true, tension: .2, pointRadius: dates.length > 40 ? 0 : 3,
-    stepped: false}));
-  datasets.push({label: "Good price", data: dates.map(() => good), borderColor: "#13804b", borderDash: [6, 4], pointRadius: 0, borderWidth: 1.5});
-  const css = getComputedStyle(document.documentElement);
-  new Chart(document.getElementById("chart"), {type: "line", data: {labels: dates, datasets},
-    options: {maintainAspectRatio: false, interaction: {mode: "index", intersect: false},
-      scales: {y: {title: {display: true, text: "€ per roll"}, ticks: {color: css.getPropertyValue("--muted")}, grid: {color: css.getPropertyValue("--line")}},
-               x: {ticks: {color: css.getPropertyValue("--muted")}, grid: {display: false}}},
-      plugins: {legend: {labels: {color: css.getPropertyValue("--text")}},
-        tooltip: {callbacks: {label: c => {const r = bestBy[c.dataset.label + "|" + c.label]?.r;
-          return c.dataset.label + ": " + (c.parsed.y?.toFixed(3) ?? "-") + " €" + (r ? " (" + r.rolls + " rl, " + r.best_type + ")" : "");}}}}}});
-  const all = Object.values(bestBy).sort((a, b) => a.v - b.v)[0];
-  document.getElementById("histnote").textContent = all
-    ? `Tracking since ${dates[0]}. Lowest seen: ${roll(all.v)} at ${all.r.store} (${all.r.rolls} rolls, ${all.r.date}).` : "";
+  const t = "?t=" + Date.now();
+  [latest, hist] = await Promise.all([
+    fetch("data/latest.json" + t).then(r => r.json()),
+    fetch("data/history.csv" + t).then(r => r.text()).then(parseCSV)]);
+  hist = hist.filter(r => r.store in latest.status);
+  const d = new Date(latest.updated);
+  document.getElementById("updated").textContent = "Updated " + d.toLocaleDateString("et-EE") + " " + d.toLocaleTimeString("et-EE", {hour: "2-digit", minute: "2-digit"});
+  renderHero(); renderKpis(); renderFilters(); renderOffers(); renderStores(); renderRanges(); renderChart();
 }
-load().catch(e => { document.getElementById("updated").textContent = "Could not load data: " + e; });
+load().catch(e => { document.getElementById("updated").textContent = "Could not load data"; console.error(e); });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => latest && renderChart());
 </script>
 </body>
 </html>

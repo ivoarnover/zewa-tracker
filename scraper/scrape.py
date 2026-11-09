@@ -28,13 +28,19 @@ def clean(s):
 
 def is_deluxe_tp(name):
     n = name.lower()
-    # Deluxe only: "Deluxe Delicate Care" is a different, cheaper line and is excluded
-    return ("delux" in n and "delicate" not in n
-            and re.search(r"tualettpaber|wc[ -]?paber", n) is not None)
+    # Zewa Deluxe only (incl. Delicate Care, Pure White, Lavender); Zewa Everyday is excluded
+    # napkins, tissues, kitchen rolls and wet wipes are excluded; a roll count must be present
+    return ("delux" in n and "everyday" not in n
+            and not re.search(r"salvr|rätik|ratik|majapidamis|niisk|köögi", n)
+            and rolls_of(name) is not None)
 
 
 def rolls_of(name):
-    found = re.findall(r"(\d+)[\s-]*(?:rulli|rull|rul|rl)", name.lower())
+    n = name.lower()
+    multi = re.search(r"(\d+)\s*[x×]\s*(\d+)\s*(?:rulli|rull|rul|rl)", n)  # e.g. 2x24 rl
+    if multi:
+        return int(multi.group(1)) * int(multi.group(2))
+    found = re.findall(r"(\d+)[\s-]*(?:rulli|rull|rul|rl)", n)
     return int(found[-1]) if found else None
 
 
@@ -156,22 +162,7 @@ def bauhof():
     return out
 
 
-TAIG_PRODUCTS = ["https://taig.ee/tualettpaber-zewa-deluxe-8-rulli-pure-white-3-kihil-5-661299"]
-
-
-def taig():
-    out = []
-    for url in TAIG_PRODUCTS:
-        page = fetch(url)
-        name = re.search(r'<h1[^>]*>(.*?)</h1>', page, re.S)
-        price = re.search(r'itemprop="price" content="([\d.]+)"', page)
-        if name and price:
-            out.append(offer("Taig", url.rsplit("-", 1)[-1], clean(name.group(1)), url, price.group(1)))
-        time.sleep(2)
-    return out
-
-
-STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Taig": taig}
+STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora}
 
 # ---------------------------------------------------------------- main
 

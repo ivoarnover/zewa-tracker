@@ -1,20 +1,12 @@
-"""One-off probe: fetch each store once from a GitHub runner and save raw responses."""
+"""One-off probe: fetch test URLs once from a GitHub runner and save raw responses."""
 import os, time, urllib.request, urllib.error
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 URLS = {
-    "selver_api": "https://www.selver.ee/api/catalog/vue_storefront_catalog_et/product/_search?q=zewa&size=50",
-    "barbora_api": "https://barbora.ee/api/eshop/v1/search?query=zewa",
-    "barbora_html": "https://barbora.ee/otsing?q=zewa",
-    "rimi_html": "https://www.rimi.ee/epood/ee/otsing?query=zewa&pageSize=80",
-    "bauhof_cat": "https://www.bauhof.ee/et/c/kodu-ja-sisustus/kodupaber/tualettpaberid",
-    "bauhof_prod": "https://www.bauhof.ee/et/p/725169",
-    "krauta_prod": "https://www.k-rauta.ee/p/tualettpaber-zewa-deluxe-pure-white-3-sl-32-tk/7qr7",
-    "1a_prod": "https://www.1a.ee/p/tualettpaber-zewa-deluxe-pure-white-3-sl-32-tk/5e2y",
-    "hansapost_prod": "https://hansapost.ee/et/kodukaubad/kodukeemia/wc-paber-ja-majapidamispaber/tualettpaber-zewa-deluxe-pure-white-3-kihti?id=6167",
-    "kaup24_brand": "https://kaup24.ee/et/brands/z/zewa",
-    "coop_haapsalu": "https://coophaapsalu.ee/?s=zewa+deluxe&post_type=product",
-    "taig_prod": "https://taig.ee/tualettpaber-zewa-deluxe-8-rulli-pure-white-3-kihil-5-661299",
+    "bauhof_p2": "https://www.bauhof.ee/et/c/kodu-ja-sisustus/kodupaber/tualettpaberid?page=2",
+    "bauhof_limit": "https://www.bauhof.ee/et/c/kodu-ja-sisustus/kodupaber/tualettpaberid?limit=128",
+    "bauhof_search": "https://www.bauhof.ee/et/search?q=zewa",
+    "bauhof_otsing": "https://www.bauhof.ee/et/otsing?q=zewa",
 }
 os.makedirs("out", exist_ok=True)
 for name, url in URLS.items():
