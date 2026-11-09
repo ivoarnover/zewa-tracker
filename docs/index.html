@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zewa Deluxe Price Watch</title>
 <meta name="description" content="Where Zewa Deluxe toilet paper is cheapest per roll in Estonia today, checked daily.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23fbf8f1' stroke='%23222' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='5' fill='none' stroke='%23222' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23fff' stroke='%23111' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='5' fill='none' stroke='%23111' stroke-width='2'/%3E%3C/svg%3E">
 <style>
 :root{--ink:#111;--soft:#666;--rule:#e2e2e2;--link:#0645ad;--good:#1a7f37;--bad:#c62828}
 *{box-sizing:border-box}
@@ -23,9 +23,11 @@ h2{font-size:18px;margin:40px 0 10px}
 .tag{display:inline-block;font-size:12px;font-weight:bold;padding:2px 8px;border-radius:4px;color:#fff;vertical-align:2px}
 .tag.good{background:var(--good)}
 .tag.wait{background:#888}
-nav.filter{font-size:14px;color:var(--soft);margin:0 0 8px}
-nav.filter a{margin-right:10px;cursor:pointer}
-nav.filter a.on{color:var(--ink);font-weight:bold}
+.filter{font-size:14px;color:var(--soft);margin:0 0 4px}
+.filter button{font:inherit;background:none;border:0;padding:0;margin:0 12px 4px 0;color:var(--link);cursor:pointer;white-space:nowrap}
+.filter button:hover{text-decoration:underline}
+.filter button.on{color:var(--ink);font-weight:bold}
+.note{font-size:13px;color:var(--soft);margin:0 0 8px}
 table{width:100%;border-collapse:collapse;font-size:14.5px}
 th{font-weight:bold;color:var(--soft);font-size:13px;text-align:left;padding:6px 16px 6px 0;border-bottom:2px solid var(--rule);white-space:nowrap}
 td{padding:8px 16px 8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
@@ -39,7 +41,7 @@ tr.wolt td{color:var(--soft)}
 .chart svg{width:100%;height:auto;display:block;overflow:visible}
 .chart text{font-family:Arial,Helvetica,sans-serif;font-size:11px;fill:var(--soft)}
 .legend{font-size:13px;color:var(--soft);margin-top:6px}
-.legend span{margin-right:14px;white-space:nowrap}
+.legend span{margin-right:14px;white-space:nowrap;display:inline-block}
 .legend i{display:inline-block;width:14px;height:0;border-top:2px solid;vertical-align:4px;margin-right:5px}
 ul.stores{padding-left:18px;margin:0;font-size:14.5px}
 ul.stores li{padding:3px 0}
@@ -57,14 +59,16 @@ footer p{margin:0 0 8px}
 <body>
 <main>
   <h1>Zewa Deluxe Price Watch</h1>
-  <p class="meta">Where three-ply Zewa Deluxe is cheapest per roll in Estonia. Checked every morning. <span id="updated"></span></p>
+  <p class="meta">Where Zewa Deluxe toilet paper is cheapest per roll in Estonia. Checked daily.</p>
+  <p class="meta" id="updated"></p>
 
   <div class="verdict" id="verdict"><p>Loading…</p></div>
 
   <h2>Today's offers</h2>
-  <nav class="filter" id="filter"></nav>
+  <div class="filter" id="filter"></div>
+  <p class="note" id="wolt-note" hidden>Grey rows are Wolt delivery prices. They include Wolt's markup and are not counted as the best price.</p>
   <table>
-    <thead><tr><th class="r">€/roll</th><th>Product</th><th class="hide-s">Store</th><th class="r">Pack</th><th class="hide-s">Price type</th></tr></thead>
+    <thead><tr><th class="r">€/roll</th><th>Product</th><th class="hide-s">Store</th><th class="r">Pack price</th><th class="hide-s">Price type</th></tr></thead>
     <tbody id="rows"></tbody>
   </table>
 
@@ -73,12 +77,14 @@ footer p{margin:0 0 8px}
   <div class="chart" id="chart"></div>
   <div class="legend" id="legend"></div>
 
-  <h2>Stores</h2>
-  <ul class="stores" id="stores"></ul>
+  <div id="problems" hidden>
+    <h2>Store problems</h2>
+    <ul class="stores" id="stores"></ul>
+  </div>
 
   <footer>
-    <p>Only Zewa Deluxe toilet paper is tracked (all variants, any pack size). Zewa Everyday and other lines are left out. The roll count comes from the product name; the price used is the lowest of the regular, campaign and loyalty card price.</p>
-    <p>Loyalty prices need the store's card or account: Selver Partnerkaart, Barbora AITÄH, Bauhof logged-in customer price. Coop has no central web shop: "Coop" is the Coop Haapsalu e-shop, and "Coop Lasnamäe (Wolt)" is the Wolt delivery price, which includes Wolt's markup.</p>
+    <p>Only Zewa Deluxe toilet paper is tracked (all variants, any pack size). Zewa Everyday and other lines are left out. The roll count comes from the product name; the price used is the lowest of the regular, campaign and loyalty price.</p>
+    <p>Loyalty prices need the store's card or account: Selver Partnerkaart, Barbora AITÄH card, Bauhof customer account. Coop has no central web shop, so Coop prices come from the Coop Haapsalu e-shop and, marked as Wolt, from Coop Lasnamäe on Wolt.</p>
     <p>A small personal project, not affiliated with Zewa or any store. Source on <a href="https://github.com/ivoarnover/zewa-tracker">GitHub</a>.</p>
   </footer>
 </main>
@@ -87,15 +93,24 @@ const eur = v => v == null ? "–" : v.toFixed(2).replace(".", ",") + " €";
 const roll = v => v == null ? "–" : v.toFixed(3).replace(".", ",") + " €";
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmtDate = d => { const m = String(d || "").match(/(\d{4})-(\d{2})-(\d{2})/); return m ? `${+m[3]}.${+m[2]}.${m[1]}` : String(d || ""); };
-const shortDate = d => { const m = String(d).match(/\d{4}-(\d{2})-(\d{2})/); return m ? `${+m[2]}.${+m[1]}` : d; };
-const pretty = n => { let s = n.toLowerCase().replace(/\s+/g, " ").trim(); s = s[0].toUpperCase() + s.slice(1);
-  return s.replace(/zewa ?/g, "Zewa ").replace(/\bdelux(e?)\b/g, "Delux$1").replace(/delicate care/g, "Delicate Care")
-    .replace(/pure white/g, "Pure White").replace(/lavender/g, "Lavender").replace(/\s+,/g, ",").trim(); };
-const typeLong = o => o.best_type === "loyalty" ? (o.loyalty_label || "loyalty card")
-  : o.best_type === "campaign" ? "campaign" + (o.valid_until ? " until " + fmtDate(o.valid_until) : "") : "regular";
+const shortDate = d => { const m = String(d || "").match(/(\d{4})-(\d{2})-(\d{2})/) || String(d || "").match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+  if (!m) return String(d || ""); return m[1].length === 4 ? `${+m[3]}.${+m[2]}` : `${+m[1]}.${+m[2]}`; };
 const isWolt = s => /wolt/i.test(s);
-const LINE = ["#d62728", "#2ca02c", "#1f77b4", "#ff7f0e", "#9467bd", "#7f7f7f"];
-const dash = s => isWolt(s) ? "4 4" : "";
+const storeName = s => s === "Coop" ? "Coop Haapsalu" : s;
+// short product name: drop the repeated "Tualettpaber Zewa Deluxe" part, keep the variant and size
+const pretty = n => {
+  let s = n.toLowerCase().replace(/zewadeluxe/g, "zewa deluxe")
+    .replace(/\b(tualettpaber|wc[ -]?paber|t\/paber|zewa|deluxe|delux)\b/g, " ")
+    .replace(/\s*,\s*/g, ", ").replace(/\s+/g, " ").replace(/^[\s,.-]+|[\s,.-]+$/g, "").replace(/(, )+/g, ", ");
+  if (!s) return "Deluxe";
+  s = s.replace(/delicate care/, "Delicate Care").replace(/pure white/, "Pure White").replace(/lavender/, "Lavender");
+  return s[0].toUpperCase() + s.slice(1);
+};
+const LOYALTY = {"Partnerkaart": "Selver Partnerkaart", "AITÄH kaart": "Barbora AITÄH card", "sisselogitud kliendile": "Bauhof account price", "Rimi kaart": "Rimi card"};
+const typeLong = o => o.best_type === "loyalty" ? "loyalty: " + (LOYALTY[o.loyalty_label] || o.loyalty_label || "card")
+  : o.best_type === "campaign" ? "campaign" + (o.valid_until ? " until " + shortDate(o.valid_until) : "") : "regular";
+const COLORS = {"Selver": "#d62728", "Bauhof": "#2ca02c", "Rimi": "#1f77b4", "Barbora": "#ff7f0e", "Coop": "#9467bd", "Coop Lasnamäe (Wolt)": "#999999"};
+const color = s => COLORS[s] || "#7f7f7f";
 
 function parseCSV(text) {
   const split = l => { const out = []; let cur = "", q = false;
@@ -112,64 +127,71 @@ let latest, hist, filter = "All";
 
 function verdict() {
   const good = latest.good_price;
-  const shelf = latest.offers.filter(o => !o.stale && !isWolt(o.store));
-  const b = shelf[0]; if (!b) return;
+  const b = latest.offers.filter(o => !o.stale && !isWolt(o.store))[0]; if (!b) return;
   const ok = b.per_roll < good;
   document.getElementById("verdict").innerHTML = `
     <p>Best price today ${ok ? '<span class="tag good">good price, stock up</span>' : '<span class="tag wait">wait for a better one</span>'}</p>
-    <p class="big">${roll(b.per_roll)} <span style="font-size:16px;font-weight:normal">per roll</span></p>
-    <p><a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(pretty(b.name))}</a> at <b>${esc(b.store)}</b>:
+    <p class="big mono">${roll(b.per_roll)} <span style="font-size:16px;font-weight:normal">per roll</span></p>
+    <p><a href="${esc(b.url)}" target="_blank" rel="noopener" title="${esc(b.name)}">Zewa Deluxe ${esc(pretty(b.name))}</a> at <b>${esc(storeName(b.store))}</b>:
       ${b.rolls} rolls for ${eur(b.best)} (${esc(typeLong(b))}${b.regular && b.regular > b.best ? ", normally " + eur(b.regular) : ""}).
       A good price is anything under ${eur(good)} per roll.</p>`;
 }
 
 function table() {
-  const good = latest.good_price, stores = ["All", ...new Set(latest.offers.map(o => o.store))];
-  const nav = document.getElementById("filter");
-  nav.innerHTML = "Show: " + stores.map(s => `<a class="${s === filter ? "on" : ""}" data-s="${esc(s)}">${esc(s === "All" ? "all stores" : s)}</a>`).join("");
-  nav.querySelectorAll("a").forEach(a => a.onclick = () => { filter = a.dataset.s; table(); });
-  document.getElementById("rows").innerHTML = latest.offers.filter(o => filter === "All" || o.store === filter).map(o => `
+  const good = latest.good_price, count = {};
+  latest.offers.forEach(o => count[o.store] = (count[o.store] || 0) + 1);
+  const stores = ["All", ...Object.keys(count)];
+  const f = document.getElementById("filter");
+  f.innerHTML = "Show: " + stores.map(s => `<button type="button" class="${s === filter ? "on" : ""}" data-s="${esc(s)}">${esc(s === "All" ? "all stores" : storeName(s) + " (" + count[s] + ")")}</button>`).join("");
+  f.querySelectorAll("button").forEach(b => b.onclick = () => { filter = b.dataset.s; table(); });
+  const list = latest.offers.filter(o => filter === "All" || o.store === filter);
+  document.getElementById("wolt-note").hidden = !list.some(o => isWolt(o.store));
+  document.getElementById("rows").innerHTML = list.map(o => `
     <tr class="${o.per_roll < good && !isWolt(o.store) ? "good" : ""} ${isWolt(o.store) ? "wolt" : ""}">
       <td class="r pr mono">${roll(o.per_roll)}</td>
-      <td><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(pretty(o.name))}</a>
-        <small>${o.rolls} rolls<span class="show-s"> · ${esc(o.store)}</span>${o.stale ? " · old data" : ""}</small></td>
-      <td class="hide-s">${esc(o.store)}</td>
+      <td><a href="${esc(o.url)}" target="_blank" rel="noopener" title="${esc(o.name)}">${esc(pretty(o.name))}</a>
+        <small>${o.rolls} rolls<span class="show-s"> · ${esc(storeName(o.store))} · ${esc(typeLong(o))}</span>${o.stale ? " · old data" : ""}</small></td>
+      <td class="hide-s">${esc(storeName(o.store))}</td>
       <td class="r mono">${eur(o.best)}${o.regular && o.regular > o.best ? `<small><s>${eur(o.regular)}</s></small>` : ""}</td>
       <td class="hide-s">${esc(typeLong(o))}</td></tr>`).join("");
 }
 
 function chart() {
-  const good = latest.good_price, dates = [...new Set(hist.map(r => r.date))].sort();
+  const el = document.getElementById("chart"), good = latest.good_price;
+  const dates = [...new Set(hist.map(r => r.date))].sort();
   const stores = Object.keys(latest.status).filter(s => hist.some(r => r.store === s));
   const best = {};
   for (const r of hist) { const k = r.store + "|" + r.date, v = parseFloat(r.per_roll); if (!isNaN(v) && (!(k in best) || v < best[k])) best[k] = v; }
-  const vals = Object.values(best).concat(good);
-  const lo = Math.floor(Math.min(...vals) * 10) / 10, hi = Math.ceil(Math.max(...vals) * 10) / 10 || 1;
-  const W = 720, H = 280, L = 44, R = 10, T = 10, B = 26;
-  const x = i => dates.length < 2 ? L + (W - L - R) / 2 : L + i * (W - L - R) / (dates.length - 1);
-  const y = v => T + (hi - v) / (hi - lo || 1) * (H - T - B);
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Best price per roll by store">`;
-  for (let v = lo; v <= hi + 1e-9; v += 0.1) svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#e2e2e2" stroke-width="1"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v.toFixed(2).replace(".", ",")}</text>`;
-  svg += `<line x1="${L}" x2="${W - R}" y1="${y(good)}" y2="${y(good)}" stroke="var(--good)" stroke-width="1.5" stroke-dasharray="2 3"/><text x="${W - R}" y="${y(good) - 5}" text-anchor="end" style="fill:var(--good)">good price</text>`;
-  const step = Math.max(1, Math.ceil(dates.length / 8));
-  dates.forEach((d, i) => { if (i % step === 0 || i === dates.length - 1) svg += `<text x="${x(i)}" y="${H - 6}" text-anchor="middle">${shortDate(d)}</text>`; });
-  stores.forEach((s, si) => {
-    const c = LINE[si % LINE.length], pts = dates.map((d, i) => best[s + "|" + d] != null ? [x(i), y(best[s + "|" + d])] : null);
-    let path = "", pen = false;
-    pts.forEach(p => { if (p) { path += (pen ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); pen = true; } });
-    if (path) svg += `<path d="${path}" fill="none" stroke="${c}" stroke-width="1.8" stroke-dasharray="${dash(s)}"/>`;
-    if (dates.length <= 40) pts.forEach(p => { if (p) svg += `<circle cx="${p[0]}" cy="${p[1]}" r="2.6" fill="#fff" stroke="${c}" stroke-width="1.5"/>`; });
-  });
-  document.getElementById("chart").innerHTML = svg + "</svg>";
-  document.getElementById("legend").innerHTML = stores.map((s, si) => `<span><i style="border-color:${LINE[si % LINE.length]};${isWolt(s) ? "border-top-style:dashed" : ""}"></i>${esc(s)}</span>`).join("");
   let low = null; for (const r of hist) { const v = parseFloat(r.per_roll); if (!isNaN(v) && !isWolt(r.store) && (!low || v < low.v)) low = {v, r}; }
   document.getElementById("histnote").textContent = dates.length
-    ? `Cheapest € per roll at each store, per day, since ${fmtDate(dates[0])}.` + (low ? ` Lowest so far: ${roll(low.v)} at ${low.r.store} on ${fmtDate(low.r.date)}.` : "") : "No history yet.";
+    ? `Cheapest € per roll at each store, per day, since ${fmtDate(dates[0])}.` + (low ? ` Lowest so far: ${roll(low.v)} at ${storeName(low.r.store)} on ${fmtDate(low.r.date)}.` : "") : "";
+  if (dates.length < 2) { el.innerHTML = '<p class="meta">The chart appears once there are two days of prices.</p>'; document.getElementById("legend").innerHTML = ""; return; }
+  const vals = Object.values(best).concat(good);
+  const lo = Math.floor(Math.min(...vals) * 10) / 10, hi = Math.ceil(Math.max(...vals) * 10) / 10;
+  const W = Math.max(300, el.clientWidth), H = W < 500 ? 220 : 280, L = 40, R = 8, T = 10, B = 24;
+  const x = i => L + i * (W - L - R) / (dates.length - 1);
+  const y = v => T + (hi - v) / (hi - lo || 1) * (H - T - B);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Best price per roll by store">`;
+  for (let v = lo; v <= hi + 1e-9; v += 0.1) svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#e2e2e2"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v.toFixed(2).replace(".", ",")}</text>`;
+  svg += `<line x1="${L}" x2="${W - R}" y1="${y(good)}" y2="${y(good)}" stroke="#1a7f37" stroke-width="1.5" stroke-dasharray="4 3"/><text x="${W - R}" y="${y(good) - 5}" text-anchor="end" style="fill:#1a7f37">good price ${eur(good)}</text>`;
+  const step = Math.max(1, Math.ceil(dates.length / (W < 500 ? 4 : 8)));
+  dates.forEach((d, i) => { if (i % step === 0 || i === dates.length - 1) svg += `<text x="${x(i)}" y="${H - 6}" text-anchor="middle">${shortDate(d)}</text>`; });
+  stores.forEach(s => {
+    const c = color(s), pts = dates.map((d, i) => best[s + "|" + d] != null ? [x(i), y(best[s + "|" + d])] : null);
+    let path = "", pen = false;
+    pts.forEach(p => { if (p) { path += (pen ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); pen = true; } else pen = false; });
+    svg += `<path d="${path}" fill="none" stroke="${c}" stroke-width="2" stroke-dasharray="${isWolt(s) ? "4 4" : ""}"/>`;
+    if (dates.length <= 40) pts.forEach(p => { if (p) svg += `<circle cx="${p[0]}" cy="${p[1]}" r="2.5" fill="#fff" stroke="${c}" stroke-width="1.5"/>`; });
+  });
+  el.innerHTML = svg + "</svg>";
+  document.getElementById("legend").innerHTML = stores.map(s => `<span><i style="border-color:${color(s)};${isWolt(s) ? "border-top-style:dashed" : ""}"></i>${esc(storeName(s))}</span>`).join("");
 }
 
-function stores() {
-  document.getElementById("stores").innerHTML = Object.entries(latest.status).map(([s, st]) =>
-    `<li><b>${esc(s)}</b>: ${st.ok ? `${st.count} Deluxe ${st.count === 1 ? "pack" : "packs"} found today` : `<span class="bad">could not be read today, last success ${fmtDate(st.last_ok) || "never"}</span>`}</li>`).join("");
+function problems() {
+  const bad = Object.entries(latest.status).filter(([, st]) => !st.ok);
+  document.getElementById("problems").hidden = !bad.length;
+  document.getElementById("stores").innerHTML = bad.map(([s, st]) =>
+    `<li><b>${esc(storeName(s))}</b>: <span class="bad">could not be read today, showing data from ${fmtDate(st.last_ok) || "never"}</span></li>`).join("");
 }
 
 async function load() {
@@ -177,10 +199,11 @@ async function load() {
   [latest, hist] = await Promise.all([fetch("data/latest.json" + t).then(r => r.json()), fetch("data/history.csv" + t).then(r => r.text()).then(parseCSV)]);
   hist = hist.filter(r => r.store in latest.status);
   const d = new Date(latest.updated);
-  document.getElementById("updated").textContent = "Last update " + d.toLocaleDateString("et-EE") + " at " + d.toLocaleTimeString("et-EE", {hour: "2-digit", minute: "2-digit"}) + ".";
-  verdict(); table(); chart(); stores();
+  document.getElementById("updated").textContent = "Last update: " + d.toLocaleDateString("et-EE") + " " + d.toLocaleTimeString("et-EE", {hour: "2-digit", minute: "2-digit"});
+  verdict(); table(); chart(); problems();
 }
 load().catch(e => { document.getElementById("verdict").innerHTML = "<p>Could not load the data.</p>"; console.error(e); });
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => latest && chart(), 200); });
 </script>
 </body>
 </html>
