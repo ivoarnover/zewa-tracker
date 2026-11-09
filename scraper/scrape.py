@@ -13,7 +13,7 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/130.0 Safari/537.36")
 GOOD_PRICE = 0.35  # EUR per roll
 FIELDS = ["date", "store", "id", "name", "rolls", "regular", "campaign", "loyalty",
-          "best", "best_type", "per_roll", "url"]
+          "best", "best_type", "per_roll", "url", "ean"]
 
 
 def fetch(url):
@@ -80,9 +80,11 @@ def selver():
         now = g0.get("final_price") or s.get("final_price_incl_tax")
         # Partner card price: product_group_price, else customer group 1 (matches the Partnerkaart badge)
         loyalty = s.get("product_group_price") or groups.get(1, {}).get("final_price")
-        out.append(offer("Selver", s.get("sku") or s["id"], s["name"],
-                         "https://www.selver.ee/" + s["url_key"], regular, now, loyalty,
-                         "Partnerkaart", s.get("special_to_date")))
+        o = offer("Selver", s.get("sku") or s["id"], s["name"],
+                  "https://www.selver.ee/" + s["url_key"], regular, now, loyalty,
+                  "Partnerkaart", s.get("special_to_date"))
+        o["ean"] = s.get("product_main_ean")
+        out.append(o)
     return out
 
 
@@ -172,11 +174,46 @@ def coop():
             continue
         pr, div = p["prices"], 10 ** p["prices"].get("currency_minor_unit", 2)
         regular, now = int(pr["regular_price"]) / div, int(pr["price"]) / div
-        out.append(offer("Coop", p["id"], name, p["permalink"], regular, now if now < regular else None))
+        o = offer("Coop", p["id"], name, p["permalink"], regular, now if now < regular else None)
+        o["ean"] = p.get("sku")
+        out.append(o)
     return out
 
 
-STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop}
+WOLT_VENUES = {"Coop Lasnamäe (Wolt)": "coop-lasname"}
+WOLT_API = "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/"
+
+
+def wolt_coop():
+    # Wolt prices include Wolt's markup; kept to compare with Coop Haapsalu shelf prices by EAN.
+    out = []
+    for store, slug in WOLT_VENUES.items():
+        root = json.loads(fetch(WOLT_API + slug + "/assortment?language=et"))
+        cat = None
+        stack = list(root.get("categories", []))
+        while stack:
+            c = stack.pop()
+            if c.get("name", "").strip().lower() == "kodupaber":
+                cat = c["slug"]
+                break
+            stack += c.get("subcategories", [])
+        if not cat:
+            raise RuntimeError("Kodupaber category not found on Wolt")
+        time.sleep(2)
+        data = json.loads(fetch(WOLT_API + slug + "/assortment/categories/slug/" + cat + "?language=et"))
+        for i in data.get("items", []):
+            if i.get("disabled_info") or not is_deluxe_tp(i["name"]):
+                continue
+            price, orig = i["price"] / 100, (i.get("original_price") or 0) / 100
+            o = offer(store, i["id"], i["name"], f"https://wolt.com/et/est/tallinn/venue/{slug}",
+                      orig or price, price if orig else None)
+            o["ean"] = i.get("barcode_gtin")
+            o["wolt"] = True
+            out.append(o)
+    return out
+
+
+STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop, "Coop Lasnamäe (Wolt)": wolt_coop}
 
 # ---------------------------------------------------------------- main
 
