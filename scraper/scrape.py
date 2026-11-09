@@ -28,7 +28,9 @@ def clean(s):
 
 def is_deluxe_tp(name):
     n = name.lower()
-    return "delux" in n and re.search(r"tualettpaber|wc[ -]?paber", n) is not None
+    # Deluxe only: "Deluxe Delicate Care" is a different, cheaper line and is excluded
+    return ("delux" in n and "delicate" not in n
+            and re.search(r"tualettpaber|wc[ -]?paber", n) is not None)
 
 
 def rolls_of(name):

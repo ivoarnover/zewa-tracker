@@ -7,7 +7,7 @@ Page: https://ivoarnover.github.io/zewa-tracker/
 
 ## How it works
 - `.github/workflows/daily.yml` runs `scraper/scrape.py` every morning on GitHub Actions (free).
-- The script makes one request per store, keeps only "Deluxe" toilet paper, reads the roll count from the name
+- The script makes one request per store, keeps only "Deluxe" toilet paper (not "Deluxe Delicate Care"), reads the roll count from the name
   and takes the lowest of regular, campaign and loyalty price.
 - Results go to `docs/data/latest.json` and `docs/data/history.csv`, which GitHub Pages serves with `docs/index.html`.
 - If a store fails, its last good prices stay on the page marked "(old)" and the run goes red, so GitHub emails you.
