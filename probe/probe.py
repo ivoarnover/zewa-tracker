@@ -3,16 +3,16 @@ import os, time, urllib.request, urllib.error
 
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 URLS = {
-    "bauhof_p2": "https://www.bauhof.ee/et/c/kodu-ja-sisustus/kodupaber/tualettpaberid?page=2",
-    "bauhof_limit": "https://www.bauhof.ee/et/c/kodu-ja-sisustus/kodupaber/tualettpaberid?limit=128",
-    "bauhof_search": "https://www.bauhof.ee/et/search?q=zewa",
-    "bauhof_otsing": "https://www.bauhof.ee/et/otsing?q=zewa",
+    "coop_hpsl_storeapi": "https://coophaapsalu.ee/wp-json/wc/store/v1/products?search=zewa&per_page=50",
+    "wolt_venue": "https://restaurant-api.wolt.com/v4/venues/slug/coop_estonia/menu/data",
+    "wolt_page": "https://wolt.com/et/est/tallinn/venue/coop_estonia",
+    "consumer_assort": "https://consumer-api.wolt.com/consumer-api/consumer-assortment/v1/venues/slug/coop_estonia/assortment",
 }
 os.makedirs("out", exist_ok=True)
 for name, url in URLS.items():
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "et-EE,et;q=0.9"})
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
+        with urllib.request.urlopen(req, timeout=60) as r:
             body, status, final = r.read(), r.status, r.geturl()
     except urllib.error.HTTPError as e:
         body, status, final = e.read(), e.code, url
