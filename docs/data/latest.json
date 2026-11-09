@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T09:47+00:00",
+ "updated": "2026-11-09T09:57+00:00",
  "good_price": 0.35,
  "offers": [
   {
@@ -43,6 +43,7 @@
    "loyalty": 6.79,
    "loyalty_label": "Partnerkaart",
    "valid_until": null,
+   "ean": "7322540313321",
    "best": 6.79,
    "best_type": "loyalty",
    "per_roll": 0.424
@@ -58,6 +59,7 @@
    "loyalty": null,
    "loyalty_label": null,
    "valid_until": null,
+   "ean": "7322540313321",
    "best": 6.99,
    "best_type": "regular",
    "per_roll": 0.437
@@ -88,6 +90,7 @@
    "loyalty": 1.99,
    "loyalty_label": "Partnerkaart",
    "valid_until": null,
+   "ean": "7322540313369",
    "best": 1.99,
    "best_type": "loyalty",
    "per_roll": 0.497
@@ -103,9 +106,27 @@
    "loyalty": 3.99,
    "loyalty_label": "Partnerkaart",
    "valid_until": null,
+   "ean": "7322540055337",
    "best": 3.99,
    "best_type": "loyalty",
    "per_roll": 0.499
+  },
+  {
+   "store": "Coop Lasnamäe (Wolt)",
+   "id": "63ed786223430d03e267d36b",
+   "name": "Zewa Deluxe Delicate Care tualettpaber 3-kihiline, 16 rulli",
+   "url": "https://wolt.com/et/est/tallinn/venue/coop-lasname",
+   "rolls": 16,
+   "regular": 8.18,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "ean": "7322540313321",
+   "wolt": true,
+   "best": 8.18,
+   "best_type": "regular",
+   "per_roll": 0.511
   },
   {
    "store": "Rimi",
@@ -178,6 +199,7 @@
    "loyalty": null,
    "loyalty_label": null,
    "valid_until": null,
+   "ean": "7322541033600",
    "best": 21.9,
    "best_type": "regular",
    "per_roll": 0.684
@@ -208,6 +230,7 @@
    "loyalty": null,
    "loyalty_label": "Partnerkaart",
    "valid_until": null,
+   "ean": "7322540313345",
    "best": 6.09,
    "best_type": "regular",
    "per_roll": 0.761
@@ -238,6 +261,7 @@
    "loyalty": null,
    "loyalty_label": null,
    "valid_until": null,
+   "ean": "7322540313345",
    "best": 6.09,
    "best_type": "regular",
    "per_roll": 0.761
@@ -253,6 +277,7 @@
    "loyalty": null,
    "loyalty_label": null,
    "valid_until": null,
+   "ean": "7322540409864",
    "best": 6.19,
    "best_type": "regular",
    "per_roll": 0.774
@@ -268,6 +293,7 @@
    "loyalty": null,
    "loyalty_label": null,
    "valid_until": null,
+   "ean": "7322540055337",
    "best": 6.19,
    "best_type": "regular",
    "per_roll": 0.774
@@ -283,9 +309,44 @@
    "loyalty": null,
    "loyalty_label": null,
    "valid_until": null,
+   "ean": "7322540313369",
    "best": 3.35,
    "best_type": "regular",
    "per_roll": 0.838
+  },
+  {
+   "store": "Coop Lasnamäe (Wolt)",
+   "id": "63ed786223430d03e267d3be",
+   "name": "Zewa Deluxe tualettpaber 3-kihiline, 8rl",
+   "url": "https://wolt.com/et/est/tallinn/venue/coop-lasname",
+   "rolls": 8,
+   "regular": 7.13,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "ean": "7322540313345",
+   "wolt": true,
+   "best": 7.13,
+   "best_type": "regular",
+   "per_roll": 0.891
+  },
+  {
+   "store": "Coop Lasnamäe (Wolt)",
+   "id": "63ed786223430d03e267d2b3",
+   "name": "Zewa Deluxe tualettpaber 3-kihiline 4rl",
+   "url": "https://wolt.com/et/est/tallinn/venue/coop-lasname",
+   "rolls": 4,
+   "regular": 3.92,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "ean": "7322540313369",
+   "wolt": true,
+   "best": 3.92,
+   "best_type": "regular",
+   "per_roll": 0.98
   }
  ],
  "status": {
@@ -316,6 +377,12 @@
   "Coop": {
    "ok": true,
    "count": 6,
+   "last_ok": "2026-11-09",
+   "error": null
+  },
+  "Coop Lasnamäe (Wolt)": {
+   "ok": true,
+   "count": 3,
    "last_ok": "2026-11-09",
    "error": null
   }
