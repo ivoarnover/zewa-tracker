@@ -7,52 +7,50 @@
 <meta name="description" content="Where Zewa Deluxe toilet paper is cheapest per roll in Estonia today, checked daily.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23fbf8f1' stroke='%23222' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='5' fill='none' stroke='%23222' stroke-width='2'/%3E%3C/svg%3E">
 <style>
-:root{--paper:#fbf8f1;--ink:#222;--soft:#6b665c;--rule:#d9d2c3;--accent:#9b2c1f;--good:#2c6e3f;--hi:#f3ecd9}
-@media (prefers-color-scheme:dark){:root{--paper:#1b1a17;--ink:#e9e4d8;--soft:#a39c8d;--rule:#3a372f;--accent:#e08a72;--good:#8cc79a;--hi:#2a2822}}
+:root{--ink:#111;--soft:#666;--rule:#e2e2e2;--link:#0645ad;--good:#1a7f37;--bad:#c62828}
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 Charter,"Bitstream Charter","Iowan Old Style","Palatino Linotype",Georgia,serif;-webkit-font-smoothing:antialiased}
-main{max-width:720px;margin:0 auto;padding:48px 20px 64px}
-a{color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
-a:hover{text-decoration-thickness:2px}
-h1{font-size:30px;line-height:1.2;margin:0 0 4px;font-weight:700;letter-spacing:-.01em}
-h2{font-size:15px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin:48px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--ink)}
-.meta{color:var(--soft);font-style:italic;margin:0}
-.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.88em;font-variant-numeric:tabular-nums}
-.verdict{margin:32px 0 0;padding:20px 22px;background:var(--hi);border-left:3px solid var(--ink)}
+body{margin:0;background:#fff;color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif}
+main{max-width:760px;margin:0 auto;padding:32px 20px 56px}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+h1{font-size:26px;line-height:1.25;margin:0 0 6px}
+h2{font-size:18px;margin:40px 0 10px}
+.meta{color:var(--soft);margin:0;font-size:14px}
+.mono{font-variant-numeric:tabular-nums}
+.verdict{margin:24px 0 0;padding:16px 18px;border:1px solid var(--rule);border-radius:6px}
 .verdict p{margin:0}
-.verdict .big{font-size:44px;line-height:1.1;font-weight:700;margin:4px 0 10px}
-.tag{display:inline-block;font-family:ui-monospace,Menlo,monospace;font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding:1px 7px;border:1px solid currentColor;border-radius:3px;vertical-align:2px}
-.tag.good{color:var(--good)}
-.tag.wait{color:var(--accent)}
-nav.filter{font-size:15px;color:var(--soft);margin:-4px 0 10px}
-nav.filter a{margin-right:10px;color:var(--soft);text-decoration:none;cursor:pointer}
-nav.filter a.on{color:var(--ink);text-decoration:underline}
-table{width:100%;border-collapse:collapse;font-size:15.5px}
-th{font-weight:400;font-style:italic;color:var(--soft);text-align:left;padding:6px 18px 6px 0;border-bottom:1px solid var(--rule);white-space:nowrap}
-td{padding:9px 18px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+.verdict .big{font-size:36px;font-weight:bold;margin:4px 0 8px}
+.tag{display:inline-block;font-size:12px;font-weight:bold;padding:2px 8px;border-radius:4px;color:#fff;vertical-align:2px}
+.tag.good{background:var(--good)}
+.tag.wait{background:#888}
+nav.filter{font-size:14px;color:var(--soft);margin:0 0 8px}
+nav.filter a{margin-right:10px;cursor:pointer}
+nav.filter a.on{color:var(--ink);font-weight:bold}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-weight:bold;color:var(--soft);font-size:13px;text-align:left;padding:6px 16px 6px 0;border-bottom:2px solid var(--rule);white-space:nowrap}
+td{padding:8px 16px 8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
 td.r{white-space:nowrap}
 th:last-child,td:last-child{padding-right:0}
 td.r,th.r{text-align:right}
-tr.good td.pr{color:var(--good);font-weight:700}
-tr.good td.pr::before{content:"★ ";font-size:12px}
-td small{display:block;color:var(--soft);font-size:13px}
+tr.good td.pr{color:var(--good);font-weight:bold}
+td small{display:block;color:var(--soft);font-size:12.5px}
 tr.wolt td{color:var(--soft)}
 .chart{margin-top:8px}
 .chart svg{width:100%;height:auto;display:block;overflow:visible}
-.chart text{font-family:ui-monospace,Menlo,monospace;font-size:11px;fill:var(--soft)}
-.legend{font-size:14px;color:var(--soft);margin-top:6px}
+.chart text{font-family:Arial,Helvetica,sans-serif;font-size:11px;fill:var(--soft)}
+.legend{font-size:13px;color:var(--soft);margin-top:6px}
 .legend span{margin-right:14px;white-space:nowrap}
 .legend i{display:inline-block;width:14px;height:0;border-top:2px solid;vertical-align:4px;margin-right:5px}
-ul.stores{list-style:none;padding:0;margin:0;font-size:15.5px}
-ul.stores li{padding:6px 0;border-bottom:1px dotted var(--rule)}
-.bad{color:var(--accent)}
+ul.stores{padding-left:18px;margin:0;font-size:14.5px}
+ul.stores li{padding:3px 0}
+.bad{color:var(--bad)}
 .show-s{display:none}
-footer{margin-top:56px;padding-top:14px;border-top:1px solid var(--rule);font-size:14px;color:var(--soft)}
+footer{margin-top:48px;padding-top:12px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft)}
 footer p{margin:0 0 8px}
 @media (max-width:600px){
-  body{font-size:16px}main{padding:28px 16px 48px}h1{font-size:25px}.verdict .big{font-size:36px}
+  main{padding:20px 16px 40px}h1{font-size:22px}.verdict .big{font-size:30px}
   .hide-s{display:none}.show-s{display:inline}
-  table{font-size:14.5px}
+  table{font-size:14px}
 }
 </style>
 </head>
@@ -96,7 +94,7 @@ const pretty = n => { let s = n.toLowerCase().replace(/\s+/g, " ").trim(); s = s
 const typeLong = o => o.best_type === "loyalty" ? (o.loyalty_label || "loyalty card")
   : o.best_type === "campaign" ? "campaign" + (o.valid_until ? " until " + fmtDate(o.valid_until) : "") : "regular";
 const isWolt = s => /wolt/i.test(s);
-const LINE = ["#9b2c1f", "#2c6e3f", "#2f5d8a", "#b07d1a", "#6b4b8a", "#5f5a50"];
+const LINE = ["#d62728", "#2ca02c", "#1f77b4", "#ff7f0e", "#9467bd", "#7f7f7f"];
 const dash = s => isWolt(s) ? "4 4" : "";
 
 function parseCSV(text) {
@@ -119,7 +117,7 @@ function verdict() {
   const ok = b.per_roll < good;
   document.getElementById("verdict").innerHTML = `
     <p>Best price today ${ok ? '<span class="tag good">good price, stock up</span>' : '<span class="tag wait">wait for a better one</span>'}</p>
-    <p class="big">${roll(b.per_roll)} <span style="font-size:18px;font-weight:400">per roll</span></p>
+    <p class="big">${roll(b.per_roll)} <span style="font-size:16px;font-weight:normal">per roll</span></p>
     <p><a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(pretty(b.name))}</a> at <b>${esc(b.store)}</b>:
       ${b.rolls} rolls for ${eur(b.best)} (${esc(typeLong(b))}${b.regular && b.regular > b.best ? ", normally " + eur(b.regular) : ""}).
       A good price is anything under ${eur(good)} per roll.</p>`;
@@ -151,7 +149,7 @@ function chart() {
   const x = i => dates.length < 2 ? L + (W - L - R) / 2 : L + i * (W - L - R) / (dates.length - 1);
   const y = v => T + (hi - v) / (hi - lo || 1) * (H - T - B);
   let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Best price per roll by store">`;
-  for (let v = lo; v <= hi + 1e-9; v += 0.1) svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule)" stroke-width="1"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v.toFixed(2).replace(".", ",")}</text>`;
+  for (let v = lo; v <= hi + 1e-9; v += 0.1) svg += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#e2e2e2" stroke-width="1"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v.toFixed(2).replace(".", ",")}</text>`;
   svg += `<line x1="${L}" x2="${W - R}" y1="${y(good)}" y2="${y(good)}" stroke="var(--good)" stroke-width="1.5" stroke-dasharray="2 3"/><text x="${W - R}" y="${y(good) - 5}" text-anchor="end" style="fill:var(--good)">good price</text>`;
   const step = Math.max(1, Math.ceil(dates.length / 8));
   dates.forEach((d, i) => { if (i % step === 0 || i === dates.length - 1) svg += `<text x="${x(i)}" y="${H - 6}" text-anchor="middle">${shortDate(d)}</text>`; });
@@ -160,7 +158,7 @@ function chart() {
     let path = "", pen = false;
     pts.forEach(p => { if (p) { path += (pen ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); pen = true; } });
     if (path) svg += `<path d="${path}" fill="none" stroke="${c}" stroke-width="1.8" stroke-dasharray="${dash(s)}"/>`;
-    if (dates.length <= 40) pts.forEach(p => { if (p) svg += `<circle cx="${p[0]}" cy="${p[1]}" r="2.6" fill="var(--paper)" stroke="${c}" stroke-width="1.5"/>`; });
+    if (dates.length <= 40) pts.forEach(p => { if (p) svg += `<circle cx="${p[0]}" cy="${p[1]}" r="2.6" fill="#fff" stroke="${c}" stroke-width="1.5"/>`; });
   });
   document.getElementById("chart").innerHTML = svg + "</svg>";
   document.getElementById("legend").innerHTML = stores.map((s, si) => `<span><i style="border-color:${LINE[si % LINE.length]};${isWolt(s) ? "border-top-style:dashed" : ""}"></i>${esc(s)}</span>`).join("");
