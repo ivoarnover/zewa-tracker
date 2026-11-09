@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zewa Deluxe price tracker</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1b1f24;--muted:#5f6b7a;--line:#e3e7ec;--good:#13804b;--goodbg:#e3f5ea;--warn:#a15c00;--accent:#2457c5}
+@media (prefers-color-scheme:dark){:root{--bg:#111418;--card:#1a1f25;--text:#e8ecf1;--muted:#9aa6b4;--line:#2b323a;--good:#4cc985;--goodbg:#173325;--warn:#e0a24a;--accent:#7aa2ff}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:960px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:24px;margin:0 0 4px}
+h2{font-size:17px;margin:28px 0 10px}
+.muted{color:var(--muted);font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.hero{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:16px}
+.big{font-size:40px;font-weight:700;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:600}
+.good{background:var(--goodbg);color:var(--good)}
+.notgood{background:var(--line);color:var(--muted)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+td.name{white-space:normal;min-width:220px}
+th{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+tr.isgood td.pr{color:var(--good);font-weight:700}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.status{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.status span{font-size:12px;padding:2px 8px;border-radius:6px;border:1px solid var(--line)}
+.status .bad{color:var(--warn);border-color:var(--warn)}
+.chart-box{position:relative;height:340px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Zewa Deluxe toilet paper: best price per roll</h1>
+  <div class="muted" id="updated">Loading…</div>
+
+  <div class="card hero" id="hero"></div>
+  <div class="status" id="status"></div>
+
+  <h2>All offers today</h2>
+  <div class="card table-wrap">
+    <table>
+      <thead><tr><th>€ / roll</th><th>Store</th><th>Product</th><th>Rolls</th><th>Pack price</th><th>Price type</th><th>Regular</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <h2>Price history (best € per roll, per store)</h2>
+  <div class="card"><div class="chart-box"><canvas id="chart"></canvas></div>
+    <div class="muted" id="histnote" style="margin-top:8px"></div></div>
+
+  <p class="muted">Prices are read once a day from the stores' public websites. Loyalty prices (Selver Partnerkaart, Barbora AITÄH, Bauhof logged-in customer price) need the store's card or account. Good price = under the threshold shown above. Not affiliated with any store.</p>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const eur = v => v == null ? "" : v.toFixed(2).replace(".", ",") + " €";
+const roll = v => v.toFixed(3).replace(".", ",") + " €";
+const typeName = o => o.best_type === "loyalty" ? (o.loyalty_label || "Loyalty card")
+  : o.best_type === "campaign" ? "Campaign" + (o.valid_until ? " until " + o.valid_until.slice(0, 10) : "") : "Regular";
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const COLORS = {Selver:"#e4572e", Bauhof:"#f2a541", Rimi:"#d7263d", Barbora:"#2e86ab", Taig:"#6a4c93"};
+
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/), rows = [];
+  const split = l => { const out = []; let cur = "", q = false;
+    for (let i = 0; i < l.length; i++) { const c = l[i];
+      if (q) { if (c === '"' && l[i+1] === '"') { cur += '"'; i++; } else if (c === '"') q = false; else cur += c; }
+      else if (c === '"') q = true; else if (c === ",") { out.push(cur); cur = ""; } else cur += c; }
+    out.push(cur); return out; };
+  const head = split(lines[0]);
+  for (const l of lines.slice(1)) { const v = split(l); rows.push(Object.fromEntries(head.map((h, i) => [h, v[i]]))); }
+  return rows;
+}
+
+async function load() {
+  const bust = "?t=" + Date.now();
+  const latest = await (await fetch("data/latest.json" + bust)).json();
+  const good = latest.good_price;
+  document.getElementById("updated").textContent =
+    "Updated " + new Date(latest.updated).toLocaleString("et-EE") + " · good price is under " + good.toFixed(2).replace(".", ",") + " € per roll";
+
+  const offers = latest.offers.filter(o => !o.stale);
+  const best = offers[0] || latest.offers[0];
+  const hero = document.getElementById("hero");
+  if (best) {
+    const isGood = best.per_roll < good;
+    hero.innerHTML = `<div><div class="muted">Best right now</div><div class="big">${roll(best.per_roll)}</div><span class="pill ${isGood ? "good" : "notgood"}">${isGood ? "Good price, buy" : "Not a good price"}</span></div>
+      <div><div><b>${esc(best.store)}</b>: <a href="${esc(best.url)}" target="_blank" rel="noopener">${esc(best.name)}</a></div>
+      <div class="muted">${best.rolls} rolls for ${eur(best.best)} · ${esc(typeName(best))}</div></div>`;
+  }
+  document.getElementById("status").innerHTML = Object.entries(latest.status).map(([s, st]) =>
+    st.ok ? `<span>${esc(s)}: ${st.count} products</span>`
+          : `<span class="bad" title="${esc(st.error)}">${esc(s)}: failed today, last OK ${esc(st.last_ok || "never")}</span>`).join("");
+
+  document.getElementById("rows").innerHTML = latest.offers.map(o => `<tr class="${o.per_roll < good ? "isgood" : ""}">
+    <td class="pr">${roll(o.per_roll)}</td><td>${esc(o.store)}${o.stale ? ' <span class="muted">(old)</span>' : ""}</td>
+    <td class="name"><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.name)}</a></td>
+    <td>${o.rolls}</td><td>${eur(o.best)}</td><td>${esc(typeName(o))}</td><td class="muted">${eur(o.regular)}</td></tr>`).join("");
+
+  const hist = parseCSV(await (await fetch("data/history.csv" + bust)).text());
+  const dates = [...new Set(hist.map(r => r.date))].sort();
+  const stores = [...new Set(hist.map(r => r.store))];
+  const bestBy = {};
+  for (const r of hist) { const k = r.store + "|" + r.date, v = parseFloat(r.per_roll);
+    if (!isNaN(v) && (!(k in bestBy) || v < bestBy[k].v)) bestBy[k] = {v, r}; }
+  const datasets = stores.map(s => ({label: s, borderColor: COLORS[s] || "#888", backgroundColor: COLORS[s] || "#888",
+    data: dates.map(d => bestBy[s + "|" + d]?.v ?? null), spanGaps: true, tension: .2, pointRadius: dates.length > 40 ? 0 : 3,
+    stepped: false}));
+  datasets.push({label: "Good price", data: dates.map(() => good), borderColor: "#13804b", borderDash: [6, 4], pointRadius: 0, borderWidth: 1.5});
+  const css = getComputedStyle(document.documentElement);
+  new Chart(document.getElementById("chart"), {type: "line", data: {labels: dates, datasets},
+    options: {maintainAspectRatio: false, interaction: {mode: "index", intersect: false},
+      scales: {y: {title: {display: true, text: "€ per roll"}, ticks: {color: css.getPropertyValue("--muted")}, grid: {color: css.getPropertyValue("--line")}},
+               x: {ticks: {color: css.getPropertyValue("--muted")}, grid: {display: false}}},
+      plugins: {legend: {labels: {color: css.getPropertyValue("--text")}},
+        tooltip: {callbacks: {label: c => {const r = bestBy[c.dataset.label + "|" + c.label]?.r;
+          return c.dataset.label + ": " + (c.parsed.y?.toFixed(3) ?? "-") + " €" + (r ? " (" + r.rolls + " rl, " + r.best_type + ")" : "");}}}}}});
+  const all = Object.values(bestBy).sort((a, b) => a.v - b.v)[0];
+  document.getElementById("histnote").textContent = all
+    ? `Tracking since ${dates[0]}. Lowest seen: ${roll(all.v)} at ${all.r.store} (${all.r.rolls} rolls, ${all.r.date}).` : "";
+}
+load().catch(e => { document.getElementById("updated").textContent = "Could not load data: " + e; });
+</script>
+</body>
+</html>
