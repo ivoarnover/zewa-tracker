@@ -14,7 +14,7 @@
   --bg:#f4efe6; --surface:#fffdf9; --surface-2:#f9f5ee; --ink:#14201c; --ink-2:#3c4a45; --muted:#7a857f;
   --line:#e5ddd0; --brand:#0f3d33; --brand-ink:#f4efe6; --good:#1c7c54; --good-bg:#dff1e7; --warn:#b4610f; --warn-bg:#fbead6;
   --bar:#d9cfbf; --shadow:0 1px 2px rgba(20,32,28,.05),0 8px 24px -12px rgba(20,32,28,.18);
-  --c-bauhof:#e07a1f; --c-selver:#c8323f; --c-rimi:#7b3fb8; --c-barbora:#1e8a8a; --c-other:#5b6b8c;
+  --c-bauhof:#e07a1f; --c-selver:#c8323f; --c-rimi:#7b3fb8; --c-barbora:#1e8a8a; --c-coop:#2f6fd0; --c-other:#5b6b8c;
 }
 @media (prefers-color-scheme:dark){:root{
   --bg:#0e1412; --surface:#151d1a; --surface-2:#1a2420; --ink:#eef2ee; --ink-2:#c3ccc6; --muted:#8a978f;
@@ -175,21 +175,22 @@ footer p{margin:0 0 8px}
 <footer class="wrap">
   <div>
     <p>Only Zewa Deluxe toilet paper is tracked (all variants, any pack size); Zewa Everyday and other lines are left out. The roll count is read from the product name and the best of regular, campaign and loyalty price is used.</p>
-    <p>Loyalty prices need the store's card or account: Selver Partnerkaart, Barbora AITÄH, Bauhof logged-in customer price.</p>
+    <p>Loyalty prices need the store's card or account: Selver Partnerkaart, Barbora AITÄH, Bauhof logged-in customer price. Coop has no central e-shop, so Coop prices come from the Coop Haapsalu e-shop and may differ in other Coop stores.</p>
   </div>
   <div><p>Updated daily by GitHub Actions.</p><p>Not affiliated with Zewa or any store.</p></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-const COLORS = {Bauhof:"--c-bauhof", Selver:"--c-selver", Rimi:"--c-rimi", Barbora:"--c-barbora"};
+const COLORS = {Bauhof:"--c-bauhof", Selver:"--c-selver", Rimi:"--c-rimi", Barbora:"--c-barbora", Coop:"--c-coop"};
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const color = s => css(COLORS[s] || "--c-other");
 const eur = v => v == null ? "–" : v.toFixed(2).replace(".", ",") + " €";
 const roll = v => v == null ? "–" : v.toFixed(3).replace(".", ",") + " €";
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmtDate = d => { if (!d) return ""; const m = String(d).match(/(\d{4})-(\d{2})-(\d{2})/); return m ? `${+m[3]}.${+m[2]}.${m[1]}` : String(d); };
-const pretty = n => n.toLowerCase().replace(/(^|[\s,(\/-])(\p{L})/gu, (a, b, c) => b + c.toUpperCase());
+const pretty = n => { let s = n.toLowerCase().replace(/\s+/g, " ").trim(); s = s[0].toUpperCase() + s.slice(1);
+  return s.replace(/zewa ?/g, "Zewa ").replace(/\bdelux(e?)\b/g, "Delux$1").replace(/delicate care/g, "Delicate Care").replace(/pure white/g, "Pure White").replace(/\s+,/g, ",").trim(); };
 const typeLabel = o => o.best_type === "loyalty" ? (o.loyalty_label || "Loyalty card") : o.best_type === "campaign" ? "Campaign" : "Regular";
 const typeLong = o => typeLabel(o) + (o.best_type === "campaign" && o.valid_until ? " until " + fmtDate(o.valid_until) : "");
 
@@ -296,7 +297,7 @@ function renderChart() {
   chart = new Chart(document.getElementById("chart"), {type: "line", data: {labels: dates.map(fmtDate), datasets: ds},
     options: {maintainAspectRatio: false, interaction: {mode: "index", intersect: false}, layout: {padding: {top: 6}},
       scales: {
-        y: {suggestedMin: 0.2, ticks: {color: muted, font: {family: "JetBrains Mono", size: 11}, callback: v => v.toFixed(2) + " €"}, grid: {color: grid}, border: {display: false}},
+        y: {suggestedMin: 0.2, ticks: {color: muted, font: {family: "JetBrains Mono", size: 11}, callback: v => v.toFixed(2).replace(".", ",") + " €", padding: 8}, grid: {color: grid}, border: {display: false}},
         x: {ticks: {color: muted, font: {family: "Inter", size: 11}, maxRotation: 0, autoSkipPadding: 18}, grid: {display: false}, border: {color: grid}}},
       plugins: {
         legend: {position: "top", align: "end", labels: {color: css("--ink-2"), usePointStyle: true, pointStyle: "circle", boxWidth: 8, boxHeight: 8, padding: 16, font: {family: "Inter", size: 12}}},

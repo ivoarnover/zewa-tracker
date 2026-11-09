@@ -162,7 +162,21 @@ def bauhof():
     return out
 
 
-STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora}
+def coop():
+    # Coop has no central e-shop; Coop Haapsalu's WooCommerce Store API is the only public Coop price source found.
+    items = json.loads(fetch("https://coophaapsalu.ee/wp-json/wc/store/v1/products?search=zewa&per_page=100"))
+    out = []
+    for p in items:
+        name = re.sub(r"(\d+)\s*tk\b", r"\1 rl", html.unescape(p["name"]))  # "8tk" = 8 rolls here
+        if not p.get("is_in_stock") or not is_deluxe_tp(name):
+            continue
+        pr, div = p["prices"], 10 ** p["prices"].get("currency_minor_unit", 2)
+        regular, now = int(pr["regular_price"]) / div, int(pr["price"]) / div
+        out.append(offer("Coop", p["id"], name, p["permalink"], regular, now if now < regular else None))
+    return out
+
+
+STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop}
 
 # ---------------------------------------------------------------- main
 

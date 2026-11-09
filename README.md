@@ -19,9 +19,10 @@ Page: https://ivoarnover.github.io/zewa-tracker/
 | Bauhof | toilet paper category page HTML | logged-in customer price (`tier-price`) |
 | Rimi | search page HTML (`data-gtm-eec-product`) | campaign vs "Tavahind" |
 | Barbora | search JSON API | AITÄH card (`promotion.loyaltyCardRequired`) |
+| Coop | Coop Haapsalu WooCommerce Store API (`/wp-json/wc/store/v1/products?search=zewa`) | none shown |
 
 Blocked from GitHub servers (403, bot protection), so not included: K-Rauta, 1a.ee, Hansapost, Kaup24.
-Coop Haapsalu timed out.
+Coop has no central e-shop; Wolt/Bolt Coop shops are not used (delivery prices).
 
 ## Maintenance
 - Change the threshold: `GOOD_PRICE` in `scraper/scrape.py`.
