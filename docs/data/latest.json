@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T09:39+00:00",
+ "updated": "2026-11-09T09:43+00:00",
  "good_price": 0.35,
  "offers": [
   {
@@ -46,6 +46,21 @@
    "best": 6.79,
    "best_type": "loyalty",
    "per_roll": 0.424
+  },
+  {
+   "store": "Coop",
+   "id": "21899",
+   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 16 rl",
+   "url": "https://coophaapsalu.ee/toode/t-paber-zewa-deluxe-16tk/",
+   "rolls": 16,
+   "regular": 6.99,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 6.99,
+   "best_type": "regular",
+   "per_roll": 0.437
   },
   {
    "store": "Bauhof",
@@ -153,6 +168,21 @@
    "per_roll": 0.657
   },
   {
+   "store": "Coop",
+   "id": "50156",
+   "name": "Tualettpaber Zewa Deluxe 3kih 32 rl valge",
+   "url": "https://coophaapsalu.ee/toode/zewa-deluxe-t-paber-3kih-32tk-valge/",
+   "rolls": 32,
+   "regular": 21.9,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 21.9,
+   "best_type": "regular",
+   "per_roll": 0.684
+  },
+  {
    "store": "Barbora",
    "id": "948319",
    "name": "WC-paber ZEWA Deluxe White 3kih 24rl",
@@ -196,6 +226,66 @@
    "best": 6.09,
    "best_type": "regular",
    "per_roll": 0.761
+  },
+  {
+   "store": "Coop",
+   "id": "13466",
+   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 8 rl",
+   "url": "https://coophaapsalu.ee/toode/t-paber-zewa-deluxe-8tk/",
+   "rolls": 8,
+   "regular": 6.09,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 6.09,
+   "best_type": "regular",
+   "per_roll": 0.761
+  },
+  {
+   "store": "Coop",
+   "id": "78858",
+   "name": "ZewaDeluxe t/paber 8 rl Lavender Dreams",
+   "url": "https://coophaapsalu.ee/toode/zewadeluxe-t-paber-8tk-lavender-dreams/",
+   "rolls": 8,
+   "regular": 6.19,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 6.19,
+   "best_type": "regular",
+   "per_roll": 0.774
+  },
+  {
+   "store": "Coop",
+   "id": "13470",
+   "name": "Tualettpaber Zewa Deluxe 3kih 8 rl kummel",
+   "url": "https://coophaapsalu.ee/toode/t-paber-zewa-deluxe-8tk-2/",
+   "rolls": 8,
+   "regular": 6.19,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 6.19,
+   "best_type": "regular",
+   "per_roll": 0.774
+  },
+  {
+   "store": "Coop",
+   "id": "39540",
+   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 4 rl",
+   "url": "https://coophaapsalu.ee/toode/zewa-deluxe-pure-white-t-paber-4tk/",
+   "rolls": 4,
+   "regular": 3.35,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 3.35,
+   "best_type": "regular",
+   "per_roll": 0.838
   }
  ],
  "status": {
@@ -220,6 +310,12 @@
   "Barbora": {
    "ok": true,
    "count": 2,
+   "last_ok": "2026-11-09",
+   "error": null
+  },
+  "Coop": {
+   "ok": true,
+   "count": 6,
    "last_ok": "2026-11-09",
    "error": null
   }
