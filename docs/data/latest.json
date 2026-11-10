@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T09:57+00:00",
+ "updated": "2026-11-10T12:56+00:00",
  "good_price": 0.35,
  "offers": [
   {
@@ -31,22 +31,6 @@
    "best": 6.49,
    "best_type": "campaign",
    "per_roll": 0.406
-  },
-  {
-   "store": "Selver",
-   "id": "H000038718",
-   "name": "Tualettpaber Delux Delicate Care 3-kihiline, ZEWA, 16 rl",
-   "url": "https://www.selver.ee/tualettpaber-delux-delicate-care-3-kihiline-zewa-16-rl",
-   "rolls": 16,
-   "regular": 12.49,
-   "campaign": null,
-   "loyalty": 6.79,
-   "loyalty_label": "Partnerkaart",
-   "valid_until": null,
-   "ean": "7322540313321",
-   "best": 6.79,
-   "best_type": "loyalty",
-   "per_roll": 0.424
   },
   {
    "store": "Coop",
@@ -81,32 +65,16 @@
   },
   {
    "store": "Selver",
-   "id": "H000038720",
-   "name": "Tualettpaber Deluxe, 3-kihiline, ZEWA, 4 rl",
-   "url": "https://www.selver.ee/tualettpaber-deluxe-3-kihiline-zewa-4-rl",
-   "rolls": 4,
-   "regular": 3.34,
-   "campaign": null,
-   "loyalty": 1.99,
-   "loyalty_label": "Partnerkaart",
-   "valid_until": null,
-   "ean": "7322540313369",
-   "best": 1.99,
-   "best_type": "loyalty",
-   "per_roll": 0.497
-  },
-  {
-   "store": "Selver",
-   "id": "H000038678",
-   "name": "Tualettpaber Deluxe, 3-kihiline, ZEWA, 8 rl",
-   "url": "https://www.selver.ee/tualettpaber-deluxe-3-kihiline-zewa-8-rl",
+   "id": "H000069917",
+   "name": "Tualettpaber Deluxe Lavender Dreams, 3-kihiline, ZEWA, 8 rl",
+   "url": "https://www.selver.ee/tualettpaber-deluxe-lavender-dreams-3-kihiline-zewa-8-rl",
    "rolls": 8,
    "regular": 6.29,
    "campaign": null,
    "loyalty": 3.99,
    "loyalty_label": "Partnerkaart",
    "valid_until": null,
-   "ean": "7322540055337",
+   "ean": "7322540409864",
    "best": 3.99,
    "best_type": "loyalty",
    "per_roll": 0.499
@@ -172,21 +140,6 @@
    "best": 5.19,
    "best_type": "campaign",
    "per_roll": 0.649
-  },
-  {
-   "store": "Bauhof",
-   "id": "766826",
-   "name": "TUALETTPABER ZEWA DELUXE DELICATE CARE 3-KIHILINE, 4 RULLI",
-   "url": "https://www.bauhof.ee/et/p/766826/tualettpaber-zewa-deluxe-delicate-care-3-kihiline-4-rulli",
-   "rolls": 4,
-   "regular": 4.39,
-   "campaign": null,
-   "loyalty": 2.63,
-   "loyalty_label": "sisselogitud kliendile",
-   "valid_until": null,
-   "best": 2.63,
-   "best_type": "loyalty",
-   "per_roll": 0.657
   },
   {
    "store": "Coop",
@@ -299,6 +252,69 @@
    "per_roll": 0.774
   },
   {
+   "store": "Selver",
+   "id": "H000038718",
+   "name": "Tualettpaber Delux Delicate Care 3-kihiline, ZEWA, 16 rl",
+   "url": "https://www.selver.ee/tualettpaber-delux-delicate-care-3-kihiline-zewa-16-rl",
+   "rolls": 16,
+   "regular": 12.49,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": "Partnerkaart",
+   "valid_until": null,
+   "ean": "7322540313321",
+   "best": 12.49,
+   "best_type": "regular",
+   "per_roll": 0.781
+  },
+  {
+   "store": "Selver",
+   "id": "H000038678",
+   "name": "Tualettpaber Deluxe, 3-kihiline, ZEWA, 8 rl",
+   "url": "https://www.selver.ee/tualettpaber-deluxe-3-kihiline-zewa-8-rl",
+   "rolls": 8,
+   "regular": 6.29,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": "Partnerkaart",
+   "valid_until": null,
+   "ean": "7322540055337",
+   "best": 6.29,
+   "best_type": "regular",
+   "per_roll": 0.786
+  },
+  {
+   "store": "Bauhof",
+   "id": "766826",
+   "name": "TUALETTPABER ZEWA DELUXE DELICATE CARE 3-KIHILINE, 4 RULLI",
+   "url": "https://www.bauhof.ee/et/p/766826/tualettpaber-zewa-deluxe-delicate-care-3-kihiline-4-rulli",
+   "rolls": 4,
+   "regular": 4.39,
+   "campaign": null,
+   "loyalty": 3.29,
+   "loyalty_label": "sisselogitud kliendile",
+   "valid_until": null,
+   "best": 3.29,
+   "best_type": "loyalty",
+   "per_roll": 0.823
+  },
+  {
+   "store": "Selver",
+   "id": "H000038720",
+   "name": "Tualettpaber Deluxe, 3-kihiline, ZEWA, 4 rl",
+   "url": "https://www.selver.ee/tualettpaber-deluxe-3-kihiline-zewa-4-rl",
+   "rolls": 4,
+   "regular": 3.34,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": "Partnerkaart",
+   "valid_until": null,
+   "ean": "7322540313369",
+   "best": 3.34,
+   "best_type": "regular",
+   "per_roll": 0.835
+  },
+  {
    "store": "Coop",
    "id": "39540",
    "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 4 rl",
@@ -352,38 +368,38 @@
  "status": {
   "Selver": {
    "ok": true,
-   "count": 4,
-   "last_ok": "2026-11-09",
+   "count": 5,
+   "last_ok": "2026-11-10",
    "error": null
   },
   "Bauhof": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-09",
+   "last_ok": "2026-11-10",
    "error": null
   },
   "Rimi": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-09",
+   "last_ok": "2026-11-10",
    "error": null
   },
   "Barbora": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-09",
+   "last_ok": "2026-11-10",
    "error": null
   },
   "Coop": {
    "ok": true,
    "count": 6,
-   "last_ok": "2026-11-09",
+   "last_ok": "2026-11-10",
    "error": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-09",
+   "last_ok": "2026-11-10",
    "error": null
   }
  }
