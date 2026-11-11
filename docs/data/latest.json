@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T12:56+00:00",
+ "updated": "2026-11-11T12:06+00:00",
  "good_price": 0.35,
  "offers": [
   {
@@ -284,21 +284,6 @@
    "per_roll": 0.786
   },
   {
-   "store": "Bauhof",
-   "id": "766826",
-   "name": "TUALETTPABER ZEWA DELUXE DELICATE CARE 3-KIHILINE, 4 RULLI",
-   "url": "https://www.bauhof.ee/et/p/766826/tualettpaber-zewa-deluxe-delicate-care-3-kihiline-4-rulli",
-   "rolls": 4,
-   "regular": 4.39,
-   "campaign": null,
-   "loyalty": 3.29,
-   "loyalty_label": "sisselogitud kliendile",
-   "valid_until": null,
-   "best": 3.29,
-   "best_type": "loyalty",
-   "per_roll": 0.823
-  },
-  {
    "store": "Selver",
    "id": "H000038720",
    "name": "Tualettpaber Deluxe, 3-kihiline, ZEWA, 4 rl",
@@ -363,43 +348,58 @@
    "best": 3.92,
    "best_type": "regular",
    "per_roll": 0.98
+  },
+  {
+   "store": "Bauhof",
+   "id": "766826",
+   "name": "TUALETTPABER ZEWA DELUXE DELICATE CARE 3-KIHILINE, 4 RULLI",
+   "url": "https://www.bauhof.ee/et/p/766826/tualettpaber-zewa-deluxe-delicate-care-3-kihiline-4-rulli",
+   "rolls": 4,
+   "regular": 4.39,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 4.39,
+   "best_type": "regular",
+   "per_roll": 1.097
   }
  ],
  "status": {
   "Selver": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-10",
+   "last_ok": "2026-11-11",
    "error": null
   },
   "Bauhof": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-10",
+   "last_ok": "2026-11-11",
    "error": null
   },
   "Rimi": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-10",
+   "last_ok": "2026-11-11",
    "error": null
   },
   "Barbora": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-10",
+   "last_ok": "2026-11-11",
    "error": null
   },
   "Coop": {
    "ok": true,
    "count": 6,
-   "last_ok": "2026-11-10",
+   "last_ok": "2026-11-11",
    "error": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-10",
+   "last_ok": "2026-11-11",
    "error": null
   }
  }
