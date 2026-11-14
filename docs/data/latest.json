@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-13T12:34+00:00",
+ "updated": "2026-11-14T11:43+00:00",
  "good_price": 0.35,
  "offers": [
   {
@@ -384,37 +384,37 @@
   "Selver": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-13",
+   "last_ok": "2026-11-14",
    "error": null
   },
   "Bauhof": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-13",
+   "last_ok": "2026-11-14",
    "error": null
   },
   "Rimi": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-13",
+   "last_ok": "2026-11-14",
    "error": null
   },
   "Barbora": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-13",
+   "last_ok": "2026-11-14",
    "error": null
   },
   "Coop": {
    "ok": true,
    "count": 6,
-   "last_ok": "2026-11-13",
+   "last_ok": "2026-11-14",
    "error": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-13",
+   "last_ok": "2026-11-14",
    "error": null
   }
  }
