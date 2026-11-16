@@ -1,17 +1,17 @@
-"""Daily Zewa Deluxe toilet paper price scraper.
+"""Daily price scraper for a few tracked products (see PRODUCTS at the bottom).
 
-One request per store, Python stdlib only. Writes:
-  docs/data/latest.json   current offers + per-store status
-  docs/data/history.csv   one row per product per day
+A few requests per store, Python stdlib only. For each product it writes:
+  <data_dir>/latest.json   current offers + per-store status
+  <data_dir>/history.csv   one row per offer per day
+Fields are named after the first product (rolls, per_roll) but mean "units" and "price per unit".
 Exits 1 if any store failed (after writing data), so GitHub emails the repo owner.
 """
 import csv, datetime as dt, html, json, os, re, sys, time, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "docs", "data")
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/130.0 Safari/537.36")
-GOOD_PRICE = 0.35  # EUR per roll
+P = {}  # the product being scraped right now (set in main)
 FIELDS = ["date", "store", "id", "name", "rolls", "regular", "campaign", "loyalty",
           "best", "best_type", "per_roll", "url", "ean"]
 
@@ -24,6 +24,14 @@ def fetch(url):
 
 def clean(s):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", s))).strip()
+
+
+def is_match(name):
+    return P["match"](name)
+
+
+def count_of(name):
+    return P["count"](name)
 
 
 def is_deluxe_tp(name):
@@ -40,7 +48,25 @@ def rolls_of(name):
     multi = re.search(r"(\d+)\s*[x×]\s*(\d+)\s*(?:rulli|rull|rul|rl)", n)  # e.g. 2x24 rl
     if multi:
         return int(multi.group(1)) * int(multi.group(2))
-    found = re.findall(r"(\d+)[\s-]*(?:rulli|rull|rul|rl)", n)
+    found = re.findall(r"(\d+)[\s-]*(?:rulli|rull|rul|rl)", n) or re.findall(r"(\d+)\s*tk\b", n)
+    return int(found[-1]) if found else None
+
+
+def is_huggies_pants5_boy(name):
+    # Huggies Pants (incl. Little Movers) size 5 / 12-17 kg, Boy or no gender given; Girl and other lines excluded
+    n = name.lower()
+    if "huggies" not in n or not re.search(r"pants|püksm|puksm", n):
+        return False
+    if re.search(r"extra ?care|overnight|dry ?n|ultra|swim|elite|niisk|salvr", n):
+        return False
+    if "girl" in n and "boy" not in n:
+        return False
+    size5 = re.search(r"(?<![\d-])(?:s\s?)?5(?![\d.]|\s*-\s*\d|\s*kg)|12\s*-\s*17\s*kg", n)
+    return bool(size5) and diapers_of(name) is not None
+
+
+def diapers_of(name):
+    found = re.findall(r"(\d+)\s*(?:tk|pcs)\b", name.lower())
     return int(found[-1]) if found else None
 
 
@@ -59,7 +85,7 @@ def offer(store, pid, name, url, regular=None, campaign=None, loyalty=None,
         campaign = None
     if loyalty and regular and loyalty >= regular:
         loyalty = None
-    return dict(store=store, id=str(pid), name=clean(name), url=url, rolls=rolls_of(name),
+    return dict(store=store, id=str(pid), name=clean(name), url=url, rolls=count_of(name),
                 regular=regular, campaign=campaign, loyalty=loyalty,
                 loyalty_label=loyalty_label, valid_until=valid_until)
 
@@ -68,11 +94,11 @@ def offer(store, pid, name, url, regular=None, campaign=None, loyalty=None,
 
 def selver():
     url = ("https://www.selver.ee/api/catalog/vue_storefront_catalog_et/product/_search"
-           "?q=zewa&size=100")
+           "?q=" + P["term"] + "&size=100")
     out = []
     for h in json.loads(fetch(url))["hits"]["hits"]:
         s = h["_source"]
-        if s.get("status") != 1 or not is_deluxe_tp(s.get("name", "")):
+        if s.get("status") != 1 or not is_match(s.get("name", "")):
             continue
         groups = {p.get("customer_group_id"): p for p in s.get("prices") or []}
         g0 = groups.get(0, {})
@@ -89,10 +115,10 @@ def selver():
 
 
 def barbora():
-    data = json.loads(fetch("https://barbora.ee/api/eshop/v1/search?query=zewa"))
+    data = json.loads(fetch("https://barbora.ee/api/eshop/v1/search?query=" + P["term"]))
     out = []
     for p in data.get("products", []):
-        if p.get("status") != "active" or not is_deluxe_tp(p.get("title", "")):
+        if p.get("status") != "active" or not is_match(p.get("title", "")):
             continue
         promo = p.get("promotion") or {}
         price, old = p.get("price"), promo.get("oldPrice")
@@ -108,14 +134,14 @@ def barbora():
 
 
 def rimi():
-    page = fetch("https://www.rimi.ee/epood/ee/otsing?query=zewa&pageSize=80")
+    page = fetch("https://www.rimi.ee/epood/ee/otsing?query=" + P["term"] + "&pageSize=80")
     out = []
     for chunk in page.split('class="product-grid__item"')[1:]:
         m = re.search(r"data-gtm-eec-product='([^']+)'", chunk)
         if not m:
             continue
         j = json.loads(html.unescape(m.group(1)))
-        if not is_deluxe_tp(j["name"]) or "Ei ole saadaval" in chunk:
+        if not is_match(j["name"]) or "Ei ole saadaval" in chunk:
             continue
         href = re.search(r'href="(/epood/ee/tooted/[^"]+)"', chunk)
         old = re.search(r"Tavahind:\s*([\d.,]+)", chunk)
@@ -130,11 +156,11 @@ def rimi():
 
 
 def bauhof():
-    page = fetch("https://www.bauhof.ee/et/c/kodu-ja-sisustus/kodupaber/tualettpaberid")
+    page = fetch(P["bauhof_url"])
     out = []
     for card in re.split(r'(?=<a href="/et/p/\d+/)', page)[1:]:
         title = re.search(r'class="product-card-title"[^>]*>([^<]+)<', card)
-        if not title or not is_deluxe_tp(title.group(1)):
+        if not title or not is_match(title.group(1)):
             continue
         card = card[:card.find("</a>", card.find("product-card-bottom"))]
         href = re.match(r'<a href="(/et/p/(\d+)/[^"]+)"', card)
@@ -166,15 +192,24 @@ def bauhof():
 
 def coop():
     # Coop has no central e-shop; Coop Haapsalu's WooCommerce Store API is the only public Coop price source found.
-    items = json.loads(fetch("https://coophaapsalu.ee/wp-json/wc/store/v1/products?search=zewa&per_page=100"))
+    return woo("Coop", "https://coophaapsalu.ee")
+
+
+def lapseriided():
+    return woo("Lapseriided.com", "https://lapseriided.com")
+
+
+def woo(store, base):
+    # WooCommerce Store API (public, read-only product search)
+    items = json.loads(fetch(base + "/wp-json/wc/store/v1/products?search=" + P["term"] + "&per_page=100"))
     out = []
     for p in items:
-        name = re.sub(r"(\d+)\s*tk\b", r"\1 rl", html.unescape(p["name"]))  # "8tk" = 8 rolls here
-        if not p.get("is_in_stock") or not is_deluxe_tp(name):
+        name = html.unescape(p["name"])
+        if not p.get("is_in_stock") or not is_match(name):
             continue
         pr, div = p["prices"], 10 ** p["prices"].get("currency_minor_unit", 2)
         regular, now = int(pr["regular_price"]) / div, int(pr["price"]) / div
-        o = offer("Coop", p["id"], name, p["permalink"], regular, now if now < regular else None)
+        o = offer(store, p["id"], name, p["permalink"], regular, now if now < regular else None)
         o["ean"] = p.get("sku")
         out.append(o)
     return out
@@ -193,16 +228,16 @@ def wolt_coop():
         stack = list(root.get("categories", []))
         while stack:
             c = stack.pop()
-            if c.get("name", "").strip().lower() == "kodupaber":
+            if c.get("name", "").strip().lower() == P["wolt_category"]:
                 cat = c["slug"]
                 break
             stack += c.get("subcategories", [])
         if not cat:
-            raise RuntimeError("Kodupaber category not found on Wolt")
+            raise RuntimeError(P["wolt_category"] + " category not found on Wolt")
         time.sleep(2)
         data = json.loads(fetch(WOLT_API + slug + "/assortment/categories/slug/" + cat + "?language=et"))
         for i in data.get("items", []):
-            if i.get("disabled_info") or not is_deluxe_tp(i["name"]):
+            if i.get("disabled_info") or not is_match(i["name"]):
                 continue
             price, orig = i["price"] / 100, (i.get("original_price") or 0) / 100
             o = offer(store, i["id"], i["name"], f"https://wolt.com/et/est/tallinn/venue/{slug}",
@@ -237,8 +272,7 @@ def coop_leaflet():
             for e in data.get("enrichments", []):
                 seen += 1
                 name = e.get("name") or e.get("alttext") or ""
-                name = re.sub(r"(\d+)\s*tk\b", r"\1 rl", name)
-                if not e.get("price") or not is_deluxe_tp(name):
+                if not e.get("price") or not is_match(name):
                     continue
                 key = e.get("productId") or name
                 if until:  # weekly leaflet: card price until the end date
@@ -254,8 +288,25 @@ def coop_leaflet():
     return list(best.values())
 
 
-MAY_BE_EMPTY = {"Coop kliendileht"}  # Zewa is only in the leaflet some weeks
-STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop, "Coop kliendileht": coop_leaflet, "Coop Lasnamäe (Wolt)": wolt_coop}
+ALL_STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop,
+              "Coop kliendileht": coop_leaflet, "Coop Lasnamäe (Wolt)": wolt_coop, "Lapseriided.com": lapseriided}
+
+PRODUCTS = {
+    "zewa": dict(
+        data_dir="docs/data", good_price=0.35, term="zewa", match=is_deluxe_tp, count=rolls_of,
+        bauhof_url="https://www.bauhof.ee/et/c/kodu-ja-sisustus/kodupaber/tualettpaberid", wolt_category="kodupaber",
+        stores=["Selver", "Bauhof", "Rimi", "Barbora", "Coop", "Coop kliendileht", "Coop Lasnamäe (Wolt)"],
+        may_be_empty={"Coop kliendileht"},  # Zewa is only in the leaflet some weeks
+        info={"title": "Zewa Deluxe Price Watch", "what": "Zewa Deluxe toilet paper", "unit": "roll", "units": "rolls",
+              "about": "Only Zewa Deluxe toilet paper is tracked (all variants, any pack size). Zewa Everyday and other lines are left out."}),
+    "huggies": dict(
+        data_dir="docs/huggies/data", good_price=0.30, term="huggies", match=is_huggies_pants5_boy, count=diapers_of,
+        wolt_category="mähkmed",
+        stores=["Selver", "Rimi", "Barbora", "Coop", "Coop kliendileht", "Coop Lasnamäe (Wolt)", "Lapseriided.com"],
+        may_be_empty={"Coop kliendileht", "Coop Lasnamäe (Wolt)", "Coop"},
+        info={"title": "Huggies Pants 5 Boy Price Watch", "what": "Huggies Pants size 5 (12-17 kg) Boy diapers", "unit": "diaper", "units": "diapers",
+              "about": "Only Huggies Pants size 5 (12-17 kg) Boy diapers are tracked, including Little Movers, any pack size. Packs that don't say Boy or Girl are included; Girl, Extra Care, Overnights and other lines are left out."}),
+}
 
 # ---------------------------------------------------------------- main
 
@@ -269,18 +320,32 @@ def finish(o):
 
 
 def main():
+    failed = []
+    for key, cfg in PRODUCTS.items():
+        P.clear()
+        P.update(cfg)
+        print("==", key, flush=True)
+        failed += [key + ": " + s for s in run_product()]
+    if failed:
+        print("FAILED STORES:", ", ".join(failed), file=sys.stderr)
+        sys.exit(1)
+
+
+def run_product():
+    DATA = os.path.join(ROOT, P["data_dir"])
     os.makedirs(DATA, exist_ok=True)
     latest_path, hist_path = os.path.join(DATA, "latest.json"), os.path.join(DATA, "history.csv")
     prev = json.load(open(latest_path)) if os.path.exists(latest_path) else {"offers": [], "status": {}}
     now = dt.datetime.now(dt.timezone.utc)
     today = now.astimezone(dt.timezone(dt.timedelta(hours=2))).date().isoformat()
     offers, status, failed = [], {}, []
-    for store, fn in STORES.items():
+    for store in P["stores"]:
+        fn = ALL_STORES[store]
         try:
             got = [finish(o) for o in fn()]
             got = [o for o in got if o["per_roll"]]
-            if not got and store not in MAY_BE_EMPTY:
-                raise RuntimeError("no Zewa Deluxe products parsed (page layout changed or out of stock)")
+            if not got and store not in P["may_be_empty"]:
+                raise RuntimeError("no matching products parsed (page layout changed or out of stock)")
             offers += got
             status[store] = {"ok": True, "count": len(got), "last_ok": today, "error": None}
         except Exception as e:  # keep yesterday's data for this store, mark it stale
@@ -292,7 +357,7 @@ def main():
         time.sleep(2)
 
     offers.sort(key=lambda o: o["per_roll"])
-    json.dump({"updated": now.isoformat(timespec="minutes"), "good_price": GOOD_PRICE,
+    json.dump({"updated": now.isoformat(timespec="minutes"), "good_price": P["good_price"], "product": P["info"],
                "offers": offers, "status": status},
               open(latest_path, "w"), ensure_ascii=False, indent=1)
 
@@ -304,10 +369,7 @@ def main():
         w = csv.DictWriter(f, fieldnames=FIELDS)
         w.writeheader()
         w.writerows(rows)
-
-    if failed:
-        print("FAILED STORES:", ", ".join(failed), file=sys.stderr)
-        sys.exit(1)
+    return failed
 
 
 if __name__ == "__main__":

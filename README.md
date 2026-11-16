@@ -3,7 +3,8 @@
 Finds the cheapest Zewa Deluxe toilet paper per roll in Estonian shops, once a day.
 Good price: under 0.35 € per roll.
 
-Page: https://ivoarnover.github.io/zewa-tracker/
+Pages: https://ivoarnover.github.io/zewa-tracker/ (Zewa Deluxe) and https://ivoarnover.github.io/zewa-tracker/huggies/ (Huggies Pants 5 Boy, good price under 0.30 € per diaper; also checks Lapseriided.com).
+Tracked products, search terms and matching rules are in `PRODUCTS` at the bottom of `scraper/scrape.py`.
 
 ## How it works
 - `.github/workflows/daily.yml` runs `scraper/scrape.py` every morning on GitHub Actions (free).
