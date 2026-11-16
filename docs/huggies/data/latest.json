@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T09:04+00:00",
+ "updated": "2026-11-16T09:13+00:00",
  "good_price": 0.3,
  "product": {
   "title": "Huggies Pants 5 Boy Price Watch",
@@ -9,6 +9,21 @@
   "about": "Only Huggies Pants size 5 (12-17 kg) Boy diapers are tracked, including Little Movers, any pack size. Packs that don't say Boy or Girl are included; Girl, Extra Care, Overnights and other lines are left out."
  },
  "offers": [
+  {
+   "store": "DEPO",
+   "id": "199094",
+   "name": "Mähkmed Pants Huggies 5.suur./12-17kg/48tk Boy",
+   "url": "https://online.depo.ee/product/199094",
+   "rolls": 48,
+   "regular": 12.55,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 12.55,
+   "best_type": "regular",
+   "per_roll": 0.261
+  },
   {
    "store": "Barbora",
    "id": "1253351",
@@ -256,6 +271,12 @@
   "Lapseriided.com": {
    "ok": true,
    "count": 5,
+   "last_ok": "2026-11-16",
+   "error": null
+  },
+  "DEPO": {
+   "ok": true,
+   "count": 1,
    "last_ok": "2026-11-16",
    "error": null
   }
