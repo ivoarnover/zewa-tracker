@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T10:07+00:00",
+ "updated": "2026-11-16T10:11+00:00",
  "review": [
   {
    "store": "Kaupmees",
@@ -2618,7 +2618,8 @@
    "loyalty_label": null,
    "per_can": 2.99,
    "beer": "kosmos",
-   "per_litre": 6.8
+   "per_litre": 6.8,
+   "stale": true
   },
   {
    "store": "Viinarannasta",
@@ -2634,7 +2635,8 @@
    "loyalty_label": null,
    "per_can": 1.665,
    "beer": "laager",
-   "per_litre": 3.78
+   "per_litre": 3.78,
+   "stale": true
   },
   {
    "store": "Viinarannasta",
@@ -2650,7 +2652,8 @@
    "loyalty_label": null,
    "per_can": 1.99,
    "beer": "laager",
-   "per_litre": 4.52
+   "per_litre": 4.52,
+   "stale": true
   },
   {
    "store": "Viinarannasta",
@@ -2666,7 +2669,8 @@
    "loyalty_label": null,
    "per_can": 2.7,
    "beer": "virmalised",
-   "per_litre": 8.18
+   "per_litre": 8.18,
+   "stale": true
   }
  ],
  "status": {
@@ -2720,11 +2724,10 @@
    "warning": null
   },
   "Viinarannasta": {
-   "ok": true,
-   "count": 4,
+   "ok": false,
+   "count": 0,
    "last_ok": "2026-11-16",
-   "error": null,
-   "warning": null
+   "error": "RuntimeError: no Põhjala beers parsed (page layout changed?)"
   }
  }
 }
