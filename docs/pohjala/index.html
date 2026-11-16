@@ -73,7 +73,7 @@ footer p{margin:0 0 8px}
     <label><input type="checkbox" id="cases" checked> include 24-can cases</label>
   </div>
   <table>
-    <thead><tr><th>Beer</th><th class="r">Best €/l</th><th class="r hide-s">Best price</th><th class="hide-s">€/l per store</th></tr></thead>
+    <thead><tr><th>Beer</th><th class="r">Best €/l</th><th class="r">Per can</th><th class="r hide-s">Best price</th><th class="hide-s">€/l per store</th></tr></thead>
     <tbody id="rows"></tbody>
   </table>
   <p class="meta" style="margin-top:8px">Click a beer for all offers and its price history.</p>
@@ -173,13 +173,14 @@ function table() {
     const bb = b.best;
     let row = `<tr class="beer" id="row-${esc(b.key)}" data-k="${esc(b.key)}">
       <td><b>${esc(b.name)}</b>${b.alcohol_free ? ' <span class="meta">alcohol-free</span>' : ""}${b.label ? ` <span class="tag">${esc(b.label)}</span>` : ""}
-        <small>${b.storeCount} store${b.storeCount === 1 ? "" : "s"}${b.volume_l ? " · " + String(b.volume_l).replace(".", ",") + " l can" : ""}</small>${bb ? `<small class="show-s">best: ${esc(storeName(bb.store))}, ${esc(packTxt(bb))} for ${eur(bb.best)}</small>` : ""}</td>
+        <small>${b.storeCount} store${b.storeCount === 1 ? "" : "s"}</small>${bb ? `<small class="show-s">best: ${esc(storeName(bb.store))}, ${esc(packTxt(bb))} for ${eur(bb.best)}</small>` : ""}</td>
       <td class="r num"><b>${bb ? eur(bb.per_litre) : "–"}</b></td>
-      <td class="r num hide-s">${bb ? `${eur(bb.best)}<small>${esc(storeName(bb.store))}, ${esc(packTxt(bb))}</small>` : (b.offers[0] ? `${eur(b.offers[0].per_can)}<small>per can, size unknown</small>` : "")}</td>
+      <td class="r num">${bb ? `${eur(bb.per_can)}<small>${String(bb.volume_l).replace(".", ",")} l can</small>` : (b.offers[0] ? `${eur(Math.min(...b.offers.map(o => o.per_can)))}<small>size unknown</small>` : "–")}</td>
+      <td class="r num hide-s">${bb ? `${eur(bb.best)}<small>${esc(storeName(bb.store))}, ${esc(packTxt(bb))}</small>` : (b.offers[0] ? `<small>${esc(storeName(b.offers[0].store))}</small>` : "")}</td>
       <td class="stores hide-s">${stores || "<span>–</span>"}</td></tr>`;
-    if (open === b.key) row += `<tr class="detail"><td colspan="4">${detail(b)}</td></tr>`;
+    if (open === b.key) row += `<tr class="detail"><td colspan="5">${detail(b)}</td></tr>`;
     return row;
-  }).join("") || `<tr><td colspan="4" class="meta">No beers match.</td></tr>`;
+  }).join("") || `<tr><td colspan="5" class="meta">No beers match.</td></tr>`;
   document.querySelectorAll("tr.beer").forEach(tr => tr.onclick = () => { open = open === tr.dataset.k ? null : tr.dataset.k; table(); });
 }
 
