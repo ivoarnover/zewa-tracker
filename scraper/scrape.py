@@ -132,10 +132,12 @@ def offer(store, pid, name, url, regular=None, campaign=None, loyalty=None,
 
 def selver():
     url = ("https://www.selver.ee/api/catalog/vue_storefront_catalog_et/product/_search"
-           "?q=" + P["term"] + "&size=100")
+           "?q=" + P["term"] + "&size=300")
     out = []
-    hits = json.loads(fetch(url))["hits"]["hits"]
-    check_cutoff(len(hits), 100)
+    res = json.loads(fetch(url))["hits"]
+    hits, total = res["hits"], (res.get("total") or {}).get("value", 0)
+    if total > len(hits):  # the search found more than one page
+        check_cutoff(len(hits), len(hits))
     for h in hits:
         s = h["_source"]
         if s.get("status") != 1 or not is_match(s.get("name", "")):

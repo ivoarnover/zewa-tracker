@@ -121,8 +121,10 @@ def coop():
 def selver():
     url = "https://www.selver.ee/api/catalog/vue_storefront_catalog_et/product/_search?q=p%C3%B5hjala&size=200"
     out = []
-    hits = json.loads(fetch(url))["hits"]["hits"]
-    check_cutoff(len(hits), 200)
+    res = json.loads(fetch(url))["hits"]
+    hits, total = res["hits"], (res.get("total") or {}).get("value", 0)
+    if total > len(hits):  # the search found more than one page
+        check_cutoff(len(hits), len(hits))
     for h in hits:
         s = h["_source"]
         if s.get("status") != 1 or "PÕHJALA" not in s.get("name", "") or NOT_BEER.search(s["name"]):
