@@ -70,6 +70,7 @@ footer p{margin:0 0 8px}
       </select></label>
     <label><input type="checkbox" id="af"> alcohol-free only</label>
     <label><input type="checkbox" id="multi"> sold in 2+ stores</label>
+    <label><input type="checkbox" id="cases" checked> include 24-can cases</label>
   </div>
   <table>
     <thead><tr><th>Beer</th><th class="r">Best €/l</th><th class="r hide-s">Best price</th><th class="hide-s">€/l per store</th></tr></thead>
@@ -121,7 +122,8 @@ function analyse() {
   const today = [...new Set(hist.map(r => r.date))].sort().pop();
   const dayMs = 864e5, t0 = Date.parse(today);
   for (const b of beers) {
-    const shelf = b.offers.filter(o => !isWolt(o.store) && o.per_litre != null && !o.stale);
+    const cases = document.getElementById("cases").checked;
+    const shelf = b.offers.filter(o => !isWolt(o.store) && o.per_litre != null && !o.stale && (cases || o.pack === 1));
     b.best = shelf.sort((x, y) => x.per_litre - y.per_litre)[0] || null;
     b.storeCount = new Set(b.offers.filter(o => !isWolt(o.store)).map(o => o.store)).size;
     const days = byBeer[b.key] || {}, prev = Object.keys(days).filter(d => d < today).sort();
@@ -165,7 +167,7 @@ function table() {
     : sort === "stores" ? (a, c) => c.storeCount - a.storeCount || L(a) - L(c) : (a, c) => L(a) - L(c));
   document.getElementById("rows").innerHTML = list.map(b => {
     const perStore = {};
-    for (const o of b.offers) if (o.per_litre != null && (!(o.store in perStore) || o.per_litre < perStore[o.store].per_litre)) perStore[o.store] = o;
+    for (const o of b.offers) if (o.per_litre != null && (document.getElementById("cases").checked || o.pack === 1) && (!(o.store in perStore) || o.per_litre < perStore[o.store].per_litre)) perStore[o.store] = o;
     const stores = Object.values(perStore).sort((x, y) => x.per_litre - y.per_litre).map(o =>
       `<span class="${b.best && o.store === b.best.store ? "best" : ""} ${isWolt(o.store) ? "wolt" : ""}">${SHORT[o.store] || o.store} ${(+o.per_litre).toFixed(2).replace(".", ",")}</span>`).join("");
     const bb = b.best;
@@ -173,7 +175,7 @@ function table() {
       <td><b>${esc(b.name)}</b>${b.alcohol_free ? ' <span class="meta">alcohol-free</span>' : ""}${b.label ? ` <span class="tag">${esc(b.label)}</span>` : ""}
         <small>${b.storeCount} store${b.storeCount === 1 ? "" : "s"}${b.volume_l ? " · " + String(b.volume_l).replace(".", ",") + " l can" : ""}</small>${bb ? `<small class="show-s">best: ${esc(storeName(bb.store))}, ${esc(packTxt(bb))} for ${eur(bb.best)}</small>` : ""}</td>
       <td class="r num"><b>${bb ? eur(bb.per_litre) : "–"}</b></td>
-      <td class="r num hide-s">${bb ? `${eur(bb.best)}<small>${esc(storeName(bb.store))}, ${esc(packTxt(bb))}</small>` : "<small>can size unknown</small>"}</td>
+      <td class="r num hide-s">${bb ? `${eur(bb.best)}<small>${esc(storeName(bb.store))}, ${esc(packTxt(bb))}</small>` : (b.offers[0] ? `${eur(b.offers[0].per_can)}<small>per can, size unknown</small>` : "")}</td>
       <td class="stores hide-s">${stores || "<span>–</span>"}</td></tr>`;
     if (open === b.key) row += `<tr class="detail"><td colspan="4">${detail(b)}</td></tr>`;
     return row;
@@ -226,6 +228,7 @@ async function load() {
   document.getElementById("updated").textContent = "Last update: " + d.toLocaleDateString("et-EE") + " " + d.toLocaleTimeString("et-EE", {hour: "2-digit", minute: "2-digit"}) + ` · ${beers.length} beers`;
   summary(); table();
   for (const id of ["q", "sort", "af", "multi"]) document.getElementById(id).addEventListener("input", table);
+  document.getElementById("cases").addEventListener("input", () => { analyse(); summary(); table(); });
   const bad = Object.entries(latest.status).filter(([, s]) => !s.ok);
   document.getElementById("problems").hidden = !bad.length;
   document.getElementById("stores").innerHTML = bad.map(([s, st]) => `<li><b>${esc(storeName(s))}</b>: <span class="bad">could not be read today, showing data from ${fmtDate(st.last_ok) || "never"}</span></li>`).join("");
