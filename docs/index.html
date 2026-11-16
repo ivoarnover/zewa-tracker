@@ -84,7 +84,7 @@ footer p{margin:0 0 8px}
 
   <footer>
     <p>Only Zewa Deluxe toilet paper is tracked (all variants, any pack size). Zewa Everyday and other lines are left out. The roll count comes from the product name; the price used is the lowest of the regular, campaign and loyalty price.</p>
-    <p>Loyalty prices need the store's card or account: Selver Partnerkaart, Barbora AITÄH card, Bauhof customer account. Coop has no central web shop, so Coop prices come from the Coop Haapsalu e-shop and, marked as Wolt, from Coop Lasnamäe on Wolt.</p>
+    <p>Loyalty prices need the store's card or account: Selver Partnerkaart, Barbora AITÄH card, Bauhof customer account. Coop has no central web shop, so Coop prices come from the Coop Haapsalu e-shop, the weekly Coop kliendileht (Säästukaart prices, valid until the date shown) and, marked as Wolt, from Coop Lasnamäe on Wolt.</p>
     <p>A small personal project, not affiliated with Zewa or any store. Source on <a href="https://github.com/ivoarnover/zewa-tracker">GitHub</a>.</p>
   </footer>
 </main>
@@ -106,10 +106,11 @@ const pretty = n => {
   s = s.replace(/delicate care/, "Delicate Care").replace(/pure white/, "Pure White").replace(/lavender/, "Lavender");
   return s[0].toUpperCase() + s.slice(1);
 };
-const LOYALTY = {"Partnerkaart": "Selver Partnerkaart", "AITÄH kaart": "Barbora AITÄH card", "sisselogitud kliendile": "Bauhof account price", "Rimi kaart": "Rimi card"};
-const typeLong = o => o.best_type === "loyalty" ? "loyalty: " + (LOYALTY[o.loyalty_label] || o.loyalty_label || "card")
-  : o.best_type === "campaign" ? "campaign" + (o.valid_until ? " until " + shortDate(o.valid_until) : "") : "regular";
-const COLORS = {"Selver": "#d62728", "Bauhof": "#2ca02c", "Rimi": "#1f77b4", "Barbora": "#ff7f0e", "Coop": "#9467bd", "Coop Lasnamäe (Wolt)": "#999999"};
+const LOYALTY = {"Partnerkaart": "Selver Partnerkaart", "AITÄH kaart": "Barbora AITÄH card", "sisselogitud kliendile": "Bauhof account price", "Rimi kaart": "Rimi card", "Säästukaart": "Coop Säästukaart"};
+const until = o => o.valid_until ? " until " + shortDate(o.valid_until) : "";
+const typeLong = o => o.best_type === "loyalty" ? "loyalty: " + (LOYALTY[o.loyalty_label] || o.loyalty_label || "card") + until(o)
+  : o.best_type === "campaign" ? "campaign" + until(o) : "regular";
+const COLORS = {"Selver": "#d62728", "Bauhof": "#2ca02c", "Rimi": "#1f77b4", "Barbora": "#ff7f0e", "Coop": "#9467bd", "Coop kliendileht": "#e377c2", "Coop Lasnamäe (Wolt)": "#999999"};
 const color = s => COLORS[s] || "#7f7f7f";
 
 function parseCSV(text) {

@@ -213,7 +213,43 @@ def wolt_coop():
     return out
 
 
-STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop, "Coop Lasnamäe (Wolt)": wolt_coop}
+def coop_leaflet():
+    # Coop kliendileht (iPaper flipbook): each page's product hotspots carry name + price, no OCR needed.
+    # Leaflet prices are treated as Säästukaart (customer card) prices.
+    index = fetch("https://www.coop.ee/kliendileht")
+    links = sorted(set(re.findall(r'href="(https://kliendileht\.coop\.ee/[^"]+/)"', index)))[:5]
+    today = dt.date.today()
+    best = {}
+    for link in links:
+        time.sleep(2)
+        page = fetch(link)
+        dates = re.search(r"(\d{1,2})\.(\d{1,2})\.?\s*[–-]\s*(\d{1,2})\.(\d{1,2})\.(\d{4})", page)
+        until = None
+        if dates:
+            until = dt.date(int(dates.group(5)), int(dates.group(4)), int(dates.group(3)))
+            if until < today:
+                continue
+        for jurl in sorted(set(re.findall(r'https://cdn\.ipaper\.io/iPaper/Papers/[^"\s]+?/Page\d+-\d+\.json[^"\s]*', page))):
+            time.sleep(2)
+            data = json.loads(fetch(jurl.replace("\\u0026", "&").replace("\\/", "/")))
+            for e in data.get("enrichments", []):
+                name = e.get("name") or e.get("alttext") or ""
+                name = re.sub(r"(\d+)\s*tk\b", r"\1 rl", name)
+                if not e.get("price") or not is_deluxe_tp(name):
+                    continue
+                key = e.get("productId") or name
+                if until:  # weekly leaflet: card price until the end date
+                    o = offer("Coop kliendileht", key, name, link, None, None, e["price"], "Säästukaart",
+                              until.isoformat())
+                else:  # undated lists (e.g. "Hoiame soodsana") are standing everyday prices
+                    o = offer("Coop kliendileht", key, name, link, e["price"])
+                price = o["loyalty"] or o["regular"]
+                if key not in best or price < (best[key]["loyalty"] or best[key]["regular"]):
+                    best[key] = o
+    return list(best.values())
+
+
+STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop, "Coop kliendileht": coop_leaflet, "Coop Lasnamäe (Wolt)": wolt_coop}
 
 # ---------------------------------------------------------------- main
 
