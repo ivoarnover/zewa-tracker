@@ -4,6 +4,13 @@ jobs:
   d:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: |
-          curl -sL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -o p.html -w "%{http_code} %{size_download} %{url_effective}\n" "https://viinarannasta.ee/shop?search=p%C3%B5hjala"
-          grep -o "<title>[^<]*" p.html; grep -c "product-detail/" p.html; grep -o -i "vanus[^<]\{0,80\}\|18[^<]\{0,40\}aastat[^<]\{0,40\}\|cloudflare\|captcha" p.html | head -5
+          cd scraper && python3 -c "
+          import beers
+          for i in range(2):
+              try:
+                  print(len(beers.viinarannasta()), 'offers')
+              except Exception as e:
+                  print('ERR', e)
+          "
