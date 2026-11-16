@@ -82,7 +82,7 @@ footer p{margin:0 0 8px}
 
   <div id="gone" hidden>
     <h2>No longer found</h2>
-    <p class="meta">Seen in the last 30 days but not today (sold out, delisted or renamed).</p>
+    <p class="meta">Seen in the last 60 days but not today (sold out, delisted or renamed). After 60 days they are dropped from the page.</p>
     <ul class="stores" id="gone-list"></ul>
   </div>
 
@@ -217,7 +217,7 @@ function problems() {
 function gone() {
   const dates = [...new Set(hist.map(r => r.date))].sort(), today = dates[dates.length - 1];
   if (!today) return;
-  const from = new Date(Date.parse(today) - 30 * 864e5).toISOString().slice(0, 10);
+  const from = new Date(Date.parse(today) - 60 * 864e5).toISOString().slice(0, 10);
   const now = new Set(latest.offers.filter(o => !o.stale).map(o => o.store + "|" + o.id)), last = {};
   for (const r of hist) if (r.date >= from && r.date < today && !now.has(r.store + "|" + r.id)) {
     const k = r.store + "|" + r.id; if (!last[k] || r.date > last[k].date) last[k] = r; }

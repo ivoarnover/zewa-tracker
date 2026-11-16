@@ -1,7 +1,7 @@
 name: daily-prices
 on:
   schedule:
-    - cron: "37 4 * * *"   # 06:37 Tallinn winter time / 07:37 summer time
+    - cron: "17 3 * * *"   # 05:17 Tallinn winter time / 06:17 summer time (off-peak)
   workflow_dispatch:
 permissions:
   contents: write
@@ -9,7 +9,7 @@ concurrency: daily-prices
 jobs:
   scrape:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

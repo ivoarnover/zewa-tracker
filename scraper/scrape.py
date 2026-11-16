@@ -462,7 +462,9 @@ def run_product():
             failed.append(store)
             old = prev.get("status", {}).get(store, {})
             status[store] = {"ok": False, "count": 0, "last_ok": old.get("last_ok"), "error": f"{type(e).__name__}: {e}"[:300]}
-            offers += [dict(o, stale=True) for o in prev.get("offers", []) if o["store"] == store]
+            recent = old.get("last_ok") and (dt.date.fromisoformat(today) - dt.date.fromisoformat(old["last_ok"])).days <= 60
+            if recent:  # keep the last good prices for up to 60 days, then drop them
+                offers += [dict(o, stale=True) for o in prev.get("offers", []) if o["store"] == store]
         print(store, status[store], flush=True)
         time.sleep(2)
 

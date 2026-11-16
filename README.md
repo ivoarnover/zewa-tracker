@@ -45,3 +45,7 @@ The page labels a beer "lowest in 30/90 days" from its own history; there is no 
 - If a store returns a full page of results (page limit), the run marks a cut-off warning and fails, so GitHub sends an email.
 - "No longer found" lists items seen in the last 30 days but not today.
 - Juku has no usable search, so new Huggies packs are found from Juku's product sitemap (`juku_slug` / `juku_skip` in `PRODUCTS`).
+- Items not seen for 60 days are dropped from the pages (history stays in the CSV files).
+- Viinarannasta's host uses Imunify360 bot protection, which sometimes challenges GitHub's servers. The script sends one
+  honest request (own User-Agent with repo link), and if challenged waits 20 minutes and tries once more; it never runs or
+  answers the challenge. On a blocked day the last prices stay, marked old, and the run doesn't fail.

@@ -7,7 +7,7 @@ priced per litre (main comparison) and per can, so cases and can sizes compare f
 Writes docs/pohjala/data/latest.json and docs/pohjala/data/history.csv.
 Exits 1 if a store failed (after writing data), so GitHub emails the owner.
 """
-import csv, datetime as dt, html, json, os, re, sys, time, urllib.request
+import csv, datetime as dt, gzip, html, json, os, re, sys, time, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from scrape import fetch, clean, num, UA  # noqa: E402  (shared helpers, incl. 429 retry)
@@ -242,9 +242,29 @@ def kaupmees():
     return out
 
 
+class Challenged(Exception):
+    """The shop showed its bot check ("One moment, please...") instead of the page."""
+
+
+def polite_fetch(url):
+    # one plain GET with honest, browser-like headers; we never run or answer the bot check
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "zewa-tracker/1.0 (+https://github.com/ivoarnover/zewa-tracker)",
+        "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "et-EE,et;q=0.9,en;q=0.5", "Accept-Encoding": "gzip"})
+    with urllib.request.urlopen(req, timeout=45) as r:
+        body = r.read()
+        if r.headers.get("Content-Encoding") == "gzip":
+            body = gzip.decompress(body)
+    return body.decode("utf-8", "replace")
+
+
 def viinarannasta():
-    # Viinarannasta (Aldar Eesti) e-shop search, server-rendered cards with price
-    page = fetch("https://viinarannasta.ee/shop?search=p%C3%B5hjala")
+    # Viinarannasta (Aldar Eesti) e-shop search, server-rendered cards with price.
+    # The host uses Imunify360 bot protection, which sometimes challenges cloud IPs.
+    page = polite_fetch("https://viinarannasta.ee/shop?search=p%C3%B5hjala")
+    if "One moment, please" in page or "product-detail/" not in page:
+        raise Challenged("bot check page instead of results (Imunify360); last prices kept")
     out = []
     for card in page.split('<div class="item"')[1:]:
         link = re.search(r'href="(https://viinarannasta\.ee/product-detail/[^"]+)"[^>]*>([^<]+)</a>', card)
@@ -316,10 +336,22 @@ def main():
     now = dt.datetime.now(dt.timezone.utc)
     today = now.astimezone(dt.timezone(dt.timedelta(hours=2))).date().isoformat()
     offers, status, failed = [], {}, []
-    for store, fn in STORES.items():
+    order = list(STORES)
+    retried = False
+    while order:
+        store = order.pop(0)
+        fn = STORES[store]
         STORE[0] = store
         try:
-            got = [o for o in fn() if o["per_can"]]
+            try:
+                got = [o for o in fn() if o["per_can"]]
+            except Challenged:
+                if retried or os.environ.get("NO_RETRY"):
+                    raise
+                retried = True  # one more try at the end of the run, 20 minutes later; never more
+                print(store, "challenged, retrying once in 20 minutes", flush=True)
+                time.sleep(1200)
+                got = [o for o in fn() if o["per_can"]]
             if not got and store not in MAY_BE_EMPTY:
                 raise RuntimeError("no Põhjala beers parsed (page layout changed?)")
             offers += got
@@ -331,7 +363,9 @@ def main():
                 failed.append(store)
             old = prev.get("status", {}).get(store, {})
             status[store] = {"ok": False, "count": 0, "last_ok": old.get("last_ok"), "error": f"{type(e).__name__}: {e}"[:300]}
-            offers += [dict(o, stale=True) for o in prev.get("offers", []) if o["store"] == store]
+            recent = old.get("last_ok") and (dt.date.fromisoformat(today) - dt.date.fromisoformat(old["last_ok"])).days <= 60
+            if recent:  # keep the last good prices for up to 60 days, then drop them
+                offers += [dict(o, stale=True) for o in prev.get("offers", []) if o["store"] == store]
         print(store, status[store], flush=True)
         time.sleep(2)
 
