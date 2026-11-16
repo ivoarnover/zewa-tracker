@@ -1,6 +1,13 @@
 {
- "updated": "2026-11-16T08:44+00:00",
+ "updated": "2026-11-16T09:04+00:00",
  "good_price": 0.35,
+ "product": {
+  "title": "Zewa Deluxe Price Watch",
+  "what": "Zewa Deluxe toilet paper",
+  "unit": "roll",
+  "units": "rolls",
+  "about": "Only Zewa Deluxe toilet paper is tracked (all variants, any pack size). Zewa Everyday and other lines are left out."
+ },
  "offers": [
   {
    "store": "Bauhof",
@@ -20,7 +27,7 @@
   {
    "store": "Coop kliendileht",
    "id": "23019173",
-   "name": "Zewa Deluxe tualettpaber 3kih 32 rl valge",
+   "name": "Zewa Deluxe tualettpaber 3kih 32tk valge",
    "url": "https://kliendileht.coop.ee/kliendileht/2026/46/",
    "rolls": 32,
    "regular": null,
@@ -50,7 +57,7 @@
   {
    "store": "Coop",
    "id": "21899",
-   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 16 rl",
+   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 16tk",
    "url": "https://coophaapsalu.ee/toode/t-paber-zewa-deluxe-16tk/",
    "rolls": 16,
    "regular": 6.99,
@@ -66,7 +73,7 @@
   {
    "store": "Coop kliendileht",
    "id": "7322540313321",
-   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 16 rl",
+   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 16tk",
    "url": "https://kliendileht.coop.ee/hoiame-soodsana/hoiame-soodsana/",
    "rolls": 16,
    "regular": 6.99,
@@ -174,7 +181,7 @@
   {
    "store": "Coop",
    "id": "50156",
-   "name": "Tualettpaber Zewa Deluxe 3kih 32 rl valge",
+   "name": "Tualettpaber Zewa Deluxe 3kih 32tk valge",
    "url": "https://coophaapsalu.ee/toode/zewa-deluxe-t-paber-3kih-32tk-valge/",
    "rolls": 32,
    "regular": 21.9,
@@ -236,7 +243,7 @@
   {
    "store": "Coop",
    "id": "13466",
-   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 8 rl",
+   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 8tk",
    "url": "https://coophaapsalu.ee/toode/t-paber-zewa-deluxe-8tk/",
    "rolls": 8,
    "regular": 6.09,
@@ -252,7 +259,7 @@
   {
    "store": "Coop",
    "id": "78858",
-   "name": "ZewaDeluxe t/paber 8 rl Lavender Dreams",
+   "name": "ZewaDeluxe t/paber 8tk Lavender Dreams",
    "url": "https://coophaapsalu.ee/toode/zewadeluxe-t-paber-8tk-lavender-dreams/",
    "rolls": 8,
    "regular": 6.19,
@@ -268,7 +275,7 @@
   {
    "store": "Coop",
    "id": "13470",
-   "name": "Tualettpaber Zewa Deluxe 3kih 8 rl kummel",
+   "name": "Tualettpaber Zewa Deluxe 3kih 8tk kummel",
    "url": "https://coophaapsalu.ee/toode/t-paber-zewa-deluxe-8tk-2/",
    "rolls": 8,
    "regular": 6.19,
@@ -332,7 +339,7 @@
   {
    "store": "Coop",
    "id": "39540",
-   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 4 rl",
+   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 4tk",
    "url": "https://coophaapsalu.ee/toode/zewa-deluxe-pure-white-t-paber-4tk/",
    "rolls": 4,
    "regular": 3.35,
