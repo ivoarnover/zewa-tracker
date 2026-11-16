@@ -217,7 +217,9 @@ def coop_leaflet():
     # Coop kliendileht (iPaper flipbook): each page's product hotspots carry name + price, no OCR needed.
     # Leaflet prices are treated as Säästukaart (customer card) prices.
     index = fetch("https://www.coop.ee/kliendileht")
-    links = sorted(set(re.findall(r'href="(https://kliendileht\.coop\.ee/[^"]+/)"', index)))[:5]
+    links = set(re.findall(r'href="(https://kliendileht\.coop\.ee/[^"]+/)"', index))
+    links.add("https://kliendileht.coop.ee/hoiame-soodsana/hoiame-soodsana/")  # always check the everyday-price list
+    links = sorted(links)[:6]
     today = dt.date.today()
     best, seen = {}, 0
     for link in links:
