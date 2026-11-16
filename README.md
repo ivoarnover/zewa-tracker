@@ -32,3 +32,9 @@ Coop has no central e-shop; Wolt/Bolt Coop shops are not used (delivery prices).
 - Change the threshold: `GOOD_PRICE` in `scraper/scrape.py`.
 - Run now: Actions tab, "daily-prices", Run workflow.
 - GitHub pauses scheduled workflows in repos with no activity for 60 days; the daily data commit normally prevents that.
+
+## Põhjala beers (docs/pohjala/)
+`scraper/beers.py` tracks every Põhjala beer instead of one product. Offers from Põhjala's e-shop, Selver, Rimi, Barbora,
+Coop Haapsalu and Coop Lasnamäe (Wolt) are matched to beers by EAN barcode where available, otherwise by a cleaned name
+(`beer_key`, with `ALIASES` for store abbreviations). The main comparison is price per litre; cases are split per can.
+The page labels a beer "lowest in 30/90 days" from its own history; there is no fixed good-price threshold.

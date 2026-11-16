@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Põhjala Beer Price Watch</title>
+<meta name="description" content="Daily prices of Põhjala brewery beers in Estonian stores, compared per litre, with price history.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='9' y='4' width='14' height='24' rx='3' fill='%23fff' stroke='%23111' stroke-width='2'/%3E%3C/svg%3E">
+<style>
+:root{--ink:#111;--soft:#666;--rule:#e2e2e2;--link:#0645ad;--good:#1a7f37;--bad:#c62828;--hi:#f5f7fa}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif}
+main{max-width:900px;margin:0 auto;padding:32px 20px 56px}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+h1{font-size:26px;line-height:1.25;margin:0 0 6px}
+h2{font-size:18px;margin:36px 0 10px}
+.meta{color:var(--soft);margin:0;font-size:14px}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.box{margin:22px 0 0;padding:14px 16px;border:1px solid var(--rule);border-radius:6px}
+.box p{margin:0 0 6px}
+.box ul{margin:4px 0 0;padding-left:18px}
+.tag{display:inline-block;font-size:11.5px;font-weight:bold;padding:1px 7px;border-radius:4px;color:#fff;background:var(--good);white-space:nowrap}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;font-size:14px;margin:0 0 10px}
+.controls input[type=search]{font:inherit;padding:6px 8px;border:1px solid #bbb;border-radius:4px;min-width:200px}
+.controls select{font:inherit;padding:5px;border:1px solid #bbb;border-radius:4px;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-weight:bold;color:var(--soft);font-size:13px;text-align:left;padding:6px 14px 6px 0;border-bottom:2px solid var(--rule);white-space:nowrap}
+td{padding:8px 14px 8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+th:last-child,td:last-child{padding-right:0}
+.r{text-align:right}
+tr.beer{cursor:pointer}
+tr.beer:hover td{background:var(--hi)}
+td small{display:block;color:var(--soft);font-size:12.5px}
+.stores span{white-space:nowrap;margin-right:10px;color:var(--soft)}
+.stores span.best{color:var(--good);font-weight:bold}
+tr.detail td{background:var(--hi);padding:12px}
+tr.detail table{font-size:13.5px;background:#fff}
+tr.detail table td,tr.detail table th{padding:5px 12px 5px 6px}
+.wolt,.wolt a{color:var(--soft)}
+.chart svg{width:100%;height:auto;display:block;overflow:visible;margin-top:10px}
+.chart text{font:11px Arial,Helvetica,sans-serif;fill:var(--soft)}
+.legend{font-size:12.5px;color:var(--soft);margin-top:4px}
+.legend span{margin-right:12px;white-space:nowrap;display:inline-block}
+.legend i{display:inline-block;width:14px;border-top:2px solid;vertical-align:4px;margin-right:4px}
+.bad{color:var(--bad)}
+footer{margin-top:48px;padding-top:12px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft)}
+footer p{margin:0 0 8px}
+.show-s{display:none}
+@media (max-width:640px){main{padding:20px 16px 40px}h1{font-size:22px}.hide-s{display:none}.show-s{display:block}table{font-size:14px}tr.detail table{display:block;overflow-x:auto}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Põhjala Beer Price Watch</h1>
+  <p class="meta">Prices of Põhjala brewery beers in Estonian stores, compared per litre. Checked daily.</p>
+  <p class="meta" id="updated"></p>
+
+  <div class="box" id="summary"><p>Loading…</p></div>
+
+  <h2>All beers</h2>
+  <div class="controls">
+    <input type="search" id="q" placeholder="Search beer…" aria-label="Search beer">
+    <label>Sort
+      <select id="sort">
+        <option value="litre">cheapest per litre</option>
+        <option value="name">name</option>
+        <option value="drop">biggest drop vs usual price</option>
+        <option value="stores">sold in most stores</option>
+      </select></label>
+    <label><input type="checkbox" id="af"> alcohol-free only</label>
+    <label><input type="checkbox" id="multi"> sold in 2+ stores</label>
+  </div>
+  <table>
+    <thead><tr><th>Beer</th><th class="r">Best €/l</th><th class="r hide-s">Best price</th><th class="hide-s">€/l per store</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="meta" style="margin-top:8px">Click a beer for all offers and its price history.</p>
+
+  <div id="problems" hidden><h2>Store problems</h2><ul id="stores"></ul></div>
+
+  <footer>
+    <p>Stores: Põhjala's own e-shop, Selver, Rimi, Barbora, Coop Haapsalu e-shop, and Coop Lasnamäe on Wolt (grey, includes Wolt's markup and never counted as best). Offers are matched to beers by barcode where the store gives one, otherwise by name. Cases (e.g. 24 cans) are split into the per-can and per-litre price. The price used is the lowest of the regular, campaign and loyalty price (Selver Partnerkaart, Barbora AITÄH card). Prices exclude the 0.10 € can deposit. Beers sold only in the brewery shop may have no known can size, so no price per litre.</p>
+    <p>"Lowest in 30 days" style labels compare today's best price per litre with that beer's own history on this page.</p>
+    <p>See also: <a href="../">Zewa Deluxe</a> · <a href="../huggies/">Huggies Pants 5 Boy</a>. A small personal project, not affiliated with Põhjala or any store. Source on <a href="https://github.com/ivoarnover/zewa-tracker">GitHub</a>.</p>
+  </footer>
+</main>
+<script>
+const eur = v => v == null || v === "" ? "–" : (+v).toFixed(2).replace(".", ",") + " €";
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtDate = d => { const m = String(d || "").match(/(\d{4})-(\d{2})-(\d{2})/); return m ? `${+m[3]}.${+m[2]}.${m[1]}` : ""; };
+const shortDate = d => { const m = String(d || "").match(/\d{4}-(\d{2})-(\d{2})/); return m ? `${+m[2]}.${+m[1]}` : d; };
+const isWolt = s => /wolt/i.test(s);
+const storeName = s => s === "Coop" ? "Coop Haapsalu" : s;
+const SHORT = {"Põhjala e-shop": "Põhjala", "Selver": "Selver", "Rimi": "Rimi", "Barbora": "Barbora", "Coop": "Coop", "Coop Lasnamäe (Wolt)": "Wolt"};
+const COLORS = {"Põhjala e-shop": "#111111", "Selver": "#d62728", "Rimi": "#1f77b4", "Barbora": "#ff7f0e", "Coop": "#9467bd", "Coop Lasnamäe (Wolt)": "#999999"};
+const LOYALTY = {"Partnerkaart": "Selver Partnerkaart", "AITÄH kaart": "Barbora AITÄH card"};
+const typeTxt = o => o.best_type === "loyalty" ? "loyalty: " + (LOYALTY[o.loyalty_label] || o.loyalty_label) : o.best_type === "campaign" ? "campaign" : "regular";
+const packTxt = o => (o.pack > 1 ? o.pack + " × " : "") + (o.volume_l ? (o.volume_l + " l").replace(".", ",") : "size ?");
+
+function parseCSV(text) {
+  const split = l => { const out = []; let cur = "", q = false;
+    for (let i = 0; i < l.length; i++) { const c = l[i];
+      if (q) { if (c === '"' && l[i+1] === '"') { cur += '"'; i++; } else if (c === '"') q = false; else cur += c; }
+      else if (c === '"') q = true; else if (c === ",") { out.push(cur); cur = ""; } else cur += c; }
+    out.push(cur); return out; };
+  const lines = text.trim().split(/\r?\n/); if (lines.length < 2) return [];
+  const head = split(lines[0]);
+  return lines.slice(1).map(l => { const v = split(l); return Object.fromEntries(head.map((h, i) => [h, v[i]])); });
+}
+
+let latest, hist, beers = [], open = null;
+
+// daily cheapest €/l per beer (shelf stores only) -> labels like "lowest in 30 days"
+function analyse() {
+  const byBeer = {};
+  for (const r of hist) {
+    const v = parseFloat(r.per_litre); if (isNaN(v) || isWolt(r.store)) continue;
+    const d = (byBeer[r.beer] ||= {}); if (!(r.date in d) || v < d[r.date]) d[r.date] = v;
+  }
+  const today = [...new Set(hist.map(r => r.date))].sort().pop();
+  const dayMs = 864e5, t0 = Date.parse(today);
+  for (const b of beers) {
+    const shelf = b.offers.filter(o => !isWolt(o.store) && o.per_litre != null && !o.stale);
+    b.best = shelf.sort((x, y) => x.per_litre - y.per_litre)[0] || null;
+    b.storeCount = new Set(b.offers.filter(o => !isWolt(o.store)).map(o => o.store)).size;
+    const days = byBeer[b.key] || {}, prev = Object.keys(days).filter(d => d < today).sort();
+    b.label = null; b.drop = 0; b.usual = null;
+    if (!b.best || !prev.length) continue;
+    const span = (t0 - Date.parse(prev[0])) / dayMs;
+    const within = n => prev.filter(d => t0 - Date.parse(d) <= n * dayMs).map(d => days[d]);
+    const last30 = within(30).sort((a, c) => a - c);
+    b.usual = last30.length ? last30[Math.floor(last30.length / 2)] : null;
+    if (b.usual) b.drop = (b.usual - b.best.per_litre) / b.usual;
+    const v = b.best.per_litre;
+    if (span >= 90 && v < Math.min(...within(90))) b.label = "lowest in 90 days";
+    else if (span >= 30 && v < Math.min(...within(30))) b.label = "lowest in 30 days";
+    else if (span >= 7 && v < Math.min(...prev.map(d => days[d]))) b.label = "lowest since " + fmtDate(prev[0]);
+  }
+}
+
+function summary() {
+  const withBest = beers.filter(b => b.best);
+  const labelled = withBest.filter(b => b.label).sort((a, c) => c.drop - a.drop);
+  const cheapest = [...withBest].sort((a, c) => a.best.per_litre - c.best.per_litre).slice(0, 3);
+  const days = new Set(hist.map(r => r.date)).size;
+  let h = "";
+  if (labelled.length) {
+    h += `<p><b>Price drops today</b></p><ul>` + labelled.slice(0, 8).map(b =>
+      `<li><a href="#" data-k="${esc(b.key)}">${esc(b.name)}</a>: ${eur(b.best.per_litre)}/l at ${esc(storeName(b.best.store))} <span class="tag">${esc(b.label)}</span>${b.drop > 0.005 ? ` <span class="meta">${Math.round(b.drop * 100)}% under usual</span>` : ""}</li>`).join("") + `</ul>`;
+  } else {
+    h += `<p><b>Price drops today:</b> none yet. ${days < 7 ? `Labels like "lowest in 30 days" start once there is at least a week of history (now ${days} day${days === 1 ? "" : "s"}).` : "No beer is below its recent prices today."}</p>`;
+  }
+  h += `<p style="margin-top:10px"><b>Cheapest per litre today</b></p><ul>` + cheapest.map(b =>
+    `<li><a href="#" data-k="${esc(b.key)}">${esc(b.name)}</a>: ${eur(b.best.per_litre)}/l at ${esc(storeName(b.best.store))} (${esc(packTxt(b.best))} for ${eur(b.best.best)})</li>`).join("") + `</ul>`;
+  const s = document.getElementById("summary"); s.innerHTML = h;
+  s.querySelectorAll("a[data-k]").forEach(a => a.onclick = e => { e.preventDefault(); open = a.dataset.k; document.getElementById("q").value = ""; table(); document.getElementById("row-" + CSS.escape(open))?.scrollIntoView({block: "center"}); });
+}
+
+function table() {
+  const q = document.getElementById("q").value.trim().toLowerCase(), sort = document.getElementById("sort").value;
+  const list = beers.filter(b => (!q || b.name.toLowerCase().includes(q)) && (!document.getElementById("af").checked || b.alcohol_free) && (!document.getElementById("multi").checked || b.storeCount >= 2));
+  const L = b => b.best ? b.best.per_litre : 1e9;
+  list.sort(sort === "name" ? (a, c) => a.name.localeCompare(c.name, "et") : sort === "drop" ? (a, c) => c.drop - a.drop || L(a) - L(c)
+    : sort === "stores" ? (a, c) => c.storeCount - a.storeCount || L(a) - L(c) : (a, c) => L(a) - L(c));
+  document.getElementById("rows").innerHTML = list.map(b => {
+    const perStore = {};
+    for (const o of b.offers) if (o.per_litre != null && (!(o.store in perStore) || o.per_litre < perStore[o.store].per_litre)) perStore[o.store] = o;
+    const stores = Object.values(perStore).sort((x, y) => x.per_litre - y.per_litre).map(o =>
+      `<span class="${b.best && o.store === b.best.store ? "best" : ""} ${isWolt(o.store) ? "wolt" : ""}">${SHORT[o.store] || o.store} ${(+o.per_litre).toFixed(2).replace(".", ",")}</span>`).join("");
+    const bb = b.best;
+    let row = `<tr class="beer" id="row-${esc(b.key)}" data-k="${esc(b.key)}">
+      <td><b>${esc(b.name)}</b>${b.alcohol_free ? ' <span class="meta">alcohol-free</span>' : ""}${b.label ? ` <span class="tag">${esc(b.label)}</span>` : ""}
+        <small>${b.storeCount} store${b.storeCount === 1 ? "" : "s"}${b.volume_l ? " · " + String(b.volume_l).replace(".", ",") + " l can" : ""}</small>${bb ? `<small class="show-s">best: ${esc(storeName(bb.store))}, ${esc(packTxt(bb))} for ${eur(bb.best)}</small>` : ""}</td>
+      <td class="r num"><b>${bb ? eur(bb.per_litre) : "–"}</b></td>
+      <td class="r num hide-s">${bb ? `${eur(bb.best)}<small>${esc(storeName(bb.store))}, ${esc(packTxt(bb))}</small>` : "<small>can size unknown</small>"}</td>
+      <td class="stores hide-s">${stores || "<span>–</span>"}</td></tr>`;
+    if (open === b.key) row += `<tr class="detail"><td colspan="4">${detail(b)}</td></tr>`;
+    return row;
+  }).join("") || `<tr><td colspan="4" class="meta">No beers match.</td></tr>`;
+  document.querySelectorAll("tr.beer").forEach(tr => tr.onclick = () => { open = open === tr.dataset.k ? null : tr.dataset.k; table(); });
+}
+
+function detail(b) {
+  const offers = [...b.offers].sort((x, y) => (x.per_litre ?? 1e9) - (y.per_litre ?? 1e9));
+  let h = `<table><thead><tr><th>Store</th><th>Product</th><th>Pack</th><th class="r">Price</th><th class="r">Per can</th><th class="r">€/l</th><th>Type</th></tr></thead><tbody>` +
+    offers.map(o => `<tr class="${isWolt(o.store) ? "wolt" : ""}"><td>${esc(storeName(o.store))}${o.stale ? " (old)" : ""}</td>
+      <td><a href="${esc(o.url)}" target="_blank" rel="noopener">${esc(o.name)}</a></td><td class="num">${esc(packTxt(o))}</td>
+      <td class="r num">${eur(o.best)}${o.regular && o.regular > o.best ? `<small><s>${eur(o.regular)}</s></small>` : ""}</td>
+      <td class="r num">${eur(o.per_can)}</td><td class="r num">${o.per_litre != null ? eur(o.per_litre) : "–"}</td><td>${esc(typeTxt(o))}</td></tr>`).join("") + `</tbody></table>`;
+  h += `<div class="chart">${chart(b)}</div>`;
+  if (b.usual) h += `<p class="meta">Usual price (median of the last 30 days): ${eur(b.usual)}/l.</p>`;
+  return h;
+}
+
+function chart(b) {
+  const rows = hist.filter(r => r.beer === b.key && r.per_litre);
+  const dates = [...new Set(rows.map(r => r.date))].sort();
+  if (dates.length < 2) return `<p class="meta">Price history appears once there are two days of prices.</p>`;
+  const stores = [...new Set(rows.map(r => r.store))], best = {};
+  for (const r of rows) { const k = r.store + "|" + r.date, v = parseFloat(r.per_litre); if (!(k in best) || v < best[k]) best[k] = v; }
+  const vals = Object.values(best), lo = Math.floor(Math.min(...vals)), hi = Math.max(lo + 1, Math.ceil(Math.max(...vals)));
+  const W = 720, H = 200, L = 40, R = 8, T = 8, B = 22, x = i => L + i * (W - L - R) / (dates.length - 1), y = v => T + (hi - v) / (hi - lo) * (H - T - B);
+  const step = Math.max(1, Math.ceil((hi - lo) / 4));
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Price per litre history">`;
+  for (let v = lo; v <= hi; v += step) s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#e2e2e2"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end">${v} €</text>`;
+  const ds = Math.max(1, Math.ceil(dates.length / 6));
+  dates.forEach((d, i) => { if (i % ds === 0 || i === dates.length - 1) s += `<text x="${x(i)}" y="${H - 5}" text-anchor="middle">${shortDate(d)}</text>`; });
+  for (const st of stores) {
+    let p = "", pen = false;
+    dates.forEach((d, i) => { const v = best[st + "|" + d]; if (v != null) { p += (pen ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1); pen = true; } else pen = false; });
+    s += `<path d="${p}" fill="none" stroke="${COLORS[st] || "#777"}" stroke-width="2" stroke-dasharray="${isWolt(st) ? "4 4" : ""}"/>`;
+  }
+  return s + `</svg><div class="legend">` + stores.map(st => `<span><i style="border-color:${COLORS[st] || "#777"};${isWolt(st) ? "border-top-style:dashed" : ""}"></i>${esc(storeName(st))}</span>`).join("") + `</div>`;
+}
+
+async function load() {
+  const t = "?t=" + Date.now();
+  [latest, hist] = await Promise.all([fetch("data/latest.json" + t).then(r => r.json()), fetch("data/history.csv" + t).then(r => r.text()).then(parseCSV)]);
+  const byKey = {};
+  for (const b of latest.beers) byKey[b.key] = {...b, offers: []};
+  for (const o of latest.offers) (byKey[o.beer] ||= {key: o.beer, name: o.name, offers: []}).offers.push(o);
+  beers = Object.values(byKey).filter(b => b.offers.length);
+  analyse();
+  const d = new Date(latest.updated);
+  document.getElementById("updated").textContent = "Last update: " + d.toLocaleDateString("et-EE") + " " + d.toLocaleTimeString("et-EE", {hour: "2-digit", minute: "2-digit"}) + ` · ${beers.length} beers`;
+  summary(); table();
+  for (const id of ["q", "sort", "af", "multi"]) document.getElementById(id).addEventListener("input", table);
+  const bad = Object.entries(latest.status).filter(([, s]) => !s.ok);
+  document.getElementById("problems").hidden = !bad.length;
+  document.getElementById("stores").innerHTML = bad.map(([s, st]) => `<li><b>${esc(storeName(s))}</b>: <span class="bad">could not be read today, showing data from ${fmtDate(st.last_ok) || "never"}</span></li>`).join("");
+}
+load().catch(e => { document.getElementById("summary").innerHTML = "<p>Could not load the data.</p>"; console.error(e); });
+</script>
+</body>
+</html>

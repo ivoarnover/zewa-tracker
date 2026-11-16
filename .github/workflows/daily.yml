@@ -19,6 +19,10 @@ jobs:
         id: scrape
         continue-on-error: true
         run: python scraper/scrape.py
+      - name: Scrape Põhjala beers
+        id: beers
+        continue-on-error: true
+        run: python scraper/beers.py
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
@@ -27,5 +31,5 @@ jobs:
           git diff --cached --quiet || git commit -m "Prices $(date -u +%F)"
           git push
       - name: Fail if a store failed (sends an email)
-        if: steps.scrape.outcome == 'failure'
+        if: steps.scrape.outcome == 'failure' || steps.beers.outcome == 'failure'
         run: exit 1
