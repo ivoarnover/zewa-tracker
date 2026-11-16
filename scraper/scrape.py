@@ -6,7 +6,7 @@ A few requests per store, Python stdlib only. For each product it writes:
 Fields are named after the first product (rolls, per_roll) but mean "units" and "price per unit".
 Exits 1 if any store failed (after writing data), so GitHub emails the repo owner.
 """
-import csv, datetime as dt, html, json, os, re, sys, time, urllib.request
+import csv, datetime as dt, html, json, os, re, sys, time, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
@@ -16,10 +16,24 @@ FIELDS = ["date", "store", "id", "name", "rolls", "regular", "campaign", "loyalt
           "best", "best_type", "per_roll", "url", "ean"]
 
 
+_cache = {}
+
+
 def fetch(url):
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "et-EE,et;q=0.9"})
-    with urllib.request.urlopen(req, timeout=45) as r:
-        return r.read().decode("utf-8", "replace")
+    # same URL twice in one run (e.g. Wolt's category list for both products) is fetched once;
+    # on 429 Too Many Requests wait and retry, so one busy minute doesn't fail the store
+    if url in _cache:
+        return _cache[url]
+    for attempt in range(3):
+        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "et-EE,et;q=0.9"})
+        try:
+            with urllib.request.urlopen(req, timeout=45) as r:
+                _cache[url] = r.read().decode("utf-8", "replace")
+                return _cache[url]
+        except urllib.error.HTTPError as e:
+            if e.code != 429 or attempt == 2:
+                raise
+            time.sleep(30 * (attempt + 1))
 
 
 def clean(s):
