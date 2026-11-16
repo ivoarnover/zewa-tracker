@@ -307,8 +307,25 @@ def depo():
     return out
 
 
+def juku():
+    # Jukukeskus.ee: search is rendered in the browser, so we read fixed product pages.
+    # Each page has hidden Nosto tags with name, price, list_price and availability.
+    out = []
+    for url in P.get("juku_urls", []):
+        page = fetch(url)
+        tag = lambda k: (re.search(r'<span class="' + k + r'">([^<]*)</span>', page) or [None, None])[1]
+        name, price, listp, avail, pid = tag("name"), tag("price"), tag("list_price"), tag("availability"), tag("product_id")
+        if not name or not price:
+            raise RuntimeError("product data not found on " + url)
+        if avail == "InStock" and is_match(html.unescape(name)):
+            regular = listp or price
+            out.append(offer("Juku", pid, html.unescape(name), url, regular, price if num(price) < num(regular) else None))
+        time.sleep(2)
+    return out
+
+
 ALL_STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop,
-              "Coop kliendileht": coop_leaflet, "Coop Lasnamäe (Wolt)": wolt_coop, "Lapseriided.com": lapseriided, "DEPO": depo}
+              "Coop kliendileht": coop_leaflet, "Coop Lasnamäe (Wolt)": wolt_coop, "Lapseriided.com": lapseriided, "DEPO": depo, "Juku": juku}
 
 PRODUCTS = {
     "zewa": dict(
@@ -321,7 +338,8 @@ PRODUCTS = {
     "huggies": dict(
         data_dir="docs/huggies/data", good_price=0.30, term="huggies", match=is_huggies_pants5_boy, count=diapers_of,
         wolt_category="mähkmed",
-        stores=["Selver", "Rimi", "Barbora", "Coop", "Coop kliendileht", "Coop Lasnamäe (Wolt)", "Lapseriided.com", "DEPO"],
+        stores=["Selver", "Rimi", "Barbora", "Coop", "Coop kliendileht", "Coop Lasnamäe (Wolt)", "Lapseriided.com", "DEPO", "Juku"],
+        juku_urls=["https://www.jukukeskus.ee/et/huggies-mahkmepuksid-5-suurus-boy-12-17kg-48-tk--1030602-0038"],
         may_be_empty={"Coop kliendileht", "Coop Lasnamäe (Wolt)", "Coop"},
         info={"title": "Huggies Pants 5 Boy Price Watch", "what": "Huggies Pants size 5 (12-17 kg) Boy diapers", "unit": "diaper", "units": "diapers",
               "about": "Only Huggies Pants size 5 (12-17 kg) Boy diapers are tracked, including Little Movers, any pack size. Packs that don't say Boy or Girl are included; Girl, Extra Care, Overnights and other lines are left out."}),

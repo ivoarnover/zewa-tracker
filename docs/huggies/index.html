@@ -111,7 +111,7 @@ const LOYALTY = {"Partnerkaart": "Selver Partnerkaart", "AITÄH kaart": "Barbora
 const until = o => o.valid_until ? " until " + shortDate(o.valid_until) : "";
 const typeLong = o => o.best_type === "loyalty" ? "loyalty: " + (LOYALTY[o.loyalty_label] || o.loyalty_label || "card") + until(o)
   : o.best_type === "campaign" ? "campaign" + until(o) : "regular";
-const COLORS = {"Selver": "#d62728", "Bauhof": "#2ca02c", "Rimi": "#1f77b4", "Barbora": "#ff7f0e", "Coop": "#9467bd", "Coop kliendileht": "#e377c2", "Lapseriided.com": "#17becf", "DEPO": "#bcbd22", "Coop Lasnamäe (Wolt)": "#999999"};
+const COLORS = {"Selver": "#d62728", "Bauhof": "#2ca02c", "Rimi": "#1f77b4", "Barbora": "#ff7f0e", "Coop": "#9467bd", "Coop kliendileht": "#e377c2", "Lapseriided.com": "#17becf", "DEPO": "#bcbd22", "Juku": "#e6550d", "Coop Lasnamäe (Wolt)": "#999999"};
 const color = s => COLORS[s] || "#7f7f7f";
 
 function parseCSV(text) {

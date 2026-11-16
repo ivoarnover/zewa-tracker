@@ -21,6 +21,7 @@ Tracked products, search terms and matching rules are in `PRODUCTS` at the botto
 | Rimi | search page HTML (`data-gtm-eec-product`) | campaign vs "Tavahind" |
 | Barbora | search JSON API | AITÄH card (`promotion.loyaltyCardRequired`) |
 | DEPO (Huggies only) | online.depo.ee GraphQL `products(searchString)`, Tallinn Veskiposti store | none (has 2+ pack prices, not used) |
+| Juku (Huggies only) | fixed product pages, hidden Nosto tags (price, list_price, availability); add URLs to `juku_urls` | none |
 | Coop kliendileht | iPaper leaflet product hotspots (name + price) from coop.ee/kliendileht links | Säästukaart (weekly leaflet) |
 | Coop | Coop Haapsalu WooCommerce Store API (`/wp-json/wc/store/v1/products?search=zewa`) | none shown |
 
