@@ -288,8 +288,27 @@ def coop_leaflet():
     return list(best.values())
 
 
+def depo():
+    # DEPO DIY online (Tallinn, Veskiposti 1): public GraphQL API used by online.depo.ee
+    q = ('query($s: String) { products(searchString: $s, rows: 100, start: 0) { edges { node { id name '
+         'prices { yellow { priceWithVat } } stockItems { quantity } } } } }')
+    body = json.dumps({"query": q, "variables": {"s": P["term"]}}).encode()
+    req = urllib.request.Request("https://online.depo.ee/graphql", data=body, method="POST",
+                                 headers={"User-Agent": UA, "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=45) as r:
+        data = json.loads(r.read().decode("utf-8"))
+    out = []
+    for e in data["data"]["products"]["edges"]:
+        n = e["node"]
+        if not is_match(n["name"]) or not any((s.get("quantity") or 0) > 0 for s in n.get("stockItems") or []):
+            continue
+        price = (n.get("prices") or {}).get("yellow", {}).get("priceWithVat")
+        out.append(offer("DEPO", n["id"], n["name"], f"https://online.depo.ee/product/{n['id']}", price))
+    return out
+
+
 ALL_STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop,
-              "Coop kliendileht": coop_leaflet, "Coop Lasnamäe (Wolt)": wolt_coop, "Lapseriided.com": lapseriided}
+              "Coop kliendileht": coop_leaflet, "Coop Lasnamäe (Wolt)": wolt_coop, "Lapseriided.com": lapseriided, "DEPO": depo}
 
 PRODUCTS = {
     "zewa": dict(
@@ -302,7 +321,7 @@ PRODUCTS = {
     "huggies": dict(
         data_dir="docs/huggies/data", good_price=0.30, term="huggies", match=is_huggies_pants5_boy, count=diapers_of,
         wolt_category="mähkmed",
-        stores=["Selver", "Rimi", "Barbora", "Coop", "Coop kliendileht", "Coop Lasnamäe (Wolt)", "Lapseriided.com"],
+        stores=["Selver", "Rimi", "Barbora", "Coop", "Coop kliendileht", "Coop Lasnamäe (Wolt)", "Lapseriided.com", "DEPO"],
         may_be_empty={"Coop kliendileht", "Coop Lasnamäe (Wolt)", "Coop"},
         info={"title": "Huggies Pants 5 Boy Price Watch", "what": "Huggies Pants size 5 (12-17 kg) Boy diapers", "unit": "diaper", "units": "diapers",
               "about": "Only Huggies Pants size 5 (12-17 kg) Boy diapers are tracked, including Little Movers, any pack size. Packs that don't say Boy or Girl are included; Girl, Extra Care, Overnights and other lines are left out."}),
