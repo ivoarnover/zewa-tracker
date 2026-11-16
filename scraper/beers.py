@@ -18,25 +18,26 @@ FIELDS = ["date", "beer", "store", "name", "pack", "volume_l", "regular", "best"
 
 # ------------------------------------------------------------- matching
 
-NOT_BEER = re.compile(r"tee\b|teetalu|taimetee|marjatee|münt|püramiid|\bkali\b|\bgin\b|müts|särk|pusa|kott|klaas|kinke", re.I)
+NOT_BEER = re.compile(r"tee\b|teetalu|taimetee|marjatee|münt|püramiid|\bkali\b|\bgin\b|müts|särk|pusa|kott|kinke", re.I)
 ALCOHOL_FREE = re.compile(r"alk\.?\s*v|alko\.?\s*vaba|alkoholivaba|\ba/v\b", re.I)
 ALIASES = [  # store abbreviations -> brewery spelling
     (r"prenzl\.?\s*berg|prenzlauer(\s+berg)?", "prenzlauer berg"),
     (r"treen\.?\s*laager|treeninglaag(?!er)\.?", "treeninglaager "),
     (r"treeninglaager\s+vaarika\b", "treeninglaager vaarikas"),
     (r"sun city ale", "sun city"),
+    (r"\bgrapefruit\b", "gf"),  # Kaupmees "Grapefruit Pale Ale 3,5%" = brewery "GF"
 ]
 NOISE = re.compile(
     r"(?<![\w])(alkoholivaba|alko\.?\s*vaba|alk\.?\s*vaba|alk\.?\s*v\.|a/v|kange|hele|tume|õlu|olu|põhjala|pohjala|prk|purk|pdl|pudel|"
-    r"ipa|vol|kast|kastis)(?![\w])", re.I)
+    r"ipa|vol|kast|kastis|tin|klaas|nisuõlu|ne|session|festive|hazy|pale|ale|porter|sour)(?![\w])", re.I)
 
 
 def volume_l(text):
-    m = re.search(r"(\d+(?:[.,]\d+)?)\s*(ml|l)\b", text.lower())
+    m = re.search(r"(\d+(?:[.,]\d+)?)\s*(ml|cl|l)\b", text.lower())
     if not m:
         return None
     v = float(m.group(1).replace(",", "."))
-    return round(v / 1000 if m.group(2) == "ml" else v, 3)
+    return round(v / {"ml": 1000, "cl": 100, "l": 1}[m.group(2)], 3)
 
 
 def pack_of(text):
@@ -47,10 +48,11 @@ def pack_of(text):
 
 def beer_key(name):
     n = html.unescape(name).lower().replace("×", "x")
-    tume = n.strip().startswith("tume")
+    tume = n.strip().startswith("tume") or re.search(r"\btume laager\b", n) is not None
     af = bool(ALCOHOL_FREE.search(n))
-    n = re.sub(r"\d+\s*x\s*\d+(?:[.,]\d+)?\s*l\b", " ", n)          # 24 x 0.44l
-    n = re.sub(r"\d+(?:[.,]\d+)?\s*(ml|l)\b", " ", n)               # 330ml, 0,44l
+    n = re.sub(r"\d+\s*x\s*\d+(?:[.,]\d+)?\s*(ml|cl|l)\b", " ", n)  # 24 x 0.44l, 6x44cl
+    n = re.sub(r"\d+\s*-?\s*(pakk|pk)\b", " ", n)                     # 6-pakk
+    n = re.sub(r"\d+(?:[.,]\d+)?\s*(ml|cl|l)\b", " ", n)            # 330ml, 0,44l, 44cl
     n = re.sub(r"\d+(?:[.,]\d+)?\s*%\s*(vol)?", " ", n)              # 6.5%, 4,7%vol
     for pat, rep in ALIASES:
         n = re.sub(pat, rep, n)
@@ -194,8 +196,51 @@ def wolt_coop():
 
 
 MAY_BE_EMPTY = {"Coop Lasnamäe (Wolt)"}  # Wolt's Coop Lasnamäe had no Põhjala beers when this was built
+VAT = 1.24  # Estonian VAT; Kaupmees shows prices without VAT ("+KM")
+
+
+def kaupmees():
+    # Kaupmees & Ko e-shop: beer category filtered by brand, server-rendered cards; prices are excl. VAT
+    page = fetch("https://www.kaupmees.ee/et/alkohol-ja-tubakas/olled?brand=P%C3%95HJALA")
+    out = []
+    for m in re.finditer(r'<section aria-label="([^"]+?) Hind"', page):
+        name = html.unescape(m.group(1))
+        sec = page[m.end():page.find("</section>", m.end())]
+        before = page[max(0, m.start() - 4000):m.start()]
+        links = re.findall(r'href="(/et/[^"]+-c\d+)"', before)
+        major = re.search(r'price-major[^"]*">(\d+)<', sec)
+        minor = re.search(r'price-minor[^"]*">(\d+)<', sec)
+        if not major or "PÕHJALA" not in name.upper() or NOT_BEER.search(name):
+            continue
+        price = int(major.group(1)) + int(minor.group(1)) / 100 if minor else int(major.group(1))
+        if "+KM" in re.sub(r"<[^>]+>", "", sec):
+            price *= VAT
+        pct = re.search(r"-(\d+)%", re.sub(r"<[^>]+>", " ", sec))
+        regular = price / (1 - int(pct.group(1)) / 100) if pct else price
+        out.append(offer("Kaupmees", name, "https://www.kaupmees.ee" + links[-1] if links else
+                         "https://www.kaupmees.ee/et/alkohol-ja-tubakas/olled?brand=P%C3%95HJALA",
+                         round(price, 2), round(regular, 2)))
+    return out
+
+
+def viinarannasta():
+    # Viinarannasta (Aldar Eesti) e-shop search, server-rendered cards with price
+    page = fetch("https://viinarannasta.ee/shop?search=p%C3%B5hjala")
+    out = []
+    for card in page.split('<div class="item"')[1:]:
+        link = re.search(r'href="(https://viinarannasta\.ee/product-detail/[^"]+)"[^>]*>([^<]+)</a>', card)
+        if not link or "hjala" not in link.group(2).lower() or NOT_BEER.search(link.group(2)):
+            continue
+        text = re.sub(r"<[^>]+>", " ", re.sub(r"<style.*?</style>|<script.*?</script>", "", card[:6000], flags=re.S))
+        prices = [float(p) for p in re.findall(r"(\d+\.\d{2})\s*€", text)]
+        if not prices:
+            continue
+        out.append(offer("Viinarannasta", link.group(2), link.group(1), min(prices), max(prices)))
+    return out
+
+
 STORES = {"Põhjala e-shop": pohjala_shop, "Selver": selver, "Rimi": rimi, "Barbora": barbora, "Coop": coop,
-          "Coop Lasnamäe (Wolt)": wolt_coop}
+          "Coop Lasnamäe (Wolt)": wolt_coop, "Kaupmees": kaupmees, "Viinarannasta": viinarannasta}
 
 # ------------------------------------------------------------- main
 
@@ -209,6 +254,20 @@ def build_beers(offers):
     for o in offers:
         if o["ean"] and o["ean"] in ean_key:
             o["key"] = ean_key[o["ean"]]
+    known = {o["key"] for o in offers if o["ean"] or o["store"] == "Põhjala e-shop"}
+    for o in offers:  # name-only stores: map "kask laager" -> "kask", "kosmos ne ipa hele" -> "kosmos"
+        if o["ean"] or o["key"] in known:
+            continue
+        toks = o["key"].split()
+        best = None
+        for k in known:
+            kt = k.split()
+            if all(t in toks for t in kt):
+                score = (len(kt), -min(toks.index(t) for t in kt))
+                if not best or score > best[0]:
+                    best = (score, k)
+        if best:
+            o["key"] = best[1]
     beers = {}
     for o in sorted(offers, key=lambda o: o["store"] != "Põhjala e-shop"):
         b = beers.setdefault(o["key"], {"key": o["key"], "name": None, "volume_l": None, "alcohol_free": o["key"].endswith(" 0") or "treeninglaager" in o["key"]})

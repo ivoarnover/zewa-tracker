@@ -81,7 +81,7 @@ footer p{margin:0 0 8px}
   <div id="problems" hidden><h2>Store problems</h2><ul id="stores"></ul></div>
 
   <footer>
-    <p>Stores: Põhjala's own e-shop, Selver, Rimi, Barbora, Coop Haapsalu e-shop, and Coop Lasnamäe on Wolt (grey, includes Wolt's markup and never counted as best). Offers are matched to beers by barcode where the store gives one, otherwise by name. Cases (e.g. 24 cans) are split into the per-can and per-litre price. The price used is the lowest of the regular, campaign and loyalty price (Selver Partnerkaart, Barbora AITÄH card). Prices exclude the 0.10 € can deposit. Beers sold only in the brewery shop may have no known can size, so no price per litre.</p>
+    <p>Stores: Põhjala's own e-shop, Selver, Rimi, Barbora, Coop Haapsalu e-shop, Kaupmees (prices shown there without VAT; 24% VAT added here), Viinarannasta, and Coop Lasnamäe on Wolt (grey, includes Wolt's markup and never counted as best). Offers are matched to beers by barcode where the store gives one, otherwise by name. Cases (e.g. 24 cans) are split into the per-can and per-litre price. The price used is the lowest of the regular, campaign and loyalty price (Selver Partnerkaart, Barbora AITÄH card). Prices exclude the 0.10 € can deposit. Beers sold only in the brewery shop may have no known can size, so no price per litre.</p>
     <p>"Lowest in 30 days" style labels compare today's best price per litre with that beer's own history on this page.</p>
     <p>See also: <a href="../">Zewa Deluxe</a> · <a href="../huggies/">Huggies Pants 5 Boy</a>. A small personal project, not affiliated with Põhjala or any store. Source on <a href="https://github.com/ivoarnover/zewa-tracker">GitHub</a>.</p>
   </footer>
@@ -93,8 +93,8 @@ const fmtDate = d => { const m = String(d || "").match(/(\d{4})-(\d{2})-(\d{2})/
 const shortDate = d => { const m = String(d || "").match(/\d{4}-(\d{2})-(\d{2})/); return m ? `${+m[2]}.${+m[1]}` : d; };
 const isWolt = s => /wolt/i.test(s);
 const storeName = s => s === "Coop" ? "Coop Haapsalu" : s;
-const SHORT = {"Põhjala e-shop": "Põhjala", "Selver": "Selver", "Rimi": "Rimi", "Barbora": "Barbora", "Coop": "Coop", "Coop Lasnamäe (Wolt)": "Wolt"};
-const COLORS = {"Põhjala e-shop": "#111111", "Selver": "#d62728", "Rimi": "#1f77b4", "Barbora": "#ff7f0e", "Coop": "#9467bd", "Coop Lasnamäe (Wolt)": "#999999"};
+const SHORT = {"Põhjala e-shop": "Põhjala", "Selver": "Selver", "Rimi": "Rimi", "Barbora": "Barbora", "Coop": "Coop", "Coop Lasnamäe (Wolt)": "Wolt", "Kaupmees": "Kaupmees", "Viinarannasta": "Viinarannasta"};
+const COLORS = {"Põhjala e-shop": "#111111", "Selver": "#d62728", "Rimi": "#1f77b4", "Barbora": "#ff7f0e", "Coop": "#9467bd", "Coop Lasnamäe (Wolt)": "#999999", "Kaupmees": "#2ca02c", "Viinarannasta": "#8c564b"};
 const LOYALTY = {"Partnerkaart": "Selver Partnerkaart", "AITÄH kaart": "Barbora AITÄH card"};
 const typeTxt = o => o.best_type === "loyalty" ? "loyalty: " + (LOYALTY[o.loyalty_label] || o.loyalty_label) : o.best_type === "campaign" ? "campaign" : "regular";
 const packTxt = o => (o.pack > 1 ? o.pack + " × " : "") + (o.volume_l ? (o.volume_l + " l").replace(".", ",") : "size ?");
