@@ -219,7 +219,7 @@ def coop_leaflet():
     index = fetch("https://www.coop.ee/kliendileht")
     links = sorted(set(re.findall(r'href="(https://kliendileht\.coop\.ee/[^"]+/)"', index)))[:5]
     today = dt.date.today()
-    best = {}
+    best, seen = {}, 0
     for link in links:
         time.sleep(2)
         page = fetch(link)
@@ -233,6 +233,7 @@ def coop_leaflet():
             time.sleep(2)
             data = json.loads(fetch(jurl.replace("\\u0026", "&").replace("\\/", "/")))
             for e in data.get("enrichments", []):
+                seen += 1
                 name = e.get("name") or e.get("alttext") or ""
                 name = re.sub(r"(\d+)\s*tk\b", r"\1 rl", name)
                 if not e.get("price") or not is_deluxe_tp(name):
@@ -246,9 +247,12 @@ def coop_leaflet():
                 price = o["loyalty"] or o["regular"]
                 if key not in best or price < (best[key]["loyalty"] or best[key]["regular"]):
                     best[key] = o
+    if not links or not seen:
+        raise RuntimeError("no leaflet product data found (page layout changed?)")
     return list(best.values())
 
 
+MAY_BE_EMPTY = {"Coop kliendileht"}  # Zewa is only in the leaflet some weeks
 STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbora, "Coop": coop, "Coop kliendileht": coop_leaflet, "Coop Lasnamäe (Wolt)": wolt_coop}
 
 # ---------------------------------------------------------------- main
@@ -273,7 +277,7 @@ def main():
         try:
             got = [finish(o) for o in fn()]
             got = [o for o in got if o["per_roll"]]
-            if not got:
+            if not got and store not in MAY_BE_EMPTY:
                 raise RuntimeError("no Zewa Deluxe products parsed (page layout changed or out of stock)")
             offers += got
             status[store] = {"ok": True, "count": len(got), "last_ok": today, "error": None}
