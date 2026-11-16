@@ -210,6 +210,9 @@ def wolt_coop():
     return out
 
 
+# Viinarannasta sometimes answers automated requests with a "One moment, please..." bot check. We don't try to get
+# around it: that day its last prices stay on the page (marked old) and the run doesn't fail or send an email.
+SOFT_FAIL = {"Viinarannasta"}
 MAY_BE_EMPTY = {"Coop Lasnamäe (Wolt)"}  # Wolt's Coop Lasnamäe had no Põhjala beers when this was built
 VAT = 1.24  # Estonian VAT; Kaupmees shows prices without VAT ("+KM")
 
@@ -324,7 +327,8 @@ def main():
             if WARN.get(store):
                 failed.append(store + " (cut-off)")
         except Exception as e:
-            failed.append(store)
+            if store not in SOFT_FAIL:
+                failed.append(store)
             old = prev.get("status", {}).get(store, {})
             status[store] = {"ok": False, "count": 0, "last_ok": old.get("last_ok"), "error": f"{type(e).__name__}: {e}"[:300]}
             offers += [dict(o, stale=True) for o in prev.get("offers", []) if o["store"] == store]
