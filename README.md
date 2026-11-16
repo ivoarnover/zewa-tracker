@@ -38,3 +38,10 @@ Coop has no central e-shop; Wolt/Bolt Coop shops are not used (delivery prices).
 Coop Haapsalu and Coop Lasnamäe (Wolt) are matched to beers by EAN barcode where available, otherwise by a cleaned name
 (`beer_key`, with `ALIASES` for store abbreviations). The main comparison is price per litre; cases are split per can.
 The page labels a beer "lowest in 30/90 days" from its own history; there is no fixed good-price threshold.
+
+## Keeping listings up to date
+- Every run searches each store again, so new pack sizes and new beers appear on their own and discontinued ones drop off.
+- "Check these" on each page lists store products that look relevant but weren't understood (no pack size, or a beer name not linked to a known beer).
+- If a store returns a full page of results (page limit), the run marks a cut-off warning and fails, so GitHub sends an email.
+- "No longer found" lists items seen in the last 30 days but not today.
+- Juku has no usable search, so new Huggies packs are found from Juku's product sitemap (`juku_slug` / `juku_skip` in `PRODUCTS`).

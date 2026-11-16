@@ -1,5 +1,19 @@
 {
- "updated": "2026-11-16T09:53+00:00",
+ "updated": "2026-11-16T10:04+00:00",
+ "review": [
+  {
+   "store": "Kaupmees",
+   "name": "PÕHJALA õlu Coastline Cruiser Pale Ale hele 3,5% 44cl (purk)"
+  },
+  {
+   "store": "Kaupmees",
+   "name": "PÕHJALA õlu Mandarina Festive IPA hele 5,5% 33cl (purk)"
+  },
+  {
+   "store": "Kaupmees",
+   "name": "PÕHJALA õlu Tiramisu Bänger tume 12,5% 33cl (klaas)"
+  }
+ ],
  "beers": [
   {
    "key": "ars obscura",
@@ -2216,6 +2230,7 @@
    "best_type": "regular",
    "loyalty_label": null,
    "per_can": 3.27,
+   "unmatched": true,
    "beer": "coastline cruiser",
    "per_litre": 7.43
   },
@@ -2376,6 +2391,7 @@
    "best_type": "regular",
    "loyalty_label": null,
    "per_can": 3.05,
+   "unmatched": true,
    "beer": "mandarina",
    "per_litre": 9.24
   },
@@ -2520,6 +2536,7 @@
    "best_type": "regular",
    "loyalty_label": null,
    "per_can": 4.41,
+   "unmatched": true,
    "beer": "tiramisu bänger",
    "per_litre": 13.36
   },
@@ -2657,49 +2674,57 @@
    "ok": true,
    "count": 59,
    "last_ok": "2026-11-16",
-   "error": null
+   "error": null,
+   "warning": null
   },
   "Selver": {
    "ok": true,
    "count": 14,
    "last_ok": "2026-11-16",
-   "error": null
+   "error": null,
+   "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 18,
    "last_ok": "2026-11-16",
-   "error": null
+   "error": null,
+   "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 13,
    "last_ok": "2026-11-16",
-   "error": null
+   "error": null,
+   "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 14,
    "last_ok": "2026-11-16",
-   "error": null
+   "error": null,
+   "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 0,
    "last_ok": "2026-11-16",
-   "error": null
+   "error": null,
+   "warning": null
   },
   "Kaupmees": {
    "ok": true,
    "count": 27,
    "last_ok": "2026-11-16",
-   "error": null
+   "error": null,
+   "warning": null
   },
   "Viinarannasta": {
    "ok": true,
    "count": 4,
    "last_ok": "2026-11-16",
-   "error": null
+   "error": null,
+   "warning": null
   }
  }
 }

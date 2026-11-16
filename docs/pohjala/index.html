@@ -81,6 +81,8 @@ footer p{margin:0 0 8px}
   </table>
   <p class="meta" style="margin-top:8px">Click a beer for all offers and its price history.</p>
 
+  <div id="gone" hidden><h2>No longer found</h2><p class="meta">Beers seen in the last 30 days but not in any store today.</p><ul id="gone-list"></ul></div>
+  <div id="review" hidden><h2>Check these</h2><p class="meta">Names that couldn't be linked to a known beer. Each is shown as its own beer above; it may be a new beer, or a duplicate that needs a name fix.</p><ul id="review-list"></ul></div>
   <div id="problems" hidden><h2>Store problems</h2><ul id="stores"></ul></div>
 
   <footer>
@@ -233,9 +235,23 @@ async function load() {
   summary(); table();
   for (const id of ["q", "sort", "af", "multi"]) document.getElementById(id).addEventListener("input", table);
   document.getElementById("cases").addEventListener("input", () => { analyse(); summary(); table(); });
-  const bad = Object.entries(latest.status).filter(([, s]) => !s.ok);
+  const bad = Object.entries(latest.status).filter(([, s]) => !s.ok || s.warning);
   document.getElementById("problems").hidden = !bad.length;
-  document.getElementById("stores").innerHTML = bad.map(([s, st]) => `<li><b>${esc(storeName(s))}</b>: <span class="bad">could not be read today, showing data from ${fmtDate(st.last_ok) || "never"}</span></li>`).join("");
+  document.getElementById("stores").innerHTML = bad.map(([s, st]) => `<li><b>${esc(storeName(s))}</b>: <span class="bad">${st.ok ? esc(st.warning)
+    : `could not be read today, showing data from ${fmtDate(st.last_ok) || "never"}`}</span></li>`).join("");
+  const rv = latest.review || [];
+  document.getElementById("review").hidden = !rv.length;
+  document.getElementById("review-list").innerHTML = rv.map(r => `<li><b>${esc(storeName(r.store))}</b>: ${esc(r.name)}</li>`).join("");
+  const dates = [...new Set(hist.map(r => r.date))].sort(), today = dates[dates.length - 1];
+  if (today) {
+    const from = new Date(Date.parse(today) - 30 * 864e5).toISOString().slice(0, 10), now = new Set(beers.map(b => b.key)), last = {};
+    for (const r of hist) if (r.date >= from && r.date < today && !now.has(r.beer)) {
+      const p = parseFloat(r.per_litre);
+      if (!last[r.beer] || r.date > last[r.beer].date || (r.date === last[r.beer].date && p < last[r.beer].p)) last[r.beer] = {date: r.date, name: r.name, store: r.store, p}; }
+    const list = Object.values(last).sort((a, c) => c.date.localeCompare(a.date));
+    document.getElementById("gone").hidden = !list.length;
+    document.getElementById("gone-list").innerHTML = list.map(g => `<li>${esc(g.name)}: last seen ${fmtDate(g.date)} at ${esc(storeName(g.store))}${isNaN(g.p) ? "" : `, ${eur(g.p)}/l`}</li>`).join("");
+  }
 }
 load().catch(e => { document.getElementById("summary").innerHTML = "<p>Could not load the data.</p>"; console.error(e); });
 </script>

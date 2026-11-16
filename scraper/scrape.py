@@ -12,6 +12,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/130.0 Safari/537.36")
 P = {}  # the product being scraped right now (set in main)
+RUN = {"store": None, "review": [], "warn": {}}  # current store, names to check by hand, cut-off warnings
 FIELDS = ["date", "store", "id", "name", "rolls", "regular", "campaign", "loyalty",
           "best", "best_type", "per_roll", "url", "ean"]
 
@@ -41,7 +42,16 @@ def clean(s):
 
 
 def is_match(name):
-    return P["match"](name)
+    ok = P["match"](name)
+    if not ok and P.get("near") and P["near"](name):  # looks like our product but wasn't understood
+        RUN["review"].append({"store": RUN["store"], "name": clean(html.unescape(name))})
+    return ok
+
+
+def check_cutoff(count, limit):
+    """A store returned a full page: there may be more products we didn't see."""
+    if limit and count >= limit:
+        RUN["warn"][RUN["store"]] = f"returned {count} results, the page limit; some products may be missing"
 
 
 def count_of(name):
@@ -64,6 +74,20 @@ def rolls_of(name):
         return int(multi.group(1)) * int(multi.group(2))
     found = re.findall(r"(\d+)[\s-]*(?:rulli|rull|rul|rl)", n) or re.findall(r"(\d+)\s*tk\b", n)
     return int(found[-1]) if found else None
+
+
+def near_zewa(name):
+    n = name.lower()
+    return ("delux" in n and "everyday" not in n and rolls_of(name) is None
+            and not re.search(r"salvr|rätik|ratik|majapidamis|niisk|köögi", n))
+
+
+def near_huggies(name):
+    n = name.lower()
+    return ("huggies" in n and re.search(r"pants|püksm|puksm", n) is not None and diapers_of(name) is None
+            and not re.search(r"extra ?care|overnight|dry ?n|ultra|swim|elite|niisk|salvr", n)
+            and not ("girl" in n and "boy" not in n)
+            and re.search(r"(?<![\d-])(?:s\s?)?5(?![\d.]|\s*-\s*\d|\s*kg)|12\s*-\s*17\s*kg", n) is not None)
 
 
 def is_huggies_pants5_boy(name):
@@ -110,7 +134,9 @@ def selver():
     url = ("https://www.selver.ee/api/catalog/vue_storefront_catalog_et/product/_search"
            "?q=" + P["term"] + "&size=100")
     out = []
-    for h in json.loads(fetch(url))["hits"]["hits"]:
+    hits = json.loads(fetch(url))["hits"]["hits"]
+    check_cutoff(len(hits), 100)
+    for h in hits:
         s = h["_source"]
         if s.get("status") != 1 or not is_match(s.get("name", "")):
             continue
@@ -130,6 +156,7 @@ def selver():
 
 def barbora():
     data = json.loads(fetch("https://barbora.ee/api/eshop/v1/search?query=" + P["term"]))
+    check_cutoff(len(data.get("products", [])), data.get("limit"))
     out = []
     for p in data.get("products", []):
         if p.get("status") != "active" or not is_match(p.get("title", "")):
@@ -149,6 +176,7 @@ def barbora():
 
 def rimi():
     page = fetch("https://www.rimi.ee/epood/ee/otsing?query=" + P["term"] + "&pageSize=80")
+    check_cutoff(page.count('class="product-grid__item"'), 80)
     out = []
     for chunk in page.split('class="product-grid__item"')[1:]:
         m = re.search(r"data-gtm-eec-product='([^']+)'", chunk)
@@ -171,6 +199,7 @@ def rimi():
 
 def bauhof():
     page = fetch(P["bauhof_url"])
+    check_cutoff(page.count('class="product-card-title"'), 32)
     out = []
     for card in re.split(r'(?=<a href="/et/p/\d+/)', page)[1:]:
         title = re.search(r'class="product-card-title"[^>]*>([^<]+)<', card)
@@ -216,6 +245,7 @@ def lapseriided():
 def woo(store, base):
     # WooCommerce Store API (public, read-only product search)
     items = json.loads(fetch(base + "/wp-json/wc/store/v1/products?search=" + P["term"] + "&per_page=100"))
+    check_cutoff(len(items), 100)
     out = []
     for p in items:
         name = html.unescape(p["name"])
@@ -249,8 +279,16 @@ def wolt_coop():
         if not cat:
             raise RuntimeError(P["wolt_category"] + " category not found on Wolt")
         time.sleep(2)
-        data = json.loads(fetch(WOLT_API + slug + "/assortment/categories/slug/" + cat + "?language=et"))
-        for i in data.get("items", []):
+        items, token = [], None
+        for _ in range(10):  # categories are paged, 50 items per page
+            data = json.loads(fetch(WOLT_API + slug + "/assortment/categories/slug/" + cat + "?language=et"
+                                    + ("&page_token=" + token if token else "")))
+            items += data.get("items", [])
+            token = (data.get("metadata") or {}).get("next_page_token")
+            if not token:
+                break
+            time.sleep(2)
+        for i in items:
             if i.get("disabled_info") or not is_match(i["name"]):
                 continue
             price, orig = i["price"] / 100, (i.get("original_price") or 0) / 100
@@ -311,6 +349,7 @@ def depo():
                                  headers={"User-Agent": UA, "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=45) as r:
         data = json.loads(r.read().decode("utf-8"))
+    check_cutoff(len(data["data"]["products"]["edges"]), 100)
     out = []
     for e in data["data"]["products"]["edges"]:
         n = e["node"]
@@ -325,7 +364,19 @@ def juku():
     # Jukukeskus.ee: search is rendered in the browser, so we read fixed product pages.
     # Each page has hidden Nosto tags with name, price, list_price and availability.
     out = []
-    for url in P.get("juku_urls", []):
+    urls = list(P.get("juku_urls", []))
+    if P.get("juku_slug"):  # find new packs: all product links from Juku's sitemap, filtered by URL words
+        sitemap = fetch("https://www.jukukeskus.ee/sitemap/products_1.xml")
+        found = re.findall(r"<loc>https?://www\.jukukeskus\.ee(/et/[^<]+)</loc>", sitemap)
+        if not found:
+            raise RuntimeError("Juku sitemap had no product links")
+        for path in found:
+            if re.search(P["juku_slug"], path) and not re.search(P.get("juku_skip", "$^"), path):
+                u = "https://www.jukukeskus.ee" + path
+                if u not in urls:
+                    urls.append(u)
+        time.sleep(2)
+    for url in urls:
         page = fetch(url)
         tag = lambda k: (re.search(r'<span class="' + k + r'">([^<]*)</span>', page) or [None, None])[1]
         name, price, listp, avail, pid = tag("name"), tag("price"), tag("list_price"), tag("availability"), tag("product_id")
@@ -343,18 +394,18 @@ ALL_STORES = {"Selver": selver, "Bauhof": bauhof, "Rimi": rimi, "Barbora": barbo
 
 PRODUCTS = {
     "zewa": dict(
-        data_dir="docs/data", good_price=0.35, term="zewa", match=is_deluxe_tp, count=rolls_of,
+        data_dir="docs/data", good_price=0.35, term="zewa", match=is_deluxe_tp, near=near_zewa, count=rolls_of,
         bauhof_url="https://www.bauhof.ee/et/c/kodu-ja-sisustus/kodupaber/tualettpaberid", wolt_category="kodupaber",
         stores=["Selver", "Bauhof", "Rimi", "Barbora", "Coop", "Coop kliendileht", "Coop Lasnamäe (Wolt)"],
         may_be_empty={"Coop kliendileht"},  # Zewa is only in the leaflet some weeks
         info={"title": "Zewa Deluxe Price Watch", "what": "Zewa Deluxe toilet paper", "unit": "roll", "units": "rolls",
               "about": "Only Zewa Deluxe toilet paper is tracked (all variants, any pack size). Zewa Everyday and other lines are left out."}),
     "huggies": dict(
-        data_dir="docs/huggies/data", good_price=0.30, term="huggies", match=is_huggies_pants5_boy, count=diapers_of,
+        data_dir="docs/huggies/data", good_price=0.30, term="huggies", match=is_huggies_pants5_boy, near=near_huggies, count=diapers_of,
         wolt_category="mähkmed",
         stores=["Selver", "Rimi", "Barbora", "Coop", "Coop kliendileht", "Coop Lasnamäe (Wolt)", "Lapseriided.com", "DEPO", "Juku"],
-        juku_urls=["https://www.jukukeskus.ee/et/huggies-mahkmepuksid-5-suurus-boy-12-17kg-48-tk--1030602-0038",
-                   "https://www.jukukeskus.ee/et/huggies-mahkmed-s5-boy-12-17kg-68-tk-1030601-0112"],
+        juku_slug=r"huggies.*(s5-|5-suurus|5\.-suurus).*boy|huggies.*boy.*(s5-|5-suurus)",
+        juku_skip=r"girl|elite|overnight|extra-care|swim|dry",
         may_be_empty={"Coop kliendileht", "Coop Lasnamäe (Wolt)", "Coop"},
         info={"title": "Huggies Pants 5 Boy Price Watch", "what": "Huggies Pants size 5 (12-17 kg) Boy diapers", "unit": "diaper", "units": "diapers",
               "about": "Only Huggies Pants size 5 (12-17 kg) Boy diapers are tracked, including Little Movers, any pack size. Packs that don't say Boy or Girl are included; Girl, Extra Care, Overnights and other lines are left out."}),
@@ -391,15 +442,20 @@ def run_product():
     now = dt.datetime.now(dt.timezone.utc)
     today = now.astimezone(dt.timezone(dt.timedelta(hours=2))).date().isoformat()
     offers, status, failed = [], {}, []
+    RUN["review"], RUN["warn"] = [], {}
     for store in P["stores"]:
         fn = ALL_STORES[store]
+        RUN["store"] = store
         try:
             got = [finish(o) for o in fn()]
             got = [o for o in got if o["per_roll"]]
             if not got and store not in P["may_be_empty"]:
                 raise RuntimeError("no matching products parsed (page layout changed or out of stock)")
             offers += got
-            status[store] = {"ok": True, "count": len(got), "last_ok": today, "error": None}
+            status[store] = {"ok": True, "count": len(got), "last_ok": today, "error": None,
+                             "warning": RUN["warn"].get(store)}
+            if RUN["warn"].get(store):
+                failed.append(store + " (cut-off)")
         except Exception as e:  # keep yesterday's data for this store, mark it stale
             failed.append(store)
             old = prev.get("status", {}).get(store, {})
@@ -409,7 +465,9 @@ def run_product():
         time.sleep(2)
 
     offers.sort(key=lambda o: o["per_roll"])
+    review = [dict(t) for t in {tuple(r.items()) for r in RUN["review"]}]
     json.dump({"updated": now.isoformat(timespec="minutes"), "good_price": P["good_price"], "product": P["info"],
+               "review": sorted(review, key=lambda r: (r["store"], r["name"])),
                "offers": offers, "status": status},
               open(latest_path, "w"), ensure_ascii=False, indent=1)
 

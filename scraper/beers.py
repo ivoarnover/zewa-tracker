@@ -14,6 +14,14 @@ from scrape import fetch, clean, num, UA  # noqa: E402  (shared helpers, incl. 4
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "docs", "pohjala", "data")
+WARN, STORE = {}, [None]  # cut-off warnings per store, current store
+
+
+def check_cutoff(count, limit):
+    if limit and count >= limit:
+        WARN[STORE[0]] = f"returned {count} results, the page limit; some beers may be missing"
+
+
 FIELDS = ["date", "beer", "store", "name", "pack", "volume_l", "regular", "best", "best_type", "per_can", "per_litre", "url"]
 
 # ------------------------------------------------------------- matching
@@ -84,6 +92,7 @@ def offer(store, name, url, price, regular=None, loyalty=None, label=None, ean=N
 
 def woo(base, query):
     items = json.loads(fetch(base + "/wp-json/wc/store/v1/products?" + query + "&per_page=100"))
+    check_cutoff(len(items), 100)
     for p in items:
         pr, div = p["prices"], 10 ** p["prices"].get("currency_minor_unit", 2)
         yield p, int(pr["price"]) / div, int(pr["regular_price"]) / div
@@ -112,7 +121,9 @@ def coop():
 def selver():
     url = "https://www.selver.ee/api/catalog/vue_storefront_catalog_et/product/_search?q=p%C3%B5hjala&size=200"
     out = []
-    for h in json.loads(fetch(url))["hits"]["hits"]:
+    hits = json.loads(fetch(url))["hits"]["hits"]
+    check_cutoff(len(hits), 200)
+    for h in hits:
         s = h["_source"]
         if s.get("status") != 1 or "PÕHJALA" not in s.get("name", "") or NOT_BEER.search(s["name"]):
             continue
@@ -130,6 +141,7 @@ def selver():
 
 def barbora():
     data = json.loads(fetch("https://barbora.ee/api/eshop/v1/search?query=p%C3%B5hjala"))
+    check_cutoff(len(data.get("products", [])), data.get("limit"))
     out = []
     for p in data.get("products", []):
         t = p.get("title", "")
@@ -147,6 +159,7 @@ def barbora():
 
 def rimi():
     page = fetch("https://www.rimi.ee/epood/ee/otsing?query=p%C3%B5hjala&pageSize=80")
+    check_cutoff(page.count('class="product-grid__item"'), 80)
     out = []
     for chunk in page.split('class="product-grid__item"')[1:]:
         m = re.search(r"data-gtm-eec-product='([^']+)'", chunk)
@@ -202,6 +215,7 @@ VAT = 1.24  # Estonian VAT; Kaupmees shows prices without VAT ("+KM")
 def kaupmees():
     # Kaupmees & Ko e-shop: beer category filtered by brand, server-rendered cards; prices are excl. VAT
     page = fetch("https://www.kaupmees.ee/et/alkohol-ja-tubakas/olled?brand=P%C3%95HJALA")
+    check_cutoff(page.count(' Hind"'), 48)
     out = []
     for m in re.finditer(r'<section aria-label="([^"]+?) Hind"', page):
         name = html.unescape(m.group(1))
@@ -268,6 +282,8 @@ def build_beers(offers):
                     best = (score, k)
         if best:
             o["key"] = best[1]
+        else:
+            o["unmatched"] = True  # new beer, or a name we couldn't link: listed under "check these"
     beers = {}
     for o in sorted(offers, key=lambda o: o["store"] != "Põhjala e-shop"):
         b = beers.setdefault(o["key"], {"key": o["key"], "name": None, "volume_l": None, "alcohol_free": o["key"].endswith(" 0") or "treeninglaager" in o["key"]})
@@ -292,12 +308,15 @@ def main():
     today = now.astimezone(dt.timezone(dt.timedelta(hours=2))).date().isoformat()
     offers, status, failed = [], {}, []
     for store, fn in STORES.items():
+        STORE[0] = store
         try:
             got = [o for o in fn() if o["per_can"]]
             if not got and store not in MAY_BE_EMPTY:
                 raise RuntimeError("no Põhjala beers parsed (page layout changed?)")
             offers += got
-            status[store] = {"ok": True, "count": len(got), "last_ok": today, "error": None}
+            status[store] = {"ok": True, "count": len(got), "last_ok": today, "error": None, "warning": WARN.get(store)}
+            if WARN.get(store):
+                failed.append(store + " (cut-off)")
         except Exception as e:
             failed.append(store)
             old = prev.get("status", {}).get(store, {})
@@ -312,7 +331,9 @@ def main():
             o["volume_l"] = beers[o["beer"]]["volume_l"]
         # main comparison: price per litre (can size doesn't matter to the buyer)
         o["per_litre"] = round(o["best"] / (o["pack"] * o["volume_l"]), 2) if o["best"] and o["volume_l"] else None
-    json.dump({"updated": now.isoformat(timespec="minutes"), "beers": sorted(beers.values(), key=lambda b: b["name"].lower()),
+    review = sorted({(o["store"], o["name"]) for o in offers if o.get("unmatched") and not o.get("stale")})
+    json.dump({"updated": now.isoformat(timespec="minutes"),
+               "review": [{"store": st, "name": n} for st, n in review], "beers": sorted(beers.values(), key=lambda b: b["name"].lower()),
                "offers": offers, "status": status}, open(latest_path, "w"), ensure_ascii=False, indent=1)
 
     rows = []
