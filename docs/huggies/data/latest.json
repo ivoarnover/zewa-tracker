@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T09:13+00:00",
+ "updated": "2026-11-16T09:24+00:00",
  "good_price": 0.3,
  "product": {
   "title": "Huggies Pants 5 Boy Price Watch",
@@ -9,6 +9,21 @@
   "about": "Only Huggies Pants size 5 (12-17 kg) Boy diapers are tracked, including Little Movers, any pack size. Packs that don't say Boy or Girl are included; Girl, Extra Care, Overnights and other lines are left out."
  },
  "offers": [
+  {
+   "store": "Juku",
+   "id": "1030602-0038",
+   "name": "HUGGIES püksmähkmed S5 Boy D Mega, 12-17kg, 48 tk., 2658671",
+   "url": "https://www.jukukeskus.ee/et/huggies-mahkmepuksid-5-suurus-boy-12-17kg-48-tk--1030602-0038",
+   "rolls": 48,
+   "regular": 19.99,
+   "campaign": 11.99,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 11.99,
+   "best_type": "campaign",
+   "per_roll": 0.25
+  },
   {
    "store": "DEPO",
    "id": "199094",
@@ -228,7 +243,8 @@
    "wolt": true,
    "best": 23.27,
    "best_type": "regular",
-   "per_roll": 0.485
+   "per_roll": 0.485,
+   "stale": true
   }
  ],
  "status": {
@@ -263,10 +279,10 @@
    "error": null
   },
   "Coop Lasnamäe (Wolt)": {
-   "ok": true,
-   "count": 1,
+   "ok": false,
+   "count": 0,
    "last_ok": "2026-11-16",
-   "error": null
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
   },
   "Lapseriided.com": {
    "ok": true,
@@ -275,6 +291,12 @@
    "error": null
   },
   "DEPO": {
+   "ok": true,
+   "count": 1,
+   "last_ok": "2026-11-16",
+   "error": null
+  },
+  "Juku": {
    "ok": true,
    "count": 1,
    "last_ok": "2026-11-16",
