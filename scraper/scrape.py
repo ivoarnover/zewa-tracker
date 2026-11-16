@@ -32,9 +32,9 @@ def fetch(url):
                 _cache[url] = r.read().decode("utf-8", "replace")
                 return _cache[url]
         except urllib.error.HTTPError as e:
-            if e.code != 429 or attempt == 2:
+            if e.code not in (429, 500, 502, 503, 504) or attempt == 2:
                 raise
-            time.sleep(30 * (attempt + 1))
+            time.sleep(30 * (attempt + 1))  # busy (429) or a passing server error (5xx): wait and retry
 
 
 def clean(s):

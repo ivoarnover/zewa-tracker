@@ -1,0 +1,9 @@
+name: debug-viina
+on: workflow_dispatch
+jobs:
+  d:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -sL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -o p.html -w "%{http_code} %{size_download} %{url_effective}\n" "https://viinarannasta.ee/shop?search=p%C3%B5hjala"
+          grep -o "<title>[^<]*" p.html; grep -c "product-detail/" p.html; grep -o -i "vanus[^<]\{0,80\}\|18[^<]\{0,40\}aastat[^<]\{0,40\}\|cloudflare\|captcha" p.html | head -5

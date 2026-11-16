@@ -252,6 +252,10 @@ def viinarannasta():
         if not prices:
             continue
         out.append(offer("Viinarannasta", link.group(2), link.group(1), min(prices), max(prices)))
+    if not out:
+        title = re.search(r"<title>([^<]*)", page)
+        raise RuntimeError(f"no Põhjala cards on search page ({len(page)} bytes, title {title.group(1).strip() if title else '?'!r}, "
+                           f"{page.count('product-detail/')} product links)")
     return out
 
 
