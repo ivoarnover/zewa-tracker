@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15T12:12+00:00",
+ "updated": "2026-11-16T08:44+00:00",
  "good_price": 0.35,
  "offers": [
   {
@@ -16,6 +16,21 @@
    "best": 8.88,
    "best_type": "campaign",
    "per_roll": 0.278
+  },
+  {
+   "store": "Coop kliendileht",
+   "id": "23019173",
+   "name": "Zewa Deluxe tualettpaber 3kih 32 rl valge",
+   "url": "https://kliendileht.coop.ee/kliendileht/2026/46/",
+   "rolls": 32,
+   "regular": null,
+   "campaign": null,
+   "loyalty": 9.99,
+   "loyalty_label": "Säästukaart",
+   "valid_until": "2026-11-16",
+   "best": 9.99,
+   "best_type": "loyalty",
+   "per_roll": 0.312
   },
   {
    "store": "Bauhof",
@@ -44,6 +59,21 @@
    "loyalty_label": null,
    "valid_until": null,
    "ean": "7322540313321",
+   "best": 6.99,
+   "best_type": "regular",
+   "per_roll": 0.437
+  },
+  {
+   "store": "Coop kliendileht",
+   "id": "7322540313321",
+   "name": "Tualettpaber Zewa Deluxe Delicate Care 3kih 16 rl",
+   "url": "https://kliendileht.coop.ee/hoiame-soodsana/hoiame-soodsana/",
+   "rolls": 16,
+   "regular": 6.99,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
    "best": 6.99,
    "best_type": "regular",
    "per_roll": 0.437
@@ -369,37 +399,43 @@
   "Selver": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "error": null
   },
   "Bauhof": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "error": null
   },
   "Rimi": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "error": null
   },
   "Barbora": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "error": null
   },
   "Coop": {
    "ok": true,
    "count": 6,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
+   "error": null
+  },
+  "Coop kliendileht": {
+   "ok": true,
+   "count": 2,
+   "last_ok": "2026-11-16",
    "error": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "error": null
   }
  }
