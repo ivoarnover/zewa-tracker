@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T10:10+00:00",
+ "updated": "2026-11-16T10:16+00:00",
  "good_price": 0.3,
  "product": {
   "title": "Huggies Pants 5 Boy Price Watch",
@@ -147,8 +147,7 @@
    "ean": "5029053564128",
    "best": 27.9,
    "best_type": "regular",
-   "per_roll": 0.41,
-   "stale": true
+   "per_roll": 0.41
   },
   {
    "store": "Coop",
@@ -164,8 +163,7 @@
    "ean": "5029053547619",
    "best": 19.89,
    "best_type": "regular",
-   "per_roll": 0.414,
-   "stale": true
+   "per_roll": 0.414
   },
   {
    "store": "Rimi",
@@ -287,10 +285,11 @@
    "warning": null
   },
   "Coop": {
-   "ok": false,
-   "count": 0,
+   "ok": true,
+   "count": 2,
    "last_ok": "2026-11-16",
-   "error": "HTTPError: HTTP Error 500: Internal Server Error"
+   "error": null,
+   "warning": null
   },
   "Coop kliendileht": {
    "ok": true,

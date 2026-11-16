@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T10:11+00:00",
+ "updated": "2026-11-16T10:17+00:00",
  "review": [
   {
    "store": "Kaupmees",
@@ -2727,7 +2727,7 @@
    "ok": false,
    "count": 0,
    "last_ok": "2026-11-16",
-   "error": "RuntimeError: no Põhjala beers parsed (page layout changed?)"
+   "error": "RuntimeError: no Põhjala cards on search page (11955 bytes, title 'One moment, please...', 0 product links)"
   }
  }
 }
