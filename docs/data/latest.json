@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T11:53+00:00",
+ "updated": "2026-11-17T17:25+00:00",
  "good_price": 0.35,
  "product": {
   "title": "Zewa Deluxe Price Watch",
@@ -10,21 +10,6 @@
  },
  "review": [],
  "offers": [
-  {
-   "store": "Bauhof",
-   "id": "725169",
-   "name": "TUALETTPABER ZEWA DELUXE DELICATE CARE 3-KIHILINE 32 RULLI PAKIS",
-   "url": "https://www.bauhof.ee/et/p/725169/tualettpaber-zewa-deluxe-delicate-care-3-kihiline-32-rulli-pakis",
-   "rolls": 32,
-   "regular": null,
-   "campaign": 8.88,
-   "loyalty": null,
-   "loyalty_label": null,
-   "valid_until": "16.11.2026",
-   "best": 8.88,
-   "best_type": "campaign",
-   "per_roll": 0.278
-  },
   {
    "store": "Bauhof",
    "id": "673165",
@@ -39,6 +24,21 @@
    "best": 6.49,
    "best_type": "campaign",
    "per_roll": 0.406
+  },
+  {
+   "store": "Bauhof",
+   "id": "725169",
+   "name": "TUALETTPABER ZEWA DELUXE DELICATE CARE 3-KIHILINE 32 RULLI PAKIS",
+   "url": "https://www.bauhof.ee/et/p/725169/tualettpaber-zewa-deluxe-delicate-care-3-kihiline-32-rulli-pakis",
+   "rolls": 32,
+   "regular": 17.99,
+   "campaign": null,
+   "loyalty": 13.49,
+   "loyalty_label": "Meistriklubi hind",
+   "valid_until": null,
+   "best": 13.49,
+   "best_type": "loyalty",
+   "per_roll": 0.422
   },
   {
    "store": "Coop",
@@ -322,6 +322,21 @@
    "per_roll": 0.786
   },
   {
+   "store": "Bauhof",
+   "id": "766826",
+   "name": "TUALETTPABER ZEWA DELUXE DELICATE CARE 3-KIHILINE, 4 RULLI",
+   "url": "https://www.bauhof.ee/et/p/766826/tualettpaber-zewa-deluxe-delicate-care-3-kihiline-4-rulli",
+   "rolls": 4,
+   "regular": 4.39,
+   "campaign": null,
+   "loyalty": 3.29,
+   "loyalty_label": "Meistriklubi hind",
+   "valid_until": null,
+   "best": 3.29,
+   "best_type": "loyalty",
+   "per_roll": 0.823
+  },
+  {
    "store": "Selver",
    "id": "H000038720",
    "name": "Tualettpaber Deluxe, 3-kihiline, ZEWA, 4 rl",
@@ -386,21 +401,6 @@
    "best": 3.92,
    "best_type": "regular",
    "per_roll": 0.98
-  },
-  {
-   "store": "Bauhof",
-   "id": "766826",
-   "name": "TUALETTPABER ZEWA DELUXE DELICATE CARE 3-KIHILINE, 4 RULLI",
-   "url": "https://www.bauhof.ee/et/p/766826/tualettpaber-zewa-deluxe-delicate-care-3-kihiline-4-rulli",
-   "rolls": 4,
-   "regular": 4.39,
-   "campaign": null,
-   "loyalty": null,
-   "loyalty_label": null,
-   "valid_until": null,
-   "best": 4.39,
-   "best_type": "regular",
-   "per_roll": 1.097
   }
  ],
  "status": {

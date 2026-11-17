@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T11:56+00:00",
+ "updated": "2026-11-17T17:27+00:00",
  "review": [
   {
    "store": "Kaupmees",
@@ -1531,22 +1531,6 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Õhtu Põhjala 5,5% 0,44l",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-ohtu-pohjala-5-5-0-44l/p/1376639",
-   "ean": null,
-   "key": "õhtu",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 2.69,
-   "best": 2.69,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.69,
-   "beer": "õhtu",
-   "per_litre": 6.11
-  },
-  {
-   "store": "Rimi",
    "name": "Õlu GF Põhjala 3,5% 0,44l",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-gf-pohjala-3-5-0-44l/p/1376626",
    "ean": null,
@@ -1563,19 +1547,19 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Jõuluporter 10%vol 0,33l",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-jouluporter-10-vol-0-33l/p/1377228",
+   "name": "Õlu Õhtu Põhjala 5,5% 0,44l",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-ohtu-pohjala-5-5-0-44l/p/1376639",
    "ean": null,
-   "key": "jõuluporter",
+   "key": "õhtu",
    "pack": 1,
-   "volume_l": 0.33,
-   "regular": 3.99,
-   "best": 3.99,
+   "volume_l": 0.44,
+   "regular": 2.69,
+   "best": 2.69,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 3.99,
-   "beer": "jõuluporter",
-   "per_litre": 12.09
+   "per_can": 2.69,
+   "beer": "õhtu",
+   "per_litre": 6.11
   },
   {
    "store": "Rimi",
@@ -1592,6 +1576,22 @@
    "per_can": 3.29,
    "beer": "kirsiõlu",
    "per_litre": 9.97
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Jõuluporter 10%vol 0,33l",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-jouluporter-10-vol-0-33l/p/1377228",
+   "ean": null,
+   "key": "jõuluporter",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 3.99,
+   "best": 3.99,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.99,
+   "beer": "jõuluporter",
+   "per_litre": 12.09
   },
   {
    "store": "Rimi",
@@ -1707,22 +1707,6 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Uus Maailm 4,7%vol 0,44l purk",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-uus-maailm-4-7-vol-0-44l-purk/p/1376971",
-   "ean": null,
-   "key": "uus maailm",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 2.79,
-   "best": 2.79,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.79,
-   "beer": "uus maailm",
-   "per_litre": 6.34
-  },
-  {
-   "store": "Rimi",
    "name": "Õlu Põhjala Orange Gose 5,5%vol 0,44l purk",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-orange-gose-5-5-vol-0-44l-purk/p/1376970",
    "ean": null,
@@ -1735,6 +1719,22 @@
    "loyalty_label": null,
    "per_can": 2.79,
    "beer": "orange gose",
+   "per_litre": 6.34
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Uus Maailm 4,7%vol 0,44l purk",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-uus-maailm-4-7-vol-0-44l-purk/p/1376971",
+   "ean": null,
+   "key": "uus maailm",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 2.79,
+   "best": 2.79,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 2.79,
+   "beer": "uus maailm",
    "per_litre": 6.34
   },
   {

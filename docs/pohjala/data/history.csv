@@ -222,10 +222,10 @@ date,beer,store,name,pack,volume_l,regular,best,best_type,per_can,per_litre,url
 2026-11-17,laager,Rimi,"Õlu Põhjala Laager 4,7%vol 0,44l purk",1,0.44,1.79,1.79,regular,1.79,4.07,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-laager-4-7-vol-0-44l-purk/p/1368600
 2026-11-17,käbi,Rimi,"Õlu Põhjala Käbi 6%vol 0,33l",1,0.33,3.29,3.29,regular,3.29,9.97,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kabi-6-vol-0-33l/p/1377227
 2026-11-17,virmalised,Rimi,"Õlu Põhjala Virmalised 6,5%vol 0,33l purk",1,0.33,2.59,2.59,regular,2.59,7.85,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-virmalised-6-5-vol-0-33l-purk/p/1368591
-2026-11-17,õhtu,Rimi,"Õlu Õhtu Põhjala 5,5% 0,44l",1,0.44,2.69,2.69,regular,2.69,6.11,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-ohtu-pohjala-5-5-0-44l/p/1376639
 2026-11-17,gf,Rimi,"Õlu GF Põhjala 3,5% 0,44l",1,0.44,3.49,3.49,regular,3.49,7.93,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-gf-pohjala-3-5-0-44l/p/1376626
-2026-11-17,jõuluporter,Rimi,"Õlu Põhjala Jõuluporter 10%vol 0,33l",1,0.33,3.99,3.99,regular,3.99,12.09,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-jouluporter-10-vol-0-33l/p/1377228
+2026-11-17,õhtu,Rimi,"Õlu Õhtu Põhjala 5,5% 0,44l",1,0.44,2.69,2.69,regular,2.69,6.11,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-ohtu-pohjala-5-5-0-44l/p/1376639
 2026-11-17,kirsiõlu,Rimi,"Õlu Põhjala Kirsiõlu 5,5%vol 0,33l",1,0.33,3.29,3.29,regular,3.29,9.97,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kirsiolu-5-5-vol-0-33l/p/1377234
+2026-11-17,jõuluporter,Rimi,"Õlu Põhjala Jõuluporter 10%vol 0,33l",1,0.33,3.99,3.99,regular,3.99,12.09,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-jouluporter-10-vol-0-33l/p/1377228
 2026-11-17,prenzlauer berg,Rimi,"Õlu Prenzlauer Berg Põhjala 4,5% 0,33l",1,0.33,3.39,3.39,regular,3.39,10.27,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-prenzlauer-berg-pohjala-4-5-0-33l/p/1368593
 2026-11-17,velvet winter,Rimi,"Õlu Põhjala Velvet Winter 8%vol 0,33l",1,0.33,3.99,3.99,regular,3.99,12.09,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-velvet-winter-8-vol-0-33l/p/1377233
 2026-11-17,treeninglaager,Rimi,"Alk.v. õlu Põhjala Treeninglaager 0,5% 0,44l",1,0.44,2.69,2.69,regular,2.69,6.11,https://www.rimi.ee/epood/ee/tooted/joogid/alkoholivabad-joogid/alkoholivaba-olu/alk-v-olu-pohjala-treeninglaager-0-5-0-44l/p/1374838
@@ -233,8 +233,8 @@ date,beer,store,name,pack,volume_l,regular,best,best_type,per_can,per_litre,url
 2026-11-17,laager 0,Rimi,"Alkoholivaba õlu Põhjala Laager 0 0,44l prk",1,0.44,2.29,2.29,regular,2.29,5.2,https://www.rimi.ee/epood/ee/tooted/joogid/alkoholivabad-joogid/alkoholivaba-olu/alkoholivaba-olu-pohjala-laager-0-0-44l-prk/p/1374202
 2026-11-17,saturnus,Rimi,"Õlu Põhjala Saturnus 5%vol 0,440l purk",1,0.44,2.49,2.49,regular,2.49,5.66,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-saturnus-5-vol-0-440l-purk/p/1372969
 2026-11-17,punane laager,Rimi,"Õlu Põhjala Punane Laager 4,9%vol 0,44l prk",1,0.44,1.79,1.79,regular,1.79,4.07,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-punane-laager-4-9-vol-0-44l-prk/p/1374188
-2026-11-17,uus maailm,Rimi,"Õlu Põhjala Uus Maailm 4,7%vol 0,44l purk",1,0.44,2.79,2.79,regular,2.79,6.34,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-uus-maailm-4-7-vol-0-44l-purk/p/1376971
 2026-11-17,orange gose,Rimi,"Õlu Põhjala Orange Gose 5,5%vol 0,44l purk",1,0.44,2.79,2.79,regular,2.79,6.34,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-orange-gose-5-5-vol-0-44l-purk/p/1376970
+2026-11-17,uus maailm,Rimi,"Õlu Põhjala Uus Maailm 4,7%vol 0,44l purk",1,0.44,2.79,2.79,regular,2.79,6.34,https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-uus-maailm-4-7-vol-0-44l-purk/p/1376971
 2026-11-17,virmalised,Barbora,Õlu PÕHJALA Virmalised 6.5% 330ml,1,0.33,2.99,2.99,regular,2.99,9.06,https://barbora.ee/p/olu-pohjala-virmalised-6-5-proc-330-ml
 2026-11-17,virmalised 0,Barbora,Alko.vaba õluPÕHJALA Virmalised 330ml,1,0.33,2.49,2.49,regular,2.49,7.55,https://barbora.ee/p/alko-vaba-olupohjala-virmalised-330-ml
 2026-11-17,laager,Barbora,Hele õlu PÕHJALA Laager 4.7% 440ml,1,0.44,2.29,2.29,regular,2.29,5.2,https://barbora.ee/p/hele-olu-pohjala-laager-4-7-proc-440-ml
