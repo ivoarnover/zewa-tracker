@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T10:16+00:00",
+ "updated": "2026-11-17T11:55+00:00",
  "good_price": 0.3,
  "product": {
   "title": "Huggies Pants 5 Boy Price Watch",
@@ -56,6 +56,21 @@
    "per_roll": 0.261
   },
   {
+   "store": "Rimi",
+   "id": "7158516",
+   "name": "Püksmähkmed Huggies Pants 5,12-17kg 48tk",
+   "url": "https://www.rimi.ee/epood/ee/tooted/lastekaubad/mahkmed/puksmahkmed/puksmahkmed-huggies-pants-5-12-17kg-48tk/p/7158516",
+   "rolls": 48,
+   "regular": 19.89,
+   "campaign": 12.99,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 12.99,
+   "best_type": "campaign",
+   "per_roll": 0.271
+  },
+  {
    "store": "Barbora",
    "id": "1253351",
    "name": "Püksmähkmed HUGGIES S5 Boy 12-17kg 48tk",
@@ -84,6 +99,22 @@
    "best": 19.99,
    "best_type": "loyalty",
    "per_roll": 0.294
+  },
+  {
+   "store": "Selver",
+   "id": "H000106959",
+   "name": "Püksmähkmed Pants 5 Box Boy, HUGGIES, 12-17 kg/68 tk",
+   "url": "https://www.selver.ee/puksmahkmed-pants-5-box-boy-huggies-12-17-kg-68-tk",
+   "rolls": 68,
+   "regular": 29.9,
+   "campaign": null,
+   "loyalty": 20.9,
+   "loyalty_label": "Partnerkaart",
+   "valid_until": null,
+   "ean": "5029053564128",
+   "best": 20.9,
+   "best_type": "loyalty",
+   "per_roll": 0.307
   },
   {
    "store": "Lapseriided.com",
@@ -166,37 +197,6 @@
    "per_roll": 0.414
   },
   {
-   "store": "Rimi",
-   "id": "7158516",
-   "name": "Püksmähkmed Huggies Pants 5,12-17kg 48tk",
-   "url": "https://www.rimi.ee/epood/ee/tooted/lastekaubad/mahkmed/puksmahkmed/puksmahkmed-huggies-pants-5-12-17kg-48tk/p/7158516",
-   "rolls": 48,
-   "regular": 20.99,
-   "campaign": null,
-   "loyalty": null,
-   "loyalty_label": null,
-   "valid_until": null,
-   "best": 20.99,
-   "best_type": "regular",
-   "per_roll": 0.437
-  },
-  {
-   "store": "Selver",
-   "id": "H000106959",
-   "name": "Püksmähkmed Pants 5 Box Boy, HUGGIES, 12-17 kg/68 tk",
-   "url": "https://www.selver.ee/puksmahkmed-pants-5-box-boy-huggies-12-17-kg-68-tk",
-   "rolls": 68,
-   "regular": 29.9,
-   "campaign": null,
-   "loyalty": null,
-   "loyalty_label": "Partnerkaart",
-   "valid_until": null,
-   "ean": "5029053564128",
-   "best": 29.9,
-   "best_type": "regular",
-   "per_roll": 0.44
-  },
-  {
    "store": "Lapseriided.com",
    "id": "1999",
    "name": "Huggies püksmähkmed Pants 5 Boy 12-17kg 34tk",
@@ -238,7 +238,7 @@
    "campaign": null,
    "loyalty": null,
    "loyalty_label": "Partnerkaart",
-   "valid_until": null,
+   "valid_until": "2027-01-04 23:59:59",
    "ean": "5029053547619",
    "best": 22.9,
    "best_type": "regular",
@@ -266,63 +266,63 @@
   "Selver": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Coop kliendileht": {
    "ok": true,
    "count": 0,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Lapseriided.com": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "DEPO": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Juku": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   }

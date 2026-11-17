@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T10:15+00:00",
+ "updated": "2026-11-17T11:53+00:00",
  "good_price": 0.35,
  "product": {
   "title": "Zewa Deluxe Price Watch",
@@ -24,21 +24,6 @@
    "best": 8.88,
    "best_type": "campaign",
    "per_roll": 0.278
-  },
-  {
-   "store": "Coop kliendileht",
-   "id": "23019173",
-   "name": "Zewa Deluxe tualettpaber 3kih 32tk valge",
-   "url": "https://kliendileht.coop.ee/kliendileht/2026/46/",
-   "rolls": 32,
-   "regular": null,
-   "campaign": null,
-   "loyalty": 9.99,
-   "loyalty_label": "Säästukaart",
-   "valid_until": "2026-11-16",
-   "best": 9.99,
-   "best_type": "loyalty",
-   "per_roll": 0.312
   },
   {
    "store": "Bauhof",
@@ -135,51 +120,6 @@
    "per_roll": 0.511
   },
   {
-   "store": "Rimi",
-   "id": "768328",
-   "name": "Tualettpaber Zewa Deluxe Pure White 3k. 8rul.",
-   "url": "https://www.rimi.ee/epood/ee/tooted/puhastusvahendid/majapidamispaber-ja-tualettpaber/tualettpaber/tualettpaber-zewa-deluxe-pure-white-3k-8rul-/p/768328",
-   "rolls": 8,
-   "regular": 6.19,
-   "campaign": 4.89,
-   "loyalty": null,
-   "loyalty_label": null,
-   "valid_until": null,
-   "best": 4.89,
-   "best_type": "campaign",
-   "per_roll": 0.611
-  },
-  {
-   "store": "Rimi",
-   "id": "7065659",
-   "name": "Tualettpaber Zewa deluxe lavender 8rulli",
-   "url": "https://www.rimi.ee/epood/ee/tooted/puhastusvahendid/majapidamispaber-ja-tualettpaber/tualettpaber/tualettpaber-zewa-deluxe-lavender-8rulli/p/7065659",
-   "rolls": 8,
-   "regular": 6.19,
-   "campaign": 5.19,
-   "loyalty": null,
-   "loyalty_label": null,
-   "valid_until": null,
-   "best": 5.19,
-   "best_type": "campaign",
-   "per_roll": 0.649
-  },
-  {
-   "store": "Rimi",
-   "id": "423097",
-   "name": "Tualettpaber Zewa Deluxe 8 rulli",
-   "url": "https://www.rimi.ee/epood/ee/tooted/puhastusvahendid/majapidamispaber-ja-tualettpaber/tualettpaber/tualettpaber-zewa-deluxe-8-rulli/p/423097",
-   "rolls": 8,
-   "regular": 6.19,
-   "campaign": 5.19,
-   "loyalty": null,
-   "loyalty_label": null,
-   "valid_until": null,
-   "best": 5.19,
-   "best_type": "campaign",
-   "per_roll": 0.649
-  },
-  {
    "store": "Coop",
    "id": "50156",
    "name": "Tualettpaber Zewa Deluxe 3kih 32tk valge",
@@ -256,6 +196,66 @@
    "best": 6.09,
    "best_type": "regular",
    "per_roll": 0.761
+  },
+  {
+   "store": "Rimi",
+   "id": "768328",
+   "name": "Tualettpaber Zewa Deluxe Pure White 3k. 8rul.",
+   "url": "https://www.rimi.ee/epood/ee/tooted/puhastusvahendid/majapidamispaber-ja-tualettpaber/tualettpaber/tualettpaber-zewa-deluxe-pure-white-3k-8rul-/p/768328",
+   "rolls": 8,
+   "regular": 6.19,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 6.19,
+   "best_type": "regular",
+   "per_roll": 0.774
+  },
+  {
+   "store": "Rimi",
+   "id": "7065659",
+   "name": "Tualettpaber Zewa deluxe lavender 8rulli",
+   "url": "https://www.rimi.ee/epood/ee/tooted/puhastusvahendid/majapidamispaber-ja-tualettpaber/tualettpaber/tualettpaber-zewa-deluxe-lavender-8rulli/p/7065659",
+   "rolls": 8,
+   "regular": 6.19,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 6.19,
+   "best_type": "regular",
+   "per_roll": 0.774
+  },
+  {
+   "store": "Rimi",
+   "id": "423097",
+   "name": "Tualettpaber Zewa Deluxe 8 rulli",
+   "url": "https://www.rimi.ee/epood/ee/tooted/puhastusvahendid/majapidamispaber-ja-tualettpaber/tualettpaber/tualettpaber-zewa-deluxe-8-rulli/p/423097",
+   "rolls": 8,
+   "regular": 6.19,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 6.19,
+   "best_type": "regular",
+   "per_roll": 0.774
+  },
+  {
+   "store": "Barbora",
+   "id": "746113",
+   "name": "WC paber ZEWA Deluxe Lavender 3kih 8rl",
+   "url": "https://barbora.ee/p/wc-paber-zewa-deluxe-lavender-3-kih-8-rl",
+   "rolls": 8,
+   "regular": 6.19,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 6.19,
+   "best_type": "regular",
+   "per_roll": 0.774
   },
   {
    "store": "Coop",
@@ -407,49 +407,49 @@
   "Selver": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Bauhof": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
-   "count": 2,
-   "last_ok": "2026-11-16",
+   "count": 3,
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 6,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Coop kliendileht": {
    "ok": true,
-   "count": 2,
-   "last_ok": "2026-11-16",
+   "count": 1,
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   }

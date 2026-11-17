@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-16T10:17+00:00",
+ "updated": "2026-11-17T11:56+00:00",
  "review": [
   {
    "store": "Kaupmees",
@@ -1458,28 +1458,12 @@
    "pack": 1,
    "volume_l": 0.44,
    "regular": 2.49,
-   "best": 1.99,
-   "best_type": "campaign",
-   "loyalty_label": null,
-   "per_can": 1.99,
-   "beer": "treeninglaager vaarikas",
-   "per_litre": 4.52
-  },
-  {
-   "store": "Rimi",
-   "name": "Õlu Põhjala Laager 4,7%vol 0,44l purk",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-laager-4-7-vol-0-44l-purk/p/1368600",
-   "ean": null,
-   "key": "laager",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 2.29,
-   "best": 2.29,
+   "best": 2.49,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 2.29,
-   "beer": "laager",
-   "per_litre": 5.2
+   "per_can": 2.49,
+   "beer": "treeninglaager vaarikas",
+   "per_litre": 5.66
   },
   {
    "store": "Rimi",
@@ -1489,13 +1473,29 @@
    "key": "kosmos",
    "pack": 1,
    "volume_l": 0.44,
-   "regular": 3.59,
-   "best": 3.59,
+   "regular": 2.89,
+   "best": 2.89,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 3.59,
+   "per_can": 2.89,
    "beer": "kosmos",
-   "per_litre": 8.16
+   "per_litre": 6.57
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Laager 4,7%vol 0,44l purk",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-laager-4-7-vol-0-44l-purk/p/1368600",
+   "ean": null,
+   "key": "laager",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 1.79,
+   "best": 1.79,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 1.79,
+   "beer": "laager",
+   "per_litre": 4.07
   },
   {
    "store": "Rimi",
@@ -1505,12 +1505,28 @@
    "key": "käbi",
    "pack": 1,
    "volume_l": 0.33,
+   "regular": 3.29,
+   "best": 3.29,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.29,
+   "beer": "käbi",
+   "per_litre": 9.97
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Virmalised 6,5%vol 0,33l purk",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-virmalised-6-5-vol-0-33l-purk/p/1368591",
+   "ean": null,
+   "key": "virmalised",
+   "pack": 1,
+   "volume_l": 0.33,
    "regular": 2.59,
    "best": 2.59,
    "best_type": "regular",
    "loyalty_label": null,
    "per_can": 2.59,
-   "beer": "käbi",
+   "beer": "virmalised",
    "per_litre": 7.85
   },
   {
@@ -1521,29 +1537,13 @@
    "key": "õhtu",
    "pack": 1,
    "volume_l": 0.44,
-   "regular": 3.39,
-   "best": 3.39,
+   "regular": 2.69,
+   "best": 2.69,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 3.39,
+   "per_can": 2.69,
    "beer": "õhtu",
-   "per_litre": 7.7
-  },
-  {
-   "store": "Rimi",
-   "name": "Õlu Põhjala Virmalised 6,5%vol 0,33l purk",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-virmalised-6-5-vol-0-33l-purk/p/1368591",
-   "ean": null,
-   "key": "virmalised",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 3.19,
-   "best": 3.19,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.19,
-   "beer": "virmalised",
-   "per_litre": 9.67
+   "per_litre": 6.11
   },
   {
    "store": "Rimi",
@@ -1569,13 +1569,29 @@
    "key": "jõuluporter",
    "pack": 1,
    "volume_l": 0.33,
-   "regular": 3.19,
-   "best": 3.19,
+   "regular": 3.99,
+   "best": 3.99,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 3.19,
+   "per_can": 3.99,
    "beer": "jõuluporter",
-   "per_litre": 9.67
+   "per_litre": 12.09
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Kirsiõlu 5,5%vol 0,33l",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kirsiolu-5-5-vol-0-33l/p/1377234",
+   "ean": null,
+   "key": "kirsiõlu",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 3.29,
+   "best": 3.29,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.29,
+   "beer": "kirsiõlu",
+   "per_litre": 9.97
   },
   {
    "store": "Rimi",
@@ -1595,35 +1611,19 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Kirsiõlu 5,5%vol 0,33l",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kirsiolu-5-5-vol-0-33l/p/1377234",
-   "ean": null,
-   "key": "kirsiõlu",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 2.49,
-   "best": 2.49,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.49,
-   "beer": "kirsiõlu",
-   "per_litre": 7.55
-  },
-  {
-   "store": "Rimi",
    "name": "Õlu Põhjala Velvet Winter 8%vol 0,33l",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-velvet-winter-8-vol-0-33l/p/1377233",
    "ean": null,
    "key": "velvet winter",
    "pack": 1,
    "volume_l": 0.33,
-   "regular": 2.99,
-   "best": 2.99,
+   "regular": 3.99,
+   "best": 3.99,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 2.99,
+   "per_can": 3.99,
    "beer": "velvet winter",
-   "per_litre": 9.06
+   "per_litre": 12.09
   },
   {
    "store": "Rimi",
@@ -1634,12 +1634,12 @@
    "pack": 1,
    "volume_l": 0.44,
    "regular": 2.69,
-   "best": 2.19,
-   "best_type": "campaign",
+   "best": 2.69,
+   "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 2.19,
+   "per_can": 2.69,
    "beer": "treeninglaager",
-   "per_litre": 4.98
+   "per_litre": 6.11
   },
   {
    "store": "Rimi",
@@ -1681,13 +1681,13 @@
    "key": "saturnus",
    "pack": 1,
    "volume_l": 0.44,
-   "regular": 3.15,
-   "best": 3.15,
+   "regular": 2.49,
+   "best": 2.49,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 3.15,
+   "per_can": 2.49,
    "beer": "saturnus",
-   "per_litre": 7.16
+   "per_litre": 5.66
   },
   {
    "store": "Rimi",
@@ -1697,13 +1697,13 @@
    "key": "punane laager",
    "pack": 1,
    "volume_l": 0.44,
-   "regular": 2.29,
-   "best": 2.29,
+   "regular": 1.79,
+   "best": 1.79,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 2.29,
+   "per_can": 1.79,
    "beer": "punane laager",
-   "per_litre": 5.2
+   "per_litre": 4.07
   },
   {
    "store": "Rimi",
@@ -1713,13 +1713,13 @@
    "key": "uus maailm",
    "pack": 1,
    "volume_l": 0.44,
-   "regular": 3.49,
-   "best": 3.49,
+   "regular": 2.79,
+   "best": 2.79,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 3.49,
+   "per_can": 2.79,
    "beer": "uus maailm",
-   "per_litre": 7.93
+   "per_litre": 6.34
   },
   {
    "store": "Rimi",
@@ -1729,13 +1729,13 @@
    "key": "orange gose",
    "pack": 1,
    "volume_l": 0.44,
-   "regular": 3.49,
-   "best": 3.49,
+   "regular": 2.79,
+   "best": 2.79,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 3.49,
+   "per_can": 2.79,
    "beer": "orange gose",
-   "per_litre": 7.93
+   "per_litre": 6.34
   },
   {
    "store": "Barbora",
@@ -2618,8 +2618,7 @@
    "loyalty_label": null,
    "per_can": 2.99,
    "beer": "kosmos",
-   "per_litre": 6.8,
-   "stale": true
+   "per_litre": 6.8
   },
   {
    "store": "Viinarannasta",
@@ -2635,8 +2634,7 @@
    "loyalty_label": null,
    "per_can": 1.665,
    "beer": "laager",
-   "per_litre": 3.78,
-   "stale": true
+   "per_litre": 3.78
   },
   {
    "store": "Viinarannasta",
@@ -2652,8 +2650,7 @@
    "loyalty_label": null,
    "per_can": 1.99,
    "beer": "laager",
-   "per_litre": 4.52,
-   "stale": true
+   "per_litre": 4.52
   },
   {
    "store": "Viinarannasta",
@@ -2669,65 +2666,65 @@
    "loyalty_label": null,
    "per_can": 2.7,
    "beer": "virmalised",
-   "per_litre": 8.18,
-   "stale": true
+   "per_litre": 8.18
   }
  ],
  "status": {
   "Põhjala e-shop": {
    "ok": true,
    "count": 59,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Selver": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 18,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 13,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 0,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Kaupmees": {
    "ok": true,
    "count": 27,
-   "last_ok": "2026-11-16",
+   "last_ok": "2026-11-17",
    "error": null,
    "warning": null
   },
   "Viinarannasta": {
-   "ok": false,
-   "count": 0,
-   "last_ok": "2026-11-16",
-   "error": "RuntimeError: no Põhjala cards on search page (11955 bytes, title 'One moment, please...', 0 product links)"
+   "ok": true,
+   "count": 4,
+   "last_ok": "2026-11-17",
+   "error": null,
+   "warning": null
   }
  }
 }
