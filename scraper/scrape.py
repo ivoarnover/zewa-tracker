@@ -228,6 +228,15 @@ def bauhof():
         tier = re.search(r'product-price__tier-price_active[^"]*"[^>]*>(.*?€).*?tier-price__name[^>]*>([^<]+)<', card, re.S)
         if tier:
             loyalty, label = num(re.sub(r"[^\d.]", "", clean(tier.group(1)))), clean(tier.group(2))
+        # Since Nov 2026: club price block, e.g. "Meistriklubi hind 13.49 €" (shown without logging in)
+        club = re.search(r'club-information-item__name[^>]*>([^<]+)<.*?club-information-item__value[^>]*>(.*?€)', card, re.S)
+        if club:
+            loyalty, label = num(re.sub(r"[^\d.]", "", clean(club.group(2)))), clean(club.group(1))
+        # Safeguard: every price on the card must be understood, else the layout changed again
+        shown = len(set(re.findall(r'price-block__integer"[^>]*>(\d+)</span>([.,]\d+)', card)))
+        parsed = len({p for p in (regular, campaign, loyalty) if p})
+        if shown > parsed:
+            RUN["warn"][RUN["store"]] = f"card {href.group(2)} shows {shown} prices but only {parsed} were parsed; layout may have changed"
         if not regular and not campaign and not loyalty:
             continue
         out.append(offer("Bauhof", href.group(2), title.group(1), "https://www.bauhof.ee" + href.group(1),
@@ -457,7 +466,7 @@ def run_product():
             status[store] = {"ok": True, "count": len(got), "last_ok": today, "error": None,
                              "warning": RUN["warn"].get(store)}
             if RUN["warn"].get(store):
-                failed.append(store + " (cut-off)")
+                failed.append(store + " (warning)")
         except Exception as e:  # keep yesterday's data for this store, mark it stale
             failed.append(store)
             old = prev.get("status", {}).get(store, {})

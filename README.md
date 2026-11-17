@@ -23,6 +23,7 @@ Daily price trackers for a few products in Estonian shops, run for free on GitHu
 ## Safeguards
 - Store fails: its last prices stay, marked "(old)", for at most 60 days; the run goes red and GitHub emails the owner.
 - Cut-off: if a store returns a full results page (or Selver's total is larger than the page), the page shows a warning and the run fails.
+- Unparsed price (Bauhof): if a product card shows more prices than the parser understood, the page shows a warning and the run fails, so a layout change can't silently drop a price.
 - "Check these": products that look relevant but weren't understood (no pack size; beer names not linked to a known beer).
 - "No longer found": items seen in the last 60 days but not today; after 60 days they are dropped from the pages
   (history stays in the CSV files).
@@ -36,7 +37,7 @@ Daily price trackers for a few products in Estonian shops, run for free on GitHu
 | Selver | all | catalog JSON API `.../vue_storefront_catalog_et/product/_search?q=` | Partnerkaart = `product_group_price` or customer group 1; EAN `product_main_ean` |
 | Rimi | all | search page HTML, `data-gtm-eec-product` JSON | campaign vs "Tavahind"; no EAN |
 | Barbora | all | `barbora.ee/api/eshop/v1/search?query=` | AITÄH: `promotion.loyaltyCardRequired`, `oldPrice`; no EAN |
-| Bauhof | Zewa | toilet paper category page HTML (in-stock items only) | logged-in customer price (`tier-price`) |
+| Bauhof | Zewa | toilet paper category page HTML (in-stock items only) | "Meistriklubi hind" club price, shown without logging in (`club-information`, since Nov 2026; older `tier-price` still read) |
 | Coop (Haapsalu e-shop) | all | WooCommerce Store API `coophaapsalu.ee/wp-json/wc/store/v1/products?search=` | own shelf prices; SKU = EAN; names use "tk" for rolls |
 | Coop kliendileht | Zewa, Huggies | coop.ee/kliendileht links (+ Hoiame soodsana); iPaper page JSON "enrichments" have name + price | weekly leaflet = Säästukaart until end date; undated lists = regular |
 | Coop Lasnamäe (Wolt) | all | Wolt consumer assortment API, category paged (50 per page) | delivery price; `barcode_gtin` |
