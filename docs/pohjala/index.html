@@ -82,7 +82,7 @@ footer p{margin:0 0 8px}
   <p class="meta" style="margin-top:8px">Click a beer for all offers and its price history.</p>
 
   <div id="gone" hidden><h2>No longer found</h2><p class="meta">Beers seen in the last 60 days but not in any store today. After 60 days they are dropped from the page.</p><ul id="gone-list"></ul></div>
-  <div id="review" hidden><h2>Check these</h2><p class="meta">Names that couldn't be linked to a known beer. Each is shown as its own beer above; it may be a new beer, or a duplicate that needs a name fix.</p><ul id="review-list"></ul></div>
+  <div id="review" hidden><h2>Check these</h2><p class="meta">Names that couldn't be linked to a known beer (shown as their own beer above: a new beer, or a duplicate that needs a name fix), and prices per litre that changed a lot since yesterday: check them on the store's site.</p><ul id="review-list"></ul></div>
   <div id="problems" hidden><h2>Store problems</h2><ul id="stores"></ul></div>
 
   <footer>
@@ -241,7 +241,7 @@ async function load() {
     : `could not be read today, showing data from ${fmtDate(st.last_ok) || "never"}`}</span></li>`).join("");
   const rv = latest.review || [];
   document.getElementById("review").hidden = !rv.length;
-  document.getElementById("review-list").innerHTML = rv.map(r => `<li><b>${esc(storeName(r.store))}</b>: ${esc(r.name)}</li>`).join("");
+  document.getElementById("review-list").innerHTML = rv.map(r => `<li><b>${esc(storeName(r.store))}</b>: ${esc(r.name)}${r.note ? ` <small>(${esc(r.note)})</small>` : ""}</li>`).join("");
   const dates = [...new Set(hist.map(r => r.date))].sort(), today = dates[dates.length - 1];
   if (today) {
     const from = new Date(Date.parse(today) - 60 * 864e5).toISOString().slice(0, 10), now = new Set(beers.map(b => b.key)), last = {};

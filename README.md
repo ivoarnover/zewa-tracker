@@ -23,8 +23,14 @@ Daily price trackers for a few products in Estonian shops, run for free on GitHu
 ## Safeguards
 - Store fails: its last prices stay, marked "(old)", for at most 60 days; the run goes red and GitHub emails the owner.
 - Cut-off: if a store returns a full results page (or Selver's total is larger than the page), the page shows a warning and the run fails.
-- Unparsed price (Bauhof): if a product card shows more prices than the parser understood, the page shows a warning and the run fails, so a layout change can't silently drop a price.
-- "Check these": products that look relevant but weren't understood (no pack size; beer names not linked to a known beer).
+- A. Unread price (Bauhof, Rimi, Kaupmees, Viinarannasta: the HTML stores): every price a product card shows must be read,
+  leaving out per-kg/per-litre prices and deposits; a card that mentions a loyalty card or club without a loyalty price read
+  also counts. Otherwise the page shows a warning and the run fails. (Added after Bauhof's Nov 2026 "Meistriklubi hind" went unread for days.)
+- B. Price type vanished: if a store had loyalty or campaign prices yesterday and none today on the same products, the run
+  fails. Campaigns past their end date don't count. API stores are covered too.
+- C. Odd prices go to "Check these" with a note (the run doesn't fail): a campaign shown after its end date, or a price per unit
+  that changed over 40% since yesterday.
+- "Check these" also lists products that look relevant but weren't understood (no pack size; beer names not linked to a known beer).
 - "No longer found": items seen in the last 60 days but not today; after 60 days they are dropped from the pages
   (history stays in the CSV files).
 - Viinarannasta (Imunify360 bot protection on its host) sometimes shows GitHub's servers a "One moment, please..." page.
@@ -53,9 +59,16 @@ browser); Lidl (no grocery data, only leaflets with own brands); Bolt Coop Tartu
 usable Põhjala listing); Taig (removed on request); odavkorv.ee and pood.bebo.ee (aggregators of stores already read).
 Viinarannasta has no public product feed; a request for an allowlist or feed was drafted.
 
+## Tests
+- `python -m unittest discover -s tests` runs offline against saved store pages (`tests/fixtures`, gzipped) and must give
+  exactly what `tests/expected.json` holds; it also tests checks A-C. GitHub runs it on every push that touches `scraper/` or `tests/`.
+- After a store changes its layout and the parser is fixed: `python tests/record.py` fetches fresh pages once (a normal
+  daily-sized set of requests, from a home computer) and rewrites the expected results; `--offline` only rewrites
+  expected.json from the saved pages. Review the expected.json diff before committing.
+
 ## Adding a product or store
 - Same kind of product (one item, many pack sizes): add an entry to `PRODUCTS` (search term, `match`, `near`, `count`,
   stores, `good_price`, `info`), copy `docs/index.html` to `docs/<name>/index.html`, add it to the "Trackers" nav on all pages.
 - New store: write an adapter returning `offer(...)` records, add it to `ALL_STORES` (or `STORES` in `beers.py`),
-  add a cut-off check, test a few requests from a home computer first, then from a GitHub run.
+  add a cut-off check and, for HTML pages, an `unread_prices` check, re-record the test fixtures, test a few requests from a home computer first, then from a GitHub run.
 - Keep request counts low (one search per store per day) and respect bot protection; never work around it.

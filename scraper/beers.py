@@ -10,16 +10,20 @@ Exits 1 if a store failed (after writing data), so GitHub emails the owner.
 import csv, datetime as dt, gzip, html, json, os, re, sys, time, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from scrape import fetch, clean, num, UA  # noqa: E402  (shared helpers, incl. 429 retry)
+from scrape import fetch, clean, num, UA, replay, record, unread_prices, shown_prices, vanished, odd_prices  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "docs", "pohjala", "data")
 WARN, STORE = {}, [None]  # cut-off warnings per store, current store
 
 
+def warn(msg):
+    WARN[STORE[0]] = (WARN[STORE[0]] + "; " if WARN.get(STORE[0]) else "") + msg
+
+
 def check_cutoff(count, limit):
     if limit and count >= limit:
-        WARN[STORE[0]] = f"returned {count} results, the page limit; some beers may be missing"
+        warn(f"returned {count} results, the page limit; some beers may be missing")
 
 
 FIELDS = ["date", "beer", "store", "name", "pack", "volume_l", "regular", "best", "best_type", "per_can", "per_litre", "url"]
@@ -172,6 +176,10 @@ def rimi():
             continue
         href = re.search(r'href="(/epood/ee/tooted/[^"]+)"', chunk)
         old = re.search(r"Tavahind:\s*([\d.,]+)", chunk)
+        problem = unread_prices(chunk[:chunk.find("Lisa ostukorvi") if "Lisa ostukorvi" in chunk else 6000],
+                                [j["price"], old.group(1) if old else None])
+        if problem:
+            warn(f"product {j['id']} {problem}")
         out.append(offer("Rimi", j["name"], "https://www.rimi.ee" + href.group(1) if href else "",
                          j["price"], old.group(1) if old else j["price"]))
     return out
@@ -232,6 +240,11 @@ def kaupmees():
         if not major or "PÕHJALA" not in name.upper() or NOT_BEER.search(name):
             continue
         price = int(major.group(1)) + int(minor.group(1)) / 100 if minor else int(major.group(1))
+        problem = unread_prices(sec, [price])
+        if sec.count("price-major") > 1:
+            problem = f"shows {sec.count('price-major')} prices, only 1 was read; layout may have changed"
+        if problem:
+            warn(f"{name}: {problem}")
         if "+KM" in re.sub(r"<[^>]+>", "", sec):
             price *= VAT
         pct = re.search(r"-(\d+)%", re.sub(r"<[^>]+>", " ", sec))
@@ -248,6 +261,9 @@ class Challenged(Exception):
 
 def polite_fetch(url):
     # one plain GET with honest, browser-like headers; we never run or answer the bot check
+    saved = replay(url)
+    if saved is not None:
+        return saved
     req = urllib.request.Request(url, headers={
         "User-Agent": "zewa-tracker/1.0 (+https://github.com/ivoarnover/zewa-tracker)",
         "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
@@ -256,7 +272,7 @@ def polite_fetch(url):
         body = r.read()
         if r.headers.get("Content-Encoding") == "gzip":
             body = gzip.decompress(body)
-    return body.decode("utf-8", "replace")
+    return record(url, body.decode("utf-8", "replace"))
 
 
 def viinarannasta():
@@ -274,6 +290,11 @@ def viinarannasta():
         prices = [float(p) for p in re.findall(r"(\d+\.\d{2})\s*€", text)]
         if not prices:
             continue
+        problem = unread_prices(card[:6000], [min(prices), max(prices)])
+        if len(set(prices)) > 2:
+            problem = f"shows {len(set(prices))} prices, only lowest and highest were read; layout may have changed"
+        if problem:
+            warn(f"{link.group(2)}: {problem}")
         out.append(offer("Viinarannasta", link.group(2), link.group(1), min(prices), max(prices)))
     if not out:
         title = re.search(r"<title>([^<]*)", page)
@@ -355,9 +376,14 @@ def main():
             if not got and store not in MAY_BE_EMPTY:
                 raise RuntimeError("no Põhjala beers parsed (page layout changed?)")
             offers += got
+            before = [o for o in prev.get("offers", []) if o["store"] == store]
+            gone = vanished(before, got, lambda o: o["name"],  # check B
+                            {k: (lambda o, k=k: o.get("best_type") == k) for k in ("loyalty", "campaign")}, today)
+            if gone:
+                warn(gone)
             status[store] = {"ok": True, "count": len(got), "last_ok": today, "error": None, "warning": WARN.get(store)}
             if WARN.get(store):
-                failed.append(store + " (cut-off)")
+                failed.append(store + " (warning)")
         except Exception as e:
             if store not in SOFT_FAIL:
                 failed.append(store)
@@ -375,9 +401,13 @@ def main():
             o["volume_l"] = beers[o["beer"]]["volume_l"]
         # main comparison: price per litre (can size doesn't matter to the buyer)
         o["per_litre"] = round(o["best"] / (o["pack"] * o["volume_l"]), 2) if o["best"] and o["volume_l"] else None
-    review = sorted({(o["store"], o["name"]) for o in offers if o.get("unmatched") and not o.get("stale")})
+    review = sorted({(o["store"], o["name"], "") for o in offers if o.get("unmatched") and not o.get("stale")})
+    for store in STORES:  # check C: big jumps per litre since yesterday
+        before = [o for o in prev.get("offers", []) if o["store"] == store]
+        now_ = [o for o in offers if o["store"] == store and not o.get("stale")]
+        review += [(store, o["name"], note) for o, note in odd_prices(before, now_, lambda o: o["name"], "per_litre", "litre", today)]
     json.dump({"updated": now.isoformat(timespec="minutes"),
-               "review": [{"store": st, "name": n} for st, n in review], "beers": sorted(beers.values(), key=lambda b: b["name"].lower()),
+               "review": [dict(store=st, name=n, **({"note": nt} if nt else {})) for st, n, nt in review], "beers": sorted(beers.values(), key=lambda b: b["name"].lower()),
                "offers": offers, "status": status}, open(latest_path, "w"), ensure_ascii=False, indent=1)
 
     rows = []

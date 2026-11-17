@@ -6,7 +6,7 @@ A few requests per store, Python stdlib only. For each product it writes:
 Fields are named after the first product (rolls, per_roll) but mean "units" and "price per unit".
 Exits 1 if any store failed (after writing data), so GitHub emails the repo owner.
 """
-import csv, datetime as dt, html, json, os, re, sys, time, urllib.error, urllib.request
+import csv, datetime as dt, gzip, hashlib, html, json, os, re, sys, time, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
@@ -19,17 +19,46 @@ FIELDS = ["date", "store", "id", "name", "rolls", "regular", "campaign", "loyalt
 
 _cache = {}
 
+# Tests: FIXTURES=<dir> answers every request from saved responses (no network);
+# with FIXTURES_RECORD=1 too, real responses are fetched and saved there (tests/record.py).
+FIXTURES, RECORD = os.environ.get("FIXTURES"), os.environ.get("FIXTURES_RECORD") == "1"
+
+
+def _fixture_path(url):
+    return os.path.join(FIXTURES, hashlib.sha1(url.encode()).hexdigest()[:16] + ".gz")
+
+
+def replay(url):
+    if FIXTURES and not RECORD:
+        with gzip.open(_fixture_path(url), "rt", encoding="utf-8") as f:
+            return f.read()
+    return None
+
+
+def record(url, body):
+    if FIXTURES and RECORD:
+        os.makedirs(FIXTURES, exist_ok=True)
+        with gzip.open(_fixture_path(url), "wt", encoding="utf-8") as f:
+            f.write(body)
+        with open(os.path.join(FIXTURES, "index.tsv"), "a", encoding="utf-8") as f:
+            f.write(os.path.basename(_fixture_path(url)) + "\t" + url + "\n")
+    return body
+
 
 def fetch(url):
     # same URL twice in one run (e.g. Wolt's category list for both products) is fetched once;
     # on 429 Too Many Requests wait and retry, so one busy minute doesn't fail the store
     if url in _cache:
         return _cache[url]
+    saved = replay(url)
+    if saved is not None:
+        _cache[url] = saved
+        return saved
     for attempt in range(3):
         req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Language": "et-EE,et;q=0.9"})
         try:
             with urllib.request.urlopen(req, timeout=45) as r:
-                _cache[url] = r.read().decode("utf-8", "replace")
+                _cache[url] = record(url, r.read().decode("utf-8", "replace"))
                 return _cache[url]
         except urllib.error.HTTPError as e:
             if e.code not in (429, 500, 502, 503, 504) or attempt == 2:
@@ -52,6 +81,78 @@ def check_cutoff(count, limit):
     """A store returned a full page: there may be more products we didn't see."""
     if limit and count >= limit:
         RUN["warn"][RUN["store"]] = f"returned {count} results, the page limit; some products may be missing"
+
+
+def warn(msg, store=None):
+    store = store or RUN["store"]
+    RUN["warn"][store] = (RUN["warn"][store] + "; " if RUN["warn"].get(store) else "") + msg
+
+
+# ---------------------------------------------------------------- safeguards (see README "Safeguards")
+
+UNIT_AFTER = re.compile(r"\s*(?:/|per)\s*(?:kg|g|l|ml|cl|m2?|rl|rull)\b", re.I)
+LOYALTY_WORDS = re.compile(r"kliendikaar|kaardiga|klubi|liikme|partnerkaar|säästukaar|aitäh", re.I)
+
+
+def card_text(fragment):
+    s = re.sub(r"<script.*?</script>|<style.*?</style>|<svg.*?</svg>", " ", fragment, flags=re.S)
+    s = re.sub(r"<[^>]+>(?=[.,]\d{2}\b)", "", s)  # "17</span>.99 €" -> "17.99 €"
+    return html.unescape(re.sub(r"<[^>]+>", " ", s))
+
+
+def shown_prices(fragment):
+    """Euro prices a product card shows, leaving out per-kg/per-litre prices and bottle deposits."""
+    t = re.sub(r"pant\s*[\d.,]+\s*€", " ", card_text(fragment), flags=re.I)
+    t = re.sub(r"ühiku\s+kohta:?(\s*[\d.,]+\s*€\s*/\s*\w+)+", " ", t, flags=re.I)  # Rimi unit price, e.g. 0,77 €/tk per roll
+    return {round(int(m.group(1)) + int(m.group(2)) / 100, 2)
+            for m in re.finditer(r"(?<![\d.,])(\d{1,4})[.,](\d{2})\s*€", t) if not UNIT_AFTER.match(t, m.end())}
+
+
+def unread_prices(fragment, parsed, loyalty_read=False):
+    """Check A: a card shows a price (or a loyalty price) the parser didn't read -> warning text, else None."""
+    got = [round(p, 2) for p in map(num, parsed) if p]
+    extra = sorted(p for p in shown_prices(fragment) if all(abs(p - g) > 0.011 for g in got))
+    if extra:
+        return "shows " + ", ".join(f"{p:.2f} €" for p in extra) + " that was not read; layout may have changed"
+    words = LOYALTY_WORDS.search(card_text(fragment))
+    if words and not loyalty_read:
+        return f"mentions a loyalty price ({words.group(0)!r}) that was not read; layout may have changed"
+    return None
+
+
+def ended(date_text, today):
+    """True if a campaign end date ("16.11.2026" or "2026-11-16 ...") is before today (ISO date)."""
+    m = re.search(r"(\d{2})\.(\d{2})\.(\d{4})", date_text or "") or re.search(r"(\d{4})-(\d{2})-(\d{2})", date_text or "")
+    if not m:
+        return False
+    iso = f"{m.group(3)}-{m.group(2)}-{m.group(1)}" if "." in m.group(0) else m.group(0)
+    return iso < today
+
+
+def vanished(prev, now, key, kinds, today):
+    """Check B: loyalty or campaign prices a store had yesterday that are all gone today
+    (products seen both days; campaigns whose end date passed don't count) -> warning text, else None."""
+    old = {key(o): o for o in prev if not o.get("stale")}
+    both = [(old[key(o)], o) for o in now if key(o) in old]
+    for kind, has in kinds.items():
+        had = [p for p, _ in both if has(p) and not ended(p.get("valid_until"), today)]
+        if had and not any(has(n) for _, n in both):
+            return f"{kind} prices on {len(had)} product(s) yesterday, none today; check the store page"
+    return None
+
+
+def odd_prices(prev, now, key, unit_field, unit, today, limit=0.4):
+    """Check C: an expired campaign or a big jump since yesterday -> list of (offer, note) for "Check these"."""
+    old = {key(o): o for o in prev if not o.get("stale")}
+    out = []
+    for o in now:
+        if o.get("campaign") and ended(o.get("valid_until"), today):
+            out.append((o, f"campaign end date {o['valid_until']} has passed but the price is still shown"))
+        p = old.get(key(o))
+        a, b = p and p.get(unit_field), o.get(unit_field)
+        if a and b and abs(b - a) / a > limit:
+            out.append((o, f"price per {unit} {a:.3f} € yesterday, {b:.3f} € today"))
+    return out
 
 
 def count_of(name):
@@ -191,6 +292,10 @@ def rimi():
         old = re.search(r"Tavahind:\s*([\d.,]+)", chunk)
         card = re.search(r"kaardiga|Mina Rimi", chunk, re.I)
         url = "https://www.rimi.ee" + href.group(1) if href else ""
+        problem = unread_prices(chunk[:chunk.find("Lisa ostukorvi") if "Lisa ostukorvi" in chunk else 6000],
+                                [j["price"], old.group(1) if old else None], loyalty_read=bool(card))
+        if problem:
+            warn(f"product {j['id']} {problem}")
         if old and card:
             out.append(offer("Rimi", j["id"], j["name"], url, old.group(1), None, j["price"], "Rimi kaart"))
         else:
@@ -232,11 +337,9 @@ def bauhof():
         club = re.search(r'club-information-item__name[^>]*>([^<]+)<.*?club-information-item__value[^>]*>(.*?€)', card, re.S)
         if club:
             loyalty, label = num(re.sub(r"[^\d.]", "", clean(club.group(2)))), clean(club.group(1))
-        # Safeguard: every price on the card must be understood, else the layout changed again
-        shown = len(set(re.findall(r'price-block__integer"[^>]*>(\d+)</span>([.,]\d+)', card)))
-        parsed = len({p for p in (regular, campaign, loyalty) if p})
-        if shown > parsed:
-            RUN["warn"][RUN["store"]] = f"card {href.group(2)} shows {shown} prices but only {parsed} were parsed; layout may have changed"
+        problem = unread_prices(card, [regular, campaign, loyalty], loyalty_read=bool(loyalty))
+        if problem:
+            warn(f"card {href.group(2)} {problem}")
         if not regular and not campaign and not loyalty:
             continue
         out.append(offer("Bauhof", href.group(2), title.group(1), "https://www.bauhof.ee" + href.group(1),
@@ -463,6 +566,13 @@ def run_product():
             if not got and store not in P["may_be_empty"]:
                 raise RuntimeError("no matching products parsed (page layout changed or out of stock)")
             offers += got
+            before = [o for o in prev.get("offers", []) if o["store"] == store]
+            gone = vanished(before, got, lambda o: o["id"],  # check B
+                            {"loyalty": lambda o: o.get("loyalty"), "campaign": lambda o: o.get("campaign")}, today)
+            if gone:
+                warn(gone, store)
+            for o, note in odd_prices(before, got, lambda o: o["id"], "per_roll", P["info"]["unit"], today):  # check C
+                RUN["review"].append({"store": store, "name": o["name"], "note": note})
             status[store] = {"ok": True, "count": len(got), "last_ok": today, "error": None,
                              "warning": RUN["warn"].get(store)}
             if RUN["warn"].get(store):

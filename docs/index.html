@@ -88,7 +88,7 @@ footer p{margin:0 0 8px}
 
   <div id="review" hidden>
     <h2>Check these</h2>
-    <p class="meta">Products that look like ours but couldn't be read (for example no pack size in the name), so they are not in the comparison.</p>
+    <p class="meta">Products that look like ours but couldn't be read (for example no pack size in the name), so they are not in the comparison. Also prices that look odd (a campaign past its end date, or a big change since yesterday): check them on the store's site.</p>
     <ul class="stores" id="review-list"></ul>
   </div>
 
@@ -211,7 +211,7 @@ function problems() {
     ? esc(st.warning) : `could not be read today, showing data from ${fmtDate(st.last_ok) || "never"}`}</span></li>`).join("");
   const rv = latest.review || [];
   document.getElementById("review").hidden = !rv.length;
-  document.getElementById("review-list").innerHTML = rv.map(r => `<li><b>${esc(storeName(r.store))}</b>: ${esc(r.name)}</li>`).join("");
+  document.getElementById("review-list").innerHTML = rv.map(r => `<li><b>${esc(storeName(r.store))}</b>: ${esc(r.name)}${r.note ? ` <small>(${esc(r.note)})</small>` : ""}</li>`).join("");
 }
 
 function gone() {
