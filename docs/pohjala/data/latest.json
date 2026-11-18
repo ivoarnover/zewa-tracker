@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T17:27+00:00",
+ "updated": "2026-11-18T11:47+00:00",
  "review": [
   {
    "store": "Kaupmees",
@@ -1291,22 +1291,6 @@
   },
   {
    "store": "Selver",
-   "name": "Punane Laager, PÕHJALA, 440 ml",
-   "url": "https://www.selver.ee/punane-laager-pohjala-440-ml",
-   "ean": "4742976016734",
-   "key": "punane laager",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 2.29,
-   "best": 2.29,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.29,
-   "beer": "punane laager",
-   "per_litre": 5.2
-  },
-  {
-   "store": "Selver",
    "name": "Kosmos, PÕHJALA, 440 ml",
    "url": "https://www.selver.ee/kosmos-pohjala-440-ml",
    "ean": "4742976018028",
@@ -1320,6 +1304,22 @@
    "per_can": 3.42,
    "beer": "kosmos",
    "per_litre": 7.77
+  },
+  {
+   "store": "Selver",
+   "name": "Punane Laager, PÕHJALA, 440 ml",
+   "url": "https://www.selver.ee/punane-laager-pohjala-440-ml",
+   "ean": "4742976016734",
+   "key": "punane laager",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 2.29,
+   "best": 2.29,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 2.29,
+   "beer": "punane laager",
+   "per_litre": 5.2
   },
   {
    "store": "Selver",
@@ -1515,22 +1515,6 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Virmalised 6,5%vol 0,33l purk",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-virmalised-6-5-vol-0-33l-purk/p/1368591",
-   "ean": null,
-   "key": "virmalised",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 2.59,
-   "best": 2.59,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.59,
-   "beer": "virmalised",
-   "per_litre": 7.85
-  },
-  {
-   "store": "Rimi",
    "name": "Õlu GF Põhjala 3,5% 0,44l",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-gf-pohjala-3-5-0-44l/p/1376626",
    "ean": null,
@@ -1560,6 +1544,22 @@
    "per_can": 2.69,
    "beer": "õhtu",
    "per_litre": 6.11
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Virmalised 6,5%vol 0,33l purk",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-virmalised-6-5-vol-0-33l-purk/p/1368591",
+   "ean": null,
+   "key": "virmalised",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 2.59,
+   "best": 2.59,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 2.59,
+   "beer": "virmalised",
+   "per_litre": 7.85
   },
   {
    "store": "Rimi",
@@ -2673,56 +2673,56 @@
   "Põhjala e-shop": {
    "ok": true,
    "count": 59,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Selver": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 18,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 13,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 0,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Kaupmees": {
    "ok": true,
    "count": 27,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Viinarannasta": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   }

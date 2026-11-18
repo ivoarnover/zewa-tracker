@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17T17:25+00:00",
+ "updated": "2026-11-18T11:44+00:00",
  "good_price": 0.35,
  "product": {
   "title": "Zewa Deluxe Price Watch",
@@ -117,7 +117,8 @@
    "wolt": true,
    "best": 8.18,
    "best_type": "regular",
-   "per_roll": 0.511
+   "per_roll": 0.511,
+   "stale": true
   },
   {
    "store": "Coop",
@@ -232,21 +233,6 @@
    "id": "423097",
    "name": "Tualettpaber Zewa Deluxe 8 rulli",
    "url": "https://www.rimi.ee/epood/ee/tooted/puhastusvahendid/majapidamispaber-ja-tualettpaber/tualettpaber/tualettpaber-zewa-deluxe-8-rulli/p/423097",
-   "rolls": 8,
-   "regular": 6.19,
-   "campaign": null,
-   "loyalty": null,
-   "loyalty_label": null,
-   "valid_until": null,
-   "best": 6.19,
-   "best_type": "regular",
-   "per_roll": 0.774
-  },
-  {
-   "store": "Barbora",
-   "id": "746113",
-   "name": "WC paber ZEWA Deluxe Lavender 3kih 8rl",
-   "url": "https://barbora.ee/p/wc-paber-zewa-deluxe-lavender-3-kih-8-rl",
    "rolls": 8,
    "regular": 6.19,
    "campaign": null,
@@ -383,7 +369,8 @@
    "wolt": true,
    "best": 7.13,
    "best_type": "regular",
-   "per_roll": 0.891
+   "per_roll": 0.891,
+   "stale": true
   },
   {
    "store": "Coop Lasnamäe (Wolt)",
@@ -400,58 +387,58 @@
    "wolt": true,
    "best": 3.92,
    "best_type": "regular",
-   "per_roll": 0.98
+   "per_roll": 0.98,
+   "stale": true
   }
  ],
  "status": {
   "Selver": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Bauhof": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
-   "count": 3,
-   "last_ok": "2026-11-17",
+   "count": 2,
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 6,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Coop kliendileht": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-17",
+   "last_ok": "2026-11-18",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
-   "ok": true,
-   "count": 3,
+   "ok": false,
+   "count": 0,
    "last_ok": "2026-11-17",
-   "error": null,
-   "warning": null
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
   }
  }
 }
