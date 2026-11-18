@@ -10,7 +10,7 @@ Exits 1 if a store failed (after writing data), so GitHub emails the owner.
 import csv, datetime as dt, gzip, html, json, os, re, sys, time, urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from scrape import fetch, clean, num, UA, replay, record, unread_prices, shown_prices, vanished, odd_prices  # noqa: E402
+from scrape import fetch, clean, num, UA, replay, record, unread_prices, shown_prices, vanished, odd_prices, RETRY_LATER, in_grace  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "docs", "pohjala", "data")
@@ -358,11 +358,13 @@ def main():
     today = now.astimezone(dt.timezone(dt.timedelta(hours=2))).date().isoformat()
     offers, status, failed = [], {}, []
     order = list(STORES)
-    retried = False
+    retried, first_try = False, {}
     while order:
         store = order.pop(0)
         fn = STORES[store]
         STORE[0] = store
+        if store in first_try:  # second try for a busy store (Wolt): at least 3 minutes after the first
+            time.sleep(max(0, 180 - (time.time() - first_try[store])))
         try:
             try:
                 got = [o for o in fn() if o["per_can"]]
@@ -385,9 +387,14 @@ def main():
             if WARN.get(store):
                 failed.append(store + " (warning)")
         except Exception as e:
-            if store not in SOFT_FAIL:
-                failed.append(store)
             old = prev.get("status", {}).get(store, {})
+            if store in RETRY_LATER and store not in first_try and not os.environ.get("NO_RETRY"):
+                first_try[store] = time.time()
+                order.append(store)
+                print(store, f"failed ({type(e).__name__}: {e}), trying once more at the end", flush=True)
+                continue
+            if store not in SOFT_FAIL and not in_grace(store, old.get("last_ok"), today):
+                failed.append(store)
             status[store] = {"ok": False, "count": 0, "last_ok": old.get("last_ok"), "error": f"{type(e).__name__}: {e}"[:300]}
             recent = old.get("last_ok") and (dt.date.fromisoformat(today) - dt.date.fromisoformat(old["last_ok"])).days <= 60
             if recent:  # keep the last good prices for up to 60 days, then drop them

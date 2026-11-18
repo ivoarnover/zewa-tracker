@@ -22,6 +22,9 @@ Daily price trackers for a few products in Estonian shops, run for free on GitHu
 
 ## Safeguards
 - Store fails: its last prices stay, marked "(old)", for at most 60 days; the run goes red and GitHub emails the owner.
+- Wolt (Coop Lasnamäe) sometimes answers "429 Too Many Requests" for a minute or two: on any failure it gets one more try at
+  the end of the run (3+ minutes later). If that fails too, the page shows the error with last prices kept, but the run
+  only fails (and emails) once Wolt has failed 3 days in a row (`RETRY_LATER`, `GRACE_DAYS` in scrape.py).
 - Cut-off: if a store returns a full results page (or Selver's total is larger than the page), the page shows a warning and the run fails.
 - A. Unread price (Bauhof, Rimi, Kaupmees, Viinarannasta: the HTML stores): every price a product card shows must be read,
   leaving out per-kg/per-litre prices and deposits; a card that mentions a loyalty card or club without a loyalty price read

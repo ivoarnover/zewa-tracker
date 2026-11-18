@@ -155,6 +155,18 @@ def odd_prices(prev, now, key, unit_field, unit, today, limit=0.4):
     return out
 
 
+# Stores that are sometimes briefly busy (Wolt answers 429 for a minute or two): on a failure they get one more try at
+# the end of the run (3+ minutes later), and a failure only fails the run (and emails) after this many days in a row.
+RETRY_LATER = {"Coop Lasnamäe (Wolt)"}
+GRACE_DAYS = {"Coop Lasnamäe (Wolt)": 3}
+
+
+def in_grace(store, last_ok, today):
+    """True while a failing store is still within its quiet days (no email yet)."""
+    days = GRACE_DAYS.get(store, 0)
+    return bool(last_ok) and (dt.date.fromisoformat(today) - dt.date.fromisoformat(last_ok)).days < days
+
+
 def count_of(name):
     return P["count"](name)
 
@@ -557,9 +569,13 @@ def run_product():
     today = now.astimezone(dt.timezone(dt.timedelta(hours=2))).date().isoformat()
     offers, status, failed = [], {}, []
     RUN["review"], RUN["warn"] = [], {}
-    for store in P["stores"]:
+    order, first_try = list(P["stores"]), {}
+    while order:
+        store = order.pop(0)
         fn = ALL_STORES[store]
         RUN["store"] = store
+        if store in first_try:  # second try for a busy store: at least 3 minutes after the first
+            time.sleep(max(0, 180 - (time.time() - first_try[store])))
         try:
             got = [finish(o) for o in fn()]
             got = [o for o in got if o["per_roll"]]
@@ -578,8 +594,14 @@ def run_product():
             if RUN["warn"].get(store):
                 failed.append(store + " (warning)")
         except Exception as e:  # keep yesterday's data for this store, mark it stale
-            failed.append(store)
             old = prev.get("status", {}).get(store, {})
+            if store in RETRY_LATER and store not in first_try and not os.environ.get("NO_RETRY"):
+                first_try[store] = time.time()
+                order.append(store)
+                print(store, f"failed ({type(e).__name__}: {e}), trying once more at the end", flush=True)
+                continue
+            if not in_grace(store, old.get("last_ok"), today):
+                failed.append(store)
             status[store] = {"ok": False, "count": 0, "last_ok": old.get("last_ok"), "error": f"{type(e).__name__}: {e}"[:300]}
             recent = old.get("last_ok") and (dt.date.fromisoformat(today) - dt.date.fromisoformat(old["last_ok"])).days <= 60
             if recent:  # keep the last good prices for up to 60 days, then drop them

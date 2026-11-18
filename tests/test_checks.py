@@ -66,5 +66,14 @@ class CheckC(unittest.TestCase):
         self.assertEqual(out, [])
 
 
+class WoltGrace(unittest.TestCase):
+    def test_email_only_after_three_failing_days(self):
+        w = "Coop Lasnamäe (Wolt)"
+        self.assertTrue(scrape.in_grace(w, "2026-11-17", "2026-11-18"))   # 1st failing day: page only
+        self.assertTrue(scrape.in_grace(w, "2026-11-16", "2026-11-18"))   # 2nd day
+        self.assertFalse(scrape.in_grace(w, "2026-11-15", "2026-11-18"))  # 3rd day in a row: run fails, email
+        self.assertFalse(scrape.in_grace("Selver", "2026-11-17", "2026-11-18"))  # other stores: no grace
+
+
 if __name__ == "__main__":
     unittest.main()
