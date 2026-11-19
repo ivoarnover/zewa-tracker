@@ -1,13 +1,9 @@
 {
- "updated": "2026-11-18T11:47+00:00",
+ "updated": "2026-11-19T11:44+00:00",
  "review": [
   {
    "store": "Kaupmees",
    "name": "PÕHJALA õlu Coastline Cruiser Pale Ale hele 3,5% 44cl (purk)"
-  },
-  {
-   "store": "Kaupmees",
-   "name": "PÕHJALA õlu Mandarina Festive IPA hele 5,5% 33cl (purk)"
   },
   {
    "store": "Kaupmees",
@@ -91,12 +87,6 @@
    "key": "limoncello",
    "name": "Limoncello IPA",
    "volume_l": 0.44,
-   "alcohol_free": false
-  },
-  {
-   "key": "mandarina",
-   "name": "Mandarina",
-   "volume_l": 0.33,
    "alcohol_free": false
   },
   {
@@ -1291,22 +1281,6 @@
   },
   {
    "store": "Selver",
-   "name": "Kosmos, PÕHJALA, 440 ml",
-   "url": "https://www.selver.ee/kosmos-pohjala-440-ml",
-   "ean": "4742976018028",
-   "key": "kosmos",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 3.42,
-   "best": 3.42,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.42,
-   "beer": "kosmos",
-   "per_litre": 7.77
-  },
-  {
-   "store": "Selver",
    "name": "Punane Laager, PÕHJALA, 440 ml",
    "url": "https://www.selver.ee/punane-laager-pohjala-440-ml",
    "ean": "4742976016734",
@@ -1320,6 +1294,22 @@
    "per_can": 2.29,
    "beer": "punane laager",
    "per_litre": 5.2
+  },
+  {
+   "store": "Selver",
+   "name": "Kosmos, PÕHJALA, 440 ml",
+   "url": "https://www.selver.ee/kosmos-pohjala-440-ml",
+   "ean": "4742976018028",
+   "key": "kosmos",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 3.42,
+   "best": 3.42,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.42,
+   "beer": "kosmos",
+   "per_litre": 7.77
   },
   {
    "store": "Selver",
@@ -1483,6 +1473,22 @@
   },
   {
    "store": "Rimi",
+   "name": "Õlu Põhjala Käbi 6%vol 0,33l",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kabi-6-vol-0-33l/p/1377227",
+   "ean": null,
+   "key": "käbi",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 3.29,
+   "best": 3.29,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.29,
+   "beer": "käbi",
+   "per_litre": 9.97
+  },
+  {
+   "store": "Rimi",
    "name": "Õlu Põhjala Laager 4,7%vol 0,44l purk",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-laager-4-7-vol-0-44l-purk/p/1368600",
    "ean": null,
@@ -1499,19 +1505,19 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Käbi 6%vol 0,33l",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kabi-6-vol-0-33l/p/1377227",
+   "name": "Õlu Põhjala Virmalised 6,5%vol 0,33l purk",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-virmalised-6-5-vol-0-33l-purk/p/1368591",
    "ean": null,
-   "key": "käbi",
+   "key": "virmalised",
    "pack": 1,
    "volume_l": 0.33,
-   "regular": 3.29,
-   "best": 3.29,
+   "regular": 2.59,
+   "best": 2.59,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 3.29,
-   "beer": "käbi",
-   "per_litre": 9.97
+   "per_can": 2.59,
+   "beer": "virmalised",
+   "per_litre": 7.85
   },
   {
    "store": "Rimi",
@@ -1544,22 +1550,6 @@
    "per_can": 2.69,
    "beer": "õhtu",
    "per_litre": 6.11
-  },
-  {
-   "store": "Rimi",
-   "name": "Õlu Põhjala Virmalised 6,5%vol 0,33l purk",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-virmalised-6-5-vol-0-33l-purk/p/1368591",
-   "ean": null,
-   "key": "virmalised",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 2.59,
-   "best": 2.59,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.59,
-   "beer": "virmalised",
-   "per_litre": 7.85
   },
   {
    "store": "Rimi",
@@ -2380,23 +2370,6 @@
   },
   {
    "store": "Kaupmees",
-   "name": "PÕHJALA õlu Mandarina Festive IPA hele 5,5% 33cl (purk)",
-   "url": "https://www.kaupmees.ee/et/pohjala-olu-mandarina-festive-ipa-hele-5-5-33cl-purk-c101449",
-   "ean": null,
-   "key": "mandarina",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 3.05,
-   "best": 3.05,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.05,
-   "unmatched": true,
-   "beer": "mandarina",
-   "per_litre": 9.24
-  },
-  {
-   "store": "Kaupmees",
    "name": "PÕHJALA õlu Õhtu Porter tume 5,5% 33cl(purk)",
    "url": "https://www.kaupmees.ee/et/pohjala-olu-ohtu-porter-tume-5-5-33cl-purk-c92115",
    "ean": null,
@@ -2673,56 +2646,56 @@
   "Põhjala e-shop": {
    "ok": true,
    "count": 59,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Selver": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 18,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 13,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 0,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Kaupmees": {
    "ok": true,
-   "count": 27,
-   "last_ok": "2026-11-18",
+   "count": 26,
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Viinarannasta": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   }

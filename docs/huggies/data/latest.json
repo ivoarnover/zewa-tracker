@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T11:46+00:00",
+ "updated": "2026-11-19T11:42+00:00",
  "good_price": 0.3,
  "product": {
   "title": "Huggies Pants 5 Boy Price Watch",
@@ -84,21 +84,6 @@
    "best": 13.99,
    "best_type": "loyalty",
    "per_roll": 0.291
-  },
-  {
-   "store": "Barbora",
-   "id": "1082538",
-   "name": "Püksmähkmed HUGGIES Boy S5 12-17kg 68tk",
-   "url": "https://barbora.ee/p/puksmahkmed-huggies-boy-s-5-12-17-kg-68-tk",
-   "rolls": 68,
-   "regular": 27.89,
-   "campaign": null,
-   "loyalty": 19.99,
-   "loyalty_label": "AITÄH kaart",
-   "valid_until": null,
-   "best": 19.99,
-   "best_type": "loyalty",
-   "per_roll": 0.294
   },
   {
    "store": "Selver",
@@ -266,63 +251,63 @@
   "Selver": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
-   "count": 2,
-   "last_ok": "2026-11-18",
+   "count": 1,
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Coop kliendileht": {
    "ok": true,
    "count": 0,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Lapseriided.com": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "DEPO": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Juku": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   }

@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-18T11:44+00:00",
+ "updated": "2026-11-19T11:41+00:00",
  "good_price": 0.35,
  "product": {
   "title": "Zewa Deluxe Price Watch",
@@ -117,8 +117,7 @@
    "wolt": true,
    "best": 8.18,
    "best_type": "regular",
-   "per_roll": 0.511,
-   "stale": true
+   "per_roll": 0.511
   },
   {
    "store": "Coop",
@@ -369,8 +368,7 @@
    "wolt": true,
    "best": 7.13,
    "best_type": "regular",
-   "per_roll": 0.891,
-   "stale": true
+   "per_roll": 0.891
   },
   {
    "store": "Coop Lasnamäe (Wolt)",
@@ -387,58 +385,58 @@
    "wolt": true,
    "best": 3.92,
    "best_type": "regular",
-   "per_roll": 0.98,
-   "stale": true
+   "per_roll": 0.98
   }
  ],
  "status": {
   "Selver": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Bauhof": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 6,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Coop kliendileht": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-18",
+   "last_ok": "2026-11-19",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
-   "ok": false,
-   "count": 0,
-   "last_ok": "2026-11-17",
-   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+   "ok": true,
+   "count": 3,
+   "last_ok": "2026-11-19",
+   "error": null,
+   "warning": null
   }
  }
 }
