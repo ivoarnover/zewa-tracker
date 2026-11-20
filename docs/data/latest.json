@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-19T11:41+00:00",
+ "updated": "2026-11-20T11:42+00:00",
  "good_price": 0.35,
  "product": {
   "title": "Zewa Deluxe Price Watch",
@@ -243,6 +243,21 @@
    "per_roll": 0.774
   },
   {
+   "store": "Barbora",
+   "id": "746113",
+   "name": "WC paber ZEWA Deluxe Lavender 3kih 8rl",
+   "url": "https://barbora.ee/p/wc-paber-zewa-deluxe-lavender-3-kih-8-rl",
+   "rolls": 8,
+   "regular": 6.19,
+   "campaign": null,
+   "loyalty": null,
+   "loyalty_label": null,
+   "valid_until": null,
+   "best": 6.19,
+   "best_type": "regular",
+   "per_roll": 0.774
+  },
+  {
    "store": "Coop",
    "id": "78858",
    "name": "ZewaDeluxe t/paber 8tk Lavender Dreams",
@@ -392,49 +407,49 @@
   "Selver": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-19",
+   "last_ok": "2026-11-20",
    "error": null,
    "warning": null
   },
   "Bauhof": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-19",
+   "last_ok": "2026-11-20",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-19",
+   "last_ok": "2026-11-20",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
-   "count": 2,
-   "last_ok": "2026-11-19",
+   "count": 3,
+   "last_ok": "2026-11-20",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 6,
-   "last_ok": "2026-11-19",
+   "last_ok": "2026-11-20",
    "error": null,
    "warning": null
   },
   "Coop kliendileht": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-19",
+   "last_ok": "2026-11-20",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-19",
+   "last_ok": "2026-11-20",
    "error": null,
    "warning": null
   }
