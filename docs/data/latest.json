@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T11:42+00:00",
+ "updated": "2026-11-21T11:03+00:00",
  "good_price": 0.35,
  "product": {
   "title": "Zewa Deluxe Price Watch",
@@ -407,49 +407,49 @@
   "Selver": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-20",
+   "last_ok": "2026-11-21",
    "error": null,
    "warning": null
   },
   "Bauhof": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-20",
+   "last_ok": "2026-11-21",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-20",
+   "last_ok": "2026-11-21",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-20",
+   "last_ok": "2026-11-21",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 6,
-   "last_ok": "2026-11-20",
+   "last_ok": "2026-11-21",
    "error": null,
    "warning": null
   },
   "Coop kliendileht": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-20",
+   "last_ok": "2026-11-21",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 3,
-   "last_ok": "2026-11-20",
+   "last_ok": "2026-11-21",
    "error": null,
    "warning": null
   }
