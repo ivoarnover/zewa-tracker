@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T11:28+00:00",
+ "updated": "2026-11-23T12:46+00:00",
  "review": [
   {
    "store": "Kaupmees",
@@ -417,6 +417,22 @@
   },
   {
    "store": "Põhjala e-shop",
+   "name": "Peanut Butter Bänger",
+   "url": "https://shop.pohjalabeer.com/product/pohjala-peanut-butter-banger/",
+   "ean": "4742976019407",
+   "key": "peanut butter bänger",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 3.69,
+   "best": 3.69,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.69,
+   "beer": "peanut butter bänger",
+   "per_litre": 11.18
+  },
+  {
+   "store": "Põhjala e-shop",
    "name": "Põhjala x Other Half Brewing Company Padi",
    "url": "https://shop.pohjalabeer.com/product/pohjala-x-other-half-brewing-company-padi/",
    "ean": "4742976019513",
@@ -558,22 +574,6 @@
    "per_can": 6.99,
    "beer": "pime öö px",
    "per_litre": null
-  },
-  {
-   "store": "Põhjala e-shop",
-   "name": "Jõuluporter",
-   "url": "https://shop.pohjalabeer.com/product/jouluporter/",
-   "ean": "4742976018332",
-   "key": "jõuluporter",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 3.29,
-   "best": 3.29,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.29,
-   "beer": "jõuluporter",
-   "per_litre": 9.97
   },
   {
    "store": "Põhjala e-shop",
@@ -1265,22 +1265,6 @@
   },
   {
    "store": "Selver",
-   "name": "Punane Laager, PÕHJALA, 440 ml",
-   "url": "https://www.selver.ee/punane-laager-pohjala-440-ml",
-   "ean": "4742976016734",
-   "key": "punane laager",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 2.29,
-   "best": 2.29,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.29,
-   "beer": "punane laager",
-   "per_litre": 5.2
-  },
-  {
-   "store": "Selver",
    "name": "Kosmos, PÕHJALA, 440 ml",
    "url": "https://www.selver.ee/kosmos-pohjala-440-ml",
    "ean": "4742976018028",
@@ -1294,6 +1278,22 @@
    "per_can": 3.42,
    "beer": "kosmos",
    "per_litre": 7.77
+  },
+  {
+   "store": "Selver",
+   "name": "Punane Laager, PÕHJALA, 440 ml",
+   "url": "https://www.selver.ee/punane-laager-pohjala-440-ml",
+   "ean": "4742976016734",
+   "key": "punane laager",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 2.29,
+   "best": 2.29,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 2.29,
+   "beer": "punane laager",
+   "per_litre": 5.2
   },
   {
    "store": "Selver",
@@ -1537,22 +1537,6 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Kirsiõlu 5,5%vol 0,33l",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kirsiolu-5-5-vol-0-33l/p/1377234",
-   "ean": null,
-   "key": "kirsiõlu",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 3.29,
-   "best": 3.29,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.29,
-   "beer": "kirsiõlu",
-   "per_litre": 9.97
-  },
-  {
-   "store": "Rimi",
    "name": "Õlu Õhtu Põhjala 5,5% 0,44l",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-ohtu-pohjala-5-5-0-44l/p/1376639",
    "ean": null,
@@ -1566,6 +1550,22 @@
    "per_can": 2.69,
    "beer": "õhtu",
    "per_litre": 6.11
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Kirsiõlu 5,5%vol 0,33l",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kirsiolu-5-5-vol-0-33l/p/1377234",
+   "ean": null,
+   "key": "kirsiõlu",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 3.29,
+   "best": 3.29,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.29,
+   "beer": "kirsiõlu",
+   "per_litre": 9.97
   },
   {
    "store": "Rimi",
@@ -1585,22 +1585,6 @@
   },
   {
    "store": "Rimi",
-   "name": "Alk.vaba õlu Põhjala Prenzlauer 0 0,33l purk",
-   "url": "https://www.rimi.ee/epood/ee/tooted/joogid/alkoholivabad-joogid/alkoholivaba-olu/alk-vaba-olu-pohjala-prenzlauer-0-0-33l-purk/p/1369248",
-   "ean": null,
-   "key": "prenzlauer berg 0",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 2.25,
-   "best": 2.25,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.25,
-   "beer": "prenzlauer berg 0",
-   "per_litre": 6.82
-  },
-  {
-   "store": "Rimi",
    "name": "Alk.v. õlu Põhjala Treeninglaager 0,5% 0,44l",
    "url": "https://www.rimi.ee/epood/ee/tooted/joogid/alkoholivabad-joogid/alkoholivaba-olu/alk-v-olu-pohjala-treeninglaager-0-5-0-44l/p/1374838",
    "ean": null,
@@ -1614,6 +1598,22 @@
    "per_can": 2.69,
    "beer": "treeninglaager",
    "per_litre": 6.11
+  },
+  {
+   "store": "Rimi",
+   "name": "Alk.vaba õlu Põhjala Prenzlauer 0 0,33l purk",
+   "url": "https://www.rimi.ee/epood/ee/tooted/joogid/alkoholivabad-joogid/alkoholivaba-olu/alk-vaba-olu-pohjala-prenzlauer-0-0-33l-purk/p/1369248",
+   "ean": null,
+   "key": "prenzlauer berg 0",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 2.25,
+   "best": 2.25,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 2.25,
+   "beer": "prenzlauer berg 0",
+   "per_litre": 6.82
   },
   {
    "store": "Rimi",
@@ -2274,22 +2274,6 @@
   },
   {
    "store": "Kaupmees",
-   "name": "PÕHJALA õlu Laager hele 4,7% 33cl 12-pakk (purk)",
-   "url": "https://www.kaupmees.ee/et/pohjala-olu-laager-hele-4-7-33cl-12-pakk-purk-c100532",
-   "ean": null,
-   "key": "laager",
-   "pack": 12,
-   "volume_l": 0.33,
-   "regular": 18.1,
-   "best": 18.1,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 1.508,
-   "beer": "laager",
-   "per_litre": 4.57
-  },
-  {
-   "store": "Kaupmees",
    "name": "PÕHJALA õlu Laager hele 4,7% 44cl 6-pakk (purk)",
    "url": "https://www.kaupmees.ee/et/pohjala-olu-laager-hele-4-7-44cl-6-pakk-purk-c100834",
    "ean": null,
@@ -2614,56 +2598,56 @@
   "Põhjala e-shop": {
    "ok": true,
    "count": 58,
-   "last_ok": "2026-11-22",
+   "last_ok": "2026-11-23",
    "error": null,
    "warning": null
   },
   "Selver": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-22",
+   "last_ok": "2026-11-23",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 17,
-   "last_ok": "2026-11-22",
+   "last_ok": "2026-11-23",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 13,
-   "last_ok": "2026-11-22",
+   "last_ok": "2026-11-23",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-22",
+   "last_ok": "2026-11-23",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 0,
-   "last_ok": "2026-11-22",
+   "last_ok": "2026-11-23",
    "error": null,
    "warning": null
   },
   "Kaupmees": {
    "ok": true,
-   "count": 26,
-   "last_ok": "2026-11-22",
+   "count": 25,
+   "last_ok": "2026-11-23",
    "error": null,
    "warning": null
   },
   "Viinarannasta": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-22",
+   "last_ok": "2026-11-23",
    "error": null,
    "warning": null
   }
