@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T12:46+00:00",
+ "updated": "2026-11-24T13:51+00:00",
  "review": [
   {
    "store": "Kaupmees",
@@ -1473,22 +1473,6 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Käbi 6%vol 0,33l",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kabi-6-vol-0-33l/p/1377227",
-   "ean": null,
-   "key": "käbi",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 3.29,
-   "best": 3.29,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.29,
-   "beer": "käbi",
-   "per_litre": 9.97
-  },
-  {
-   "store": "Rimi",
    "name": "Õlu Põhjala Virmalised 6,5%vol 0,33l purk",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-virmalised-6-5-vol-0-33l-purk/p/1368591",
    "ean": null,
@@ -1505,19 +1489,19 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Jõuluporter 10%vol 0,33l",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-jouluporter-10-vol-0-33l/p/1377228",
+   "name": "Õlu Põhjala Käbi 6%vol 0,33l",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-kabi-6-vol-0-33l/p/1377227",
    "ean": null,
-   "key": "jõuluporter",
+   "key": "käbi",
    "pack": 1,
    "volume_l": 0.33,
-   "regular": 3.99,
-   "best": 3.99,
+   "regular": 3.29,
+   "best": 3.29,
    "best_type": "regular",
    "loyalty_label": null,
-   "per_can": 3.99,
-   "beer": "jõuluporter",
-   "per_litre": 12.09
+   "per_can": 3.29,
+   "beer": "käbi",
+   "per_litre": 9.97
   },
   {
    "store": "Rimi",
@@ -1534,6 +1518,22 @@
    "per_can": 3.49,
    "beer": "gf",
    "per_litre": 7.93
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Jõuluporter 10%vol 0,33l",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-jouluporter-10-vol-0-33l/p/1377228",
+   "ean": null,
+   "key": "jõuluporter",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 3.99,
+   "best": 3.99,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.99,
+   "beer": "jõuluporter",
+   "per_litre": 12.09
   },
   {
    "store": "Rimi",
@@ -1566,6 +1566,22 @@
    "per_can": 3.29,
    "beer": "kirsiõlu",
    "per_litre": 9.97
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Prenzlauer Berg Põhjala 4,5% 0,33l",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-prenzlauer-berg-pohjala-4-5-0-33l/p/1368593",
+   "ean": null,
+   "key": "prenzlauer berg",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 3.39,
+   "best": 3.39,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.39,
+   "beer": "prenzlauer berg",
+   "per_litre": 10.27
   },
   {
    "store": "Rimi",
@@ -2598,56 +2614,56 @@
   "Põhjala e-shop": {
    "ok": true,
    "count": 58,
-   "last_ok": "2026-11-23",
+   "last_ok": "2026-11-24",
    "error": null,
    "warning": null
   },
   "Selver": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-23",
+   "last_ok": "2026-11-24",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
-   "count": 17,
-   "last_ok": "2026-11-23",
+   "count": 18,
+   "last_ok": "2026-11-24",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 13,
-   "last_ok": "2026-11-23",
+   "last_ok": "2026-11-24",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-23",
-   "error": null,
-   "warning": null
-  },
-  "Coop Lasnamäe (Wolt)": {
-   "ok": true,
-   "count": 0,
-   "last_ok": "2026-11-23",
+   "last_ok": "2026-11-24",
    "error": null,
    "warning": null
   },
   "Kaupmees": {
    "ok": true,
    "count": 25,
-   "last_ok": "2026-11-23",
+   "last_ok": "2026-11-24",
    "error": null,
    "warning": null
   },
   "Viinarannasta": {
    "ok": true,
    "count": 4,
-   "last_ok": "2026-11-23",
+   "last_ok": "2026-11-24",
+   "error": null,
+   "warning": null
+  },
+  "Coop Lasnamäe (Wolt)": {
+   "ok": true,
+   "count": 0,
+   "last_ok": "2026-11-24",
    "error": null,
    "warning": null
   }
