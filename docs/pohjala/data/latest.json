@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T13:51+00:00",
+ "updated": "2026-11-25T12:58+00:00",
  "review": [
   {
    "store": "Kaupmees",
@@ -286,22 +286,6 @@
    "per_can": 7.09,
    "beer": "real good time x lervig",
    "per_litre": null
-  },
-  {
-   "store": "Põhjala e-shop",
-   "name": "Velvet Winter",
-   "url": "https://shop.pohjalabeer.com/product/pohjala-velvet-winter-8/",
-   "ean": "4742976019360",
-   "key": "velvet winter",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 3.19,
-   "best": 3.19,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.19,
-   "beer": "velvet winter",
-   "per_litre": 9.67
   },
   {
    "store": "Põhjala e-shop",
@@ -1265,22 +1249,6 @@
   },
   {
    "store": "Selver",
-   "name": "Kosmos, PÕHJALA, 440 ml",
-   "url": "https://www.selver.ee/kosmos-pohjala-440-ml",
-   "ean": "4742976018028",
-   "key": "kosmos",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 3.42,
-   "best": 3.42,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.42,
-   "beer": "kosmos",
-   "per_litre": 7.77
-  },
-  {
-   "store": "Selver",
    "name": "Punane Laager, PÕHJALA, 440 ml",
    "url": "https://www.selver.ee/punane-laager-pohjala-440-ml",
    "ean": "4742976016734",
@@ -1294,6 +1262,22 @@
    "per_can": 2.29,
    "beer": "punane laager",
    "per_litre": 5.2
+  },
+  {
+   "store": "Selver",
+   "name": "Kosmos, PÕHJALA, 440 ml",
+   "url": "https://www.selver.ee/kosmos-pohjala-440-ml",
+   "ean": "4742976018028",
+   "key": "kosmos",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 3.42,
+   "best": 3.42,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.42,
+   "beer": "kosmos",
+   "per_litre": 7.77
   },
   {
    "store": "Selver",
@@ -1329,22 +1313,6 @@
   },
   {
    "store": "Selver",
-   "name": "Saturnus, PÕHJALA, 440 ml",
-   "url": "https://www.selver.ee/saturnus-pohjala-440-ml",
-   "ean": "4742976015911",
-   "key": "saturnus",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 3.09,
-   "best": 3.09,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.09,
-   "beer": "saturnus",
-   "per_litre": 7.02
-  },
-  {
-   "store": "Selver",
    "name": "Õlu Orange Gose, PÕHJALA, 440 ml",
    "url": "https://www.selver.ee/olu-orange-gose-pohjala-440-ml",
    "ean": "4742976019001",
@@ -1358,6 +1326,22 @@
    "per_can": 3.39,
    "beer": "orange gose",
    "per_litre": 7.7
+  },
+  {
+   "store": "Selver",
+   "name": "Saturnus, PÕHJALA, 440 ml",
+   "url": "https://www.selver.ee/saturnus-pohjala-440-ml",
+   "ean": "4742976015911",
+   "key": "saturnus",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 3.09,
+   "best": 3.09,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.09,
+   "beer": "saturnus",
+   "per_litre": 7.02
   },
   {
    "store": "Selver",
@@ -1377,22 +1361,6 @@
   },
   {
    "store": "Selver",
-   "name": "Õlu Öö, PÕHJALA, 330 ml",
-   "url": "https://www.selver.ee/olu-oo-pohjala-330-ml",
-   "ean": "4742976010015",
-   "key": "öö",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 4.09,
-   "best": 4.09,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 4.09,
-   "beer": "öö",
-   "per_litre": 12.39
-  },
-  {
-   "store": "Selver",
    "name": "Õlu Uus Maailm, PÕHJALA, 440 ml",
    "url": "https://www.selver.ee/olu-uus-maailm-pohjala-440-ml",
    "ean": "4742976018981",
@@ -1406,6 +1374,22 @@
    "per_can": 3.49,
    "beer": "uus maailm",
    "per_litre": 7.93
+  },
+  {
+   "store": "Selver",
+   "name": "Õlu Öö, PÕHJALA, 330 ml",
+   "url": "https://www.selver.ee/olu-oo-pohjala-330-ml",
+   "ean": "4742976010015",
+   "key": "öö",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 4.09,
+   "best": 4.09,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 4.09,
+   "beer": "öö",
+   "per_litre": 12.39
   },
   {
    "store": "Selver",
@@ -1521,22 +1505,6 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Jõuluporter 10%vol 0,33l",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-jouluporter-10-vol-0-33l/p/1377228",
-   "ean": null,
-   "key": "jõuluporter",
-   "pack": 1,
-   "volume_l": 0.33,
-   "regular": 3.99,
-   "best": 3.99,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.99,
-   "beer": "jõuluporter",
-   "per_litre": 12.09
-  },
-  {
-   "store": "Rimi",
    "name": "Õlu Õhtu Põhjala 5,5% 0,44l",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-ohtu-pohjala-5-5-0-44l/p/1376639",
    "ean": null,
@@ -1550,6 +1518,22 @@
    "per_can": 2.69,
    "beer": "õhtu",
    "per_litre": 6.11
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Jõuluporter 10%vol 0,33l",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/tume-olu/olu-pohjala-jouluporter-10-vol-0-33l/p/1377228",
+   "ean": null,
+   "key": "jõuluporter",
+   "pack": 1,
+   "volume_l": 0.33,
+   "regular": 3.99,
+   "best": 3.99,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.99,
+   "beer": "jõuluporter",
+   "per_litre": 12.09
   },
   {
    "store": "Rimi",
@@ -1681,22 +1665,6 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Uus Maailm 4,7%vol 0,44l purk",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-uus-maailm-4-7-vol-0-44l-purk/p/1376971",
-   "ean": null,
-   "key": "uus maailm",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 2.79,
-   "best": 2.79,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.79,
-   "beer": "uus maailm",
-   "per_litre": 6.34
-  },
-  {
-   "store": "Rimi",
    "name": "Õlu Põhjala Orange Gose 5,5%vol 0,44l purk",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-orange-gose-5-5-vol-0-44l-purk/p/1376970",
    "ean": null,
@@ -1709,6 +1677,22 @@
    "loyalty_label": null,
    "per_can": 2.79,
    "beer": "orange gose",
+   "per_litre": 6.34
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Uus Maailm 4,7%vol 0,44l purk",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-uus-maailm-4-7-vol-0-44l-purk/p/1376971",
+   "ean": null,
+   "key": "uus maailm",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 2.79,
+   "best": 2.79,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 2.79,
+   "beer": "uus maailm",
    "per_litre": 6.34
   },
   {
@@ -2613,57 +2597,57 @@
  "status": {
   "Põhjala e-shop": {
    "ok": true,
-   "count": 58,
-   "last_ok": "2026-11-24",
+   "count": 57,
+   "last_ok": "2026-11-25",
    "error": null,
    "warning": null
   },
   "Selver": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-24",
+   "last_ok": "2026-11-25",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 18,
-   "last_ok": "2026-11-24",
+   "last_ok": "2026-11-25",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 13,
-   "last_ok": "2026-11-24",
+   "last_ok": "2026-11-25",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-24",
-   "error": null,
-   "warning": null
-  },
-  "Kaupmees": {
-   "ok": true,
-   "count": 25,
-   "last_ok": "2026-11-24",
-   "error": null,
-   "warning": null
-  },
-  "Viinarannasta": {
-   "ok": true,
-   "count": 4,
-   "last_ok": "2026-11-24",
+   "last_ok": "2026-11-25",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 0,
-   "last_ok": "2026-11-24",
+   "last_ok": "2026-11-25",
+   "error": null,
+   "warning": null
+  },
+  "Kaupmees": {
+   "ok": true,
+   "count": 25,
+   "last_ok": "2026-11-25",
+   "error": null,
+   "warning": null
+  },
+  "Viinarannasta": {
+   "ok": true,
+   "count": 4,
+   "last_ok": "2026-11-25",
    "error": null,
    "warning": null
   }
