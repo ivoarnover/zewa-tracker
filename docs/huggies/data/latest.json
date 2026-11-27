@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T12:37+00:00",
+ "updated": "2026-11-27T12:23+00:00",
  "good_price": 0.3,
  "product": {
   "title": "Huggies Pants 5 Boy Price Watch",
@@ -8,13 +8,7 @@
   "units": "diapers",
   "about": "Only Huggies Pants size 5 (12-17 kg) Boy diapers are tracked, including Little Movers, any pack size. Packs that don't say Boy or Girl are included; Girl, Extra Care, Overnights and other lines are left out."
  },
- "review": [
-  {
-   "store": "Barbora",
-   "name": "Püksmähkmed HUGGIES S5 Boy 12-17kg 48tk",
-   "note": "price per diaper 0.291 € yesterday, 0.423 € today"
-  }
- ],
+ "review": [],
  "offers": [
   {
    "store": "Juku",
@@ -257,63 +251,63 @@
   "Selver": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-26",
+   "last_ok": "2026-11-27",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-26",
+   "last_ok": "2026-11-27",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-26",
+   "last_ok": "2026-11-27",
    "error": null,
-   "warning": "loyalty prices on 1 product(s) yesterday, none today; check the store page"
+   "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-26",
+   "last_ok": "2026-11-27",
    "error": null,
    "warning": null
   },
   "Coop kliendileht": {
    "ok": true,
    "count": 0,
-   "last_ok": "2026-11-26",
+   "last_ok": "2026-11-27",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-26",
+   "last_ok": "2026-11-27",
    "error": null,
    "warning": null
   },
   "Lapseriided.com": {
    "ok": true,
    "count": 5,
-   "last_ok": "2026-11-26",
+   "last_ok": "2026-11-27",
    "error": null,
    "warning": null
   },
   "DEPO": {
    "ok": true,
    "count": 1,
-   "last_ok": "2026-11-26",
+   "last_ok": "2026-11-27",
    "error": null,
    "warning": null
   },
   "Juku": {
    "ok": true,
    "count": 2,
-   "last_ok": "2026-11-26",
+   "last_ok": "2026-11-27",
    "error": null,
    "warning": null
   }
