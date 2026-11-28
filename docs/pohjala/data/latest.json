@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T12:24+00:00",
+ "updated": "2026-11-28T11:48+00:00",
  "review": [
   {
    "store": "Kaupmees",
@@ -14,12 +14,6 @@
   {
    "key": "ars obscura",
    "name": "Ars Obscura",
-   "volume_l": null,
-   "alcohol_free": false
-  },
-  {
-   "key": "barrique noire",
-   "name": "Barrique Noire",
    "volume_l": null,
    "alcohol_free": false
   },
@@ -535,22 +529,6 @@
    "loyalty_label": null,
    "per_can": 6.99,
    "beer": "pime öö px",
-   "per_litre": null
-  },
-  {
-   "store": "Põhjala e-shop",
-   "name": "Barrique Noire",
-   "url": "https://shop.pohjalabeer.com/product/barrique-noire/",
-   "ean": "4742976018615",
-   "key": "barrique noire",
-   "pack": 1,
-   "volume_l": null,
-   "regular": 6.99,
-   "best": 6.99,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 6.99,
-   "beer": "barrique noire",
    "per_litre": null
   },
   {
@@ -1211,22 +1189,6 @@
   },
   {
    "store": "Selver",
-   "name": "Kosmos, PÕHJALA, 440 ml",
-   "url": "https://www.selver.ee/kosmos-pohjala-440-ml",
-   "ean": "4742976018028",
-   "key": "kosmos",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 3.42,
-   "best": 3.42,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 3.42,
-   "beer": "kosmos",
-   "per_litre": 7.77
-  },
-  {
-   "store": "Selver",
    "name": "Punane Laager, PÕHJALA, 440 ml",
    "url": "https://www.selver.ee/punane-laager-pohjala-440-ml",
    "ean": "4742976016734",
@@ -1240,6 +1202,22 @@
    "per_can": 2.29,
    "beer": "punane laager",
    "per_litre": 5.2
+  },
+  {
+   "store": "Selver",
+   "name": "Kosmos, PÕHJALA, 440 ml",
+   "url": "https://www.selver.ee/kosmos-pohjala-440-ml",
+   "ean": "4742976018028",
+   "key": "kosmos",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 3.42,
+   "best": 3.42,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 3.42,
+   "beer": "kosmos",
+   "per_litre": 7.77
   },
   {
    "store": "Selver",
@@ -1627,22 +1605,6 @@
   },
   {
    "store": "Rimi",
-   "name": "Õlu Põhjala Orange Gose 5,5%vol 0,44l purk",
-   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-orange-gose-5-5-vol-0-44l-purk/p/1376970",
-   "ean": null,
-   "key": "orange gose",
-   "pack": 1,
-   "volume_l": 0.44,
-   "regular": 2.79,
-   "best": 2.79,
-   "best_type": "regular",
-   "loyalty_label": null,
-   "per_can": 2.79,
-   "beer": "orange gose",
-   "per_litre": 6.34
-  },
-  {
-   "store": "Rimi",
    "name": "Õlu Põhjala Uus Maailm 4,7%vol 0,44l purk",
    "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-uus-maailm-4-7-vol-0-44l-purk/p/1376971",
    "ean": null,
@@ -1655,6 +1617,22 @@
    "loyalty_label": null,
    "per_can": 2.79,
    "beer": "uus maailm",
+   "per_litre": 6.34
+  },
+  {
+   "store": "Rimi",
+   "name": "Õlu Põhjala Orange Gose 5,5%vol 0,44l purk",
+   "url": "https://www.rimi.ee/epood/ee/tooted/alkohol/olu/hele-olu/olu-pohjala-orange-gose-5-5-vol-0-44l-purk/p/1376970",
+   "ean": null,
+   "key": "orange gose",
+   "pack": 1,
+   "volume_l": 0.44,
+   "regular": 2.79,
+   "best": 2.79,
+   "best_type": "regular",
+   "loyalty_label": null,
+   "per_can": 2.79,
+   "beer": "orange gose",
    "per_litre": 6.34
   },
   {
@@ -2489,7 +2467,8 @@
    "loyalty_label": null,
    "per_can": 2.99,
    "beer": "kosmos",
-   "per_litre": 6.8
+   "per_litre": 6.8,
+   "stale": true
   },
   {
    "store": "Viinarannasta",
@@ -2505,7 +2484,8 @@
    "loyalty_label": null,
    "per_can": 1.665,
    "beer": "laager",
-   "per_litre": 3.78
+   "per_litre": 3.78,
+   "stale": true
   },
   {
    "store": "Viinarannasta",
@@ -2521,7 +2501,8 @@
    "loyalty_label": null,
    "per_can": 1.99,
    "beer": "laager",
-   "per_litre": 4.52
+   "per_litre": 4.52,
+   "stale": true
   },
   {
    "store": "Viinarannasta",
@@ -2537,65 +2518,65 @@
    "loyalty_label": null,
    "per_can": 2.7,
    "beer": "virmalised",
-   "per_litre": 8.18
+   "per_litre": 8.18,
+   "stale": true
   }
  ],
  "status": {
   "Põhjala e-shop": {
    "ok": true,
-   "count": 55,
-   "last_ok": "2026-11-27",
+   "count": 54,
+   "last_ok": "2026-11-28",
    "error": null,
    "warning": null
   },
   "Selver": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-27",
+   "last_ok": "2026-11-28",
    "error": null,
    "warning": null
   },
   "Rimi": {
    "ok": true,
    "count": 18,
-   "last_ok": "2026-11-27",
+   "last_ok": "2026-11-28",
    "error": null,
    "warning": null
   },
   "Barbora": {
    "ok": true,
    "count": 13,
-   "last_ok": "2026-11-27",
+   "last_ok": "2026-11-28",
    "error": null,
    "warning": null
   },
   "Coop": {
    "ok": true,
    "count": 14,
-   "last_ok": "2026-11-27",
+   "last_ok": "2026-11-28",
    "error": null,
    "warning": null
   },
   "Coop Lasnamäe (Wolt)": {
    "ok": true,
    "count": 0,
-   "last_ok": "2026-11-27",
+   "last_ok": "2026-11-28",
    "error": null,
    "warning": null
   },
   "Kaupmees": {
    "ok": true,
    "count": 24,
-   "last_ok": "2026-11-27",
+   "last_ok": "2026-11-28",
    "error": null,
    "warning": null
   },
   "Viinarannasta": {
-   "ok": true,
-   "count": 4,
+   "ok": false,
+   "count": 0,
    "last_ok": "2026-11-27",
-   "error": null,
-   "warning": null
+   "error": "Challenged: bot check page instead of results (Imunify360); last prices kept"
   }
  }
 }
